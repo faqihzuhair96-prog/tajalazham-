@@ -1,0 +1,3176 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Taj Al-A’zham Tahfidz Private - Portal Sistem Terpadu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN untuk Grafik Visual -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              300: '#FCE788',
+              400: '#F3C649',
+              500: '#D4AF37',
+              600: '#AA820A',
+              700: '#806000',
+            },
+            dark: {
+              950: '#05070B',
+              900: '#0A0E17',
+              850: '#101623',
+              800: '#161F30',
+              700: '#212D42',
+              600: '#334155'
+            }
+          },
+          boxShadow: {
+            'gold-glow': '0 0 30px -5px rgba(212, 175, 55, 0.35)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+    html, body {
+      overflow-x: hidden;
+      background-color: #05070B; 
+      color: #F8FAFC; 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .glass-card {
+      background: rgba(22, 31, 48, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-gold {
+      background: rgba(22, 31, 48, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .glass-nav {
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF0B2 0%, #D4AF37 50%, #997A15 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-button {
+      background: linear-gradient(135deg, #E6CA65 0%, #D4AF37 50%, #AA820A 100%);
+      color: #05070B;
+      font-weight: 800;
+      transition: all 0.25s ease;
+    }
+    .gold-button:hover {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      transform: translateY(-1px);
+    }
+    .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0A0E17; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+    
+    .form-field-group {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .form-field-group input, 
+    .form-field-group select, 
+    .form-field-group textarea {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+    }
+
+    .slider-viewport {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    #swipeArea {
+      display: flex;
+      width: 500%;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+    }
+    .smooth-transition {
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .page-slide {
+      width: 20%;
+      flex-shrink: 0;
+      padding: 0 0.5rem;
+    }
+
+    .modal-backdrop-blur {
+      background-color: rgba(5, 7, 11, 0.75) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    /* ANIMASI HERO HEADER */
+    .hero-title-anim {
+      animation: heroTitleFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-sub-anim {
+      animation: heroSubSlideUp 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
+    }
+    .hero-btn-anim {
+      animation: heroBtnFade 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      opacity: 0;
+    }
+
+    @keyframes heroTitleFade {
+      0% { opacity: 0; transform: translateY(-25px) scale(0.92); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    @keyframes heroSubSlideUp {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroBtnFade {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* STYLES MUSHAF DIGITAL TAJ AL-A'ZHAM */
+    .font-quran { 
+      font-family: 'Scheherazade New', serif;
+      font-variant-ligatures: normal;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .row-group-0 { background-color: rgba(59, 130, 246, 0.08); border-right: 4px solid #3b82f6; }
+    .row-group-1 { background-color: rgba(16, 185, 129, 0.08); border-right: 4px solid #10b981; }
+    .row-group-2 { background-color: rgba(245, 158, 11, 0.08); border-right: 4px solid #f59e0b; }
+    .row-group-3 { background-color: rgba(168, 85, 247, 0.08); border-right: 4px solid #a855f7; }
+
+    /* Mode Hafalan: Terbuka Cepat Saat Ditahan 0.3 Detik (Hold 300ms) */
+    .hafalan-mode .blur-text {
+      filter: blur(10px);
+      opacity: 0.1;
+      transition: filter 0.2s ease, opacity 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    .verse-container.reveal-active .blur-text {
+      filter: blur(0) !important;
+      opacity: 1 !important;
+      color: #FFFFFF !important;
+    }
+
+    .hafalan-mode .keyword-text {
+      color: #F3C649 !important;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(243, 198, 73, 0.3);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-8">
+
+  <!-- HEADER BRANDING & NAVIGASI UTAMA -->
+  <header class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-white/10 sticky top-0 glass-nav rounded-2xl p-4 z-40 shadow-glass">
+    <div class="flex items-center space-x-3.5 cursor-pointer" onclick="switchPage('home')">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-dark-900 to-black border border-gold-500/50 flex items-center justify-center p-1.5 shadow-gold-glow shrink-0">
+        <svg viewBox="0 0 100 100" class="w-full h-full text-gold-400 fill-none stroke-current" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="50" cy="50" r="46" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
+          <path d="M 50 32 L 63 48 L 78 40 L 70 60 L 50 50 L 30 60 L 22 40 L 37 48 Z" stroke="#E6CA65" stroke-width="3" fill="none"/>
+          <path d="M 28 62 Q 50 53 72 62" stroke="#D4AF37" stroke-width="3"/>
+          <path d="M 30 66 Q 50 57 70 66" stroke="#D4AF37" stroke-width="2.5"/>
+          <path d="M 50 53 L 50 67" stroke="#D4AF37" stroke-width="2"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-extrabold gold-gradient-text tracking-wider font-serif">TAJ AL-A’ZHAM</h1>
+        <p class="text-xs text-gray-400 font-medium">Quran Learning & Modern Tahfidz System</p>
+      </div>
+    </div>
+
+    <!-- NAVBAR UTAMA -->
+    <nav class="flex items-center space-x-1.5 bg-dark-900/80 p-1.5 rounded-xl border border-white/10 text-xs font-semibold overflow-x-auto max-w-full custom-scrollbar">
+      <button onclick="switchPage('home')" id="nav-home" class="px-3.5 py-2 rounded-lg bg-gold-500/10 text-gold-300 border border-gold-500/30 transition whitespace-nowrap shadow-sm">
+        👑 Home (Profil)
+      </button>
+      <button onclick="switchPage('mushaf')" id="nav-mushaf" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
+        📖 Mushaf Qurtrain
+      </button>
+      <button onclick="switchPage('pendaftaran')" id="nav-pendaftaran" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
+        📝 Pendaftaran
+      </button>
+      <button onclick="switchPage('tracker')" id="nav-tracker" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
+        📊 Data Setoran Santri
+      </button>
+      <button onclick="accessOwnerPortal()" id="nav-owner" class="px-3.5 py-2 rounded-lg text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition whitespace-nowrap">
+        📊 Portal Owner 👑
+      </button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER SLIDER VIEWPORT -->
+  <div class="slider-viewport w-full max-w-7xl mx-auto my-auto py-6">
+    <main id="swipeArea" class="smooth-transition">
+
+      <!-- PAGE 1: HOME -->
+      <div id="page-home" class="page-slide">
+        <div class="space-y-10 max-w-5xl mx-auto">
+          
+          <!-- HERO SECTION TANPA VIDEO (DESAIN ISLAMI STYLISH) -->
+          <div class="relative w-full min-h-[380px] sm:min-h-[440px] flex items-center justify-center text-center p-6 sm:p-10 rounded-3xl overflow-hidden my-2 border border-gold-500/30 shadow-gold-glow bg-gradient-to-br from-dark-900 via-dark-850 to-black">
+            
+            <!-- 1. BACKGROUND SVG GEOMETRIS ISLAMI ELEGAN -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+              <svg width="600" height="600" viewBox="0 0 100 100" fill="none" stroke="#D4AF37" stroke-width="0.5">
+                <circle cx="50" cy="50" r="45" />
+                <circle cx="50" cy="50" r="35" />
+                <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" />
+                <polygon points="50,5 95,50 50,95 5,50" />
+                <polygon points="18,18 82,18 82,82 18,82" />
+              </svg>
+            </div>
+
+            <!-- 2. OVERLAY RADIAL GOLD GLOW -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.15)_0%,_transparent_70%)] pointer-events-none"></div>
+
+            <!-- 3. KONTEN TEKS & TOMBOL HERO -->
+            <div class="relative z-20 space-y-5 max-w-2xl mx-auto">
+              
+              <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold bg-gold-500/20 text-gold-300 border border-gold-500/40 hero-btn-anim backdrop-blur-md">
+                👑 Welcome to Taj Al-A’zham
+              </div>
+
+              <h1 class="text-4xl sm:text-6xl font-black gold-gradient-text tracking-wide font-serif hero-title-anim drop-shadow-2xl">
+                Taj Al-A’zham
+              </h1>
+
+              <p class="text-sm sm:text-base text-gray-200 font-medium leading-relaxed italic hero-sub-anim drop-shadow-md">
+                "Bersama Taj Al-A’zham, mari jalin interaksi terbaik dengan Al-Qur'an di tengah kesibukan harianmu"
+              </p>
+
+              <div class="pt-4 flex justify-center hero-btn-anim">
+                <div class="p-1.5 rounded-2xl flex items-center space-x-2 bg-dark-900/80 backdrop-blur-md border border-white/10">
+                  <button onclick="switchHomeTab('OFFLINE')" id="tabBtnOffline" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gold-500 text-dark-950 shadow-gold-glow transition-all">
+                    🏛️ QurTrain Offline
+                  </button>
+                  <button onclick="switchHomeTab('ONLINE')" id="tabBtnOnline" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all">
+                    🌐 QurTrain Online
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- TAB CONTENT 1: QURTRAIN OFFLINE (PESANTREN MODERN) -->
+          <div id="homeContentOffline" class="space-y-8 glass-card rounded-3xl p-6 sm:p-10 border border-white/10 animate-fade-in">
+            
+            <div class="space-y-3 border-b border-white/10 pb-6">
+              <span class="px-3.5 py-1 rounded-full text-xs font-extrabold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                # QURTRAIN (QURANIC TRAIN)
+              </span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+                Revolusi Pesantren Tahfidz Modern Berbasis Digital & Gamifikasi
+              </h2>
+              <blockquote class="text-sm sm:text-base text-gold-300 italic border-l-4 border-gold-500 pl-4 py-1 bg-gold-500/5 rounded-r-xl">
+                "Menghafal Al-Qur'an dengan Metode Efektif, Tanpa Beban Mental, Terukur Real-Time hingga ke Genggaman Orang Tua."
+              </blockquote>
+            </div>
+
+            <!-- KENAPA HARUS QURTRAIN -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>⭐</span> KENAPA HARUS QURTRAIN?
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300 leading-relaxed text-justify">
+                QurTrain (QuranicTrain) menghadirkan pengalaman menghafal Al-Qur'an di pesantren dengan pendekatan yang interaktif, terstruktur, dan transparan. Kami membangun ekosistem yang tidak hanya berfokus pada progres santri, tetapi juga memberdayakan para pengajar.
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-gold-300 text-xs sm:text-sm block">🔄 Ekosistem Saling Menguntungkan</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Ustadz yang memimpin pengulangan (tikrar) setiap hari secara otomatis ikut menjaga hafalan, menguatkan muroja'ah, dan menyegarkan kembali ayat-ayat yang pernah dihafal.</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-blue-300 text-xs sm:text-sm block">🚉 Sistem Stasiun (Multi-Stage Progress)</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Jalur kelulusan terarah dari fondasi hingga tahap Mutqin sempurna.</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-emerald-300 text-xs sm:text-sm block">⏱️ Metode Tikrar 20 Menit</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Menghafal tanpa merasa menghafal di setiap jeda shalat fardhu.</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-purple-300 text-xs sm:text-sm block">🧱 Sistem 4 Blok / Juz</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Evaluasi berkala per 5 halaman untuk menjaga kualitas hafalan tetap mutqin.</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-amber-300 text-xs sm:text-sm block">🎮 Gamifikasi & Side Quest</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Kumpulkan poin harian dan naikkan peringkat papan skor santri di pesantren.</p>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                  <span class="font-bold text-teal-300 text-xs sm:text-sm block">📱 Laporan Real-Time WA & Portal</span>
+                  <p class="text-xs text-gray-300 leading-relaxed">Orang tua menerima ringkasan singkat di WhatsApp dan dapat memantau data statistik lengkap di website.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- JALUR KELULUSAN (SISTEM STASIUN) -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🗺️</span> JALUR KELULUSAN (SISTEM STASIUN)
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Setiap santri akan berpetualang melewati 4 Stasiun Utama di QurTrain untuk mencapai puncaknya sebagai Ahlul Qur'an:
+              </p>
+
+              <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left text-xs text-gray-300 min-w-[600px] border border-white/10 rounded-2xl overflow-hidden">
+                  <thead class="bg-dark-900 text-gold-400 font-bold uppercase text-[11px] border-b border-white/10">
+                    <tr>
+                      <th class="p-3.5">Stasiun</th>
+                      <th class="p-3.5">Nama Stasiun</th>
+                      <th class="p-3.5">Fokus Utama & Target Materi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/10 bg-dark-950/50">
+                    <tr>
+                      <td class="p-3.5 font-bold text-white">STASIUN 1</td>
+                      <td class="p-3.5 font-bold text-gold-300">Taj Al-Asasi</td>
+                      <td class="p-3.5"><strong>Fondasi & Habit:</strong> Pembentukan karakter, adab, serta penguasaan Surah Al-Kahfi, Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3.5 font-bold text-white">STASIUN 2</td>
+                      <td class="p-3.5 font-bold text-blue-300">Setoran Eksplorasi</td>
+                      <td class="p-3.5"><strong>Ziyadah 30 Juz (Tahun Ke-1):</strong> Fokus kelancaran bacaan dan pemetaan ayat tanpa dibebani kewajiban muroja'ah berat.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3.5 font-bold text-white">STASIUN 3</td>
+                      <td class="p-3.5 font-bold text-purple-300">Konsolidasi & Muroja'ah</td>
+                      <td class="p-3.5"><strong>Penguncian Hafalan (Tahun Ke-2):</strong> Setoran 1 lembar/hari diimbangi muroja'ah terstruktur hingga tuntas 30 Juz.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3.5 font-bold text-white">STASIUN 4</td>
+                      <td class="p-3.5 font-bold text-emerald-300">Qubro</td>
+                      <td class="p-3.5"><strong>Ujian Puncak & Sanad:</strong> Ujian Tasmi' sekali duduk (5, 10, hingga 30 Juz) untuk meraih predikat Mutqin.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- METODE MENGHAFAL -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>⏱️</span> METODE MENGHAFAL: SISTEM 20 MENIT BA'DA SHALAT
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Kami memecah proses menghafal menjadi bagian-bagian kecil yang sangat mudah dijalani oleh santri dan ustadz:
+              </p>
+
+              <div class="space-y-3 text-xs sm:text-sm text-gray-300">
+                <div class="glass-card p-4 rounded-xl border border-white/10">
+                  <strong class="text-gold-300 block mb-1">• Dzuhur, Ashar, Maghrib, Isya (20 Menit / Sesi):</strong>
+                  Santri tidak menghafal mati, melainkan melakukan Tikrar (membaca ulang) target halaman harian sebanyak 10 kali dipandu langsung oleh ustadz. Sesi ini sekaligus menjadi ajang muroja'ah rutin bagi ustadz.
+                </div>
+                <div class="glass-card p-4 rounded-xl border border-white/10">
+                  <strong class="text-emerald-300 block mb-1">• Subuh (1 Jam Utuh):</strong>
+                  Sesi utama penyimakan hafalan (Tasmi') dari materi yang telah diulang pada hari sebelumnya.
+                </div>
+                <div class="glass-card p-4 rounded-xl border border-white/10">
+                  <strong class="text-blue-300 block mb-1">• Teknis Mikro 1 Halaman:</strong>
+                  Satu halaman dipecah menjadi blok kecil: 3 Baris dihafal per 5 Menit. Santri tuntas 1 halaman tanpa merasa lelah.
+                </div>
+              </div>
+            </div>
+
+            <!-- SISTEM EVALUASI & KELULUSAN BLOK -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>📊</span> SISTEM EVALUASI & KELULUSAN BLOK
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Untuk memastikan hafalan santri terjaga dengan kuat, setiap 1 Juz (20 Halaman) dibagi menjadi 4 Blok Evaluasi:
+              </p>
+
+              <div class="bg-dark-950 p-3.5 rounded-xl border border-white/10 text-center font-mono text-xs sm:text-sm text-gold-300 overflow-x-auto custom-scrollbar">
+                [JUZ 1] ──► [Blok 1: Hal 1-5] ──► [Blok 2: Hal 6-10] ──► [Blok 3: Hal 11-15] ──► [Blok 4: Hal 16-20]
+              </div>
+
+              <ul class="text-xs sm:text-sm text-gray-300 space-y-2 list-disc list-inside">
+                <li><strong>Standar Poin Harian:</strong> Mutqin (100), Lancar (80), Perlu Ulang / Hutang (50).</li>
+                <li><strong>Aturan Bebas Hutang:</strong> Poin 50 menandai halaman sebagai HUTANG. Santri wajib melunasinya sebelum diizinkan mengikuti Tes Blok.</li>
+                <li><strong>Formula Nilai Akhir (NA):</strong> Nilai Akhir = (Rata-rata Nilai Harian x 20%) + (Nilai Tes Blok x 80%)</li>
+                <li><strong>Batas Minimal Lulus (KKM):</strong> 85 Poin.</li>
+              </ul>
+            </div>
+
+            <!-- SOP PENGAJAR -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>👨‍🏫</span> SOP PENGAJAR: MENUNTUN DENGAN ADAB & KETELADANAN
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Ustadz dan Musyrif di QurTrain bertindak sebagai pengayom, pemandu bacaan, dan teladan utama:
+              </p>
+
+              <ol class="text-xs sm:text-sm text-gray-300 space-y-2.5 list-decimal list-inside leading-relaxed">
+                <li><strong>Orientation & Mindset (Sesi Pembekalan):</strong> Setiap kali pertemuan sebelum menyimak setoran, ustadz memberikan penjelasan ringkas mengenai isi ayat, Asbabun Nuzul, motivasi, serta penanaman adab dan akhlak Qur'ani.</li>
+                <li><strong>Memandu Tikrar & Muroja'ah Mandiri:</strong> Ustadz memimpin langsung pengulangan 10 kali di setiap sesi shalat fardhu, yang bermanfaat melatih dan memperkuat hafalan ustadz itu sendiri.</li>
+                <li><strong>Pengawasan Aktif:</strong> Memastikan seluruh santri fokus, membaca aktif, dan bebas dari rasa ngantuk/melamun.</li>
+                <li><strong>Hadir Lebih Awal:</strong> Ustadz wajib tiba di halaqah sebelum santri datang. Santri tidak pernah menunggu ustadz.</li>
+                <li><strong>Prinsip Kebersamaan:</strong> Sesi tidak dimulai jika ada murid yang terlambat untuk melatih kedisiplinan dan kekompakan kelompok.</li>
+              </ol>
+            </div>
+
+            <!-- GAMIFIKASI -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🏆</span> GAMIFIKASI: POIN & SIDE QUEST SANTRI
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Sistem belajar interaktif dengan papan peringkat (leaderboard) bulanan agar santri senantiasa bersemangat:
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="glass-card p-4 rounded-xl border border-gold-500/30 space-y-2">
+                  <span class="font-bold text-gold-400 block text-sm">🎯 Main Quest (Misi Utama)</span>
+                  <ul class="space-y-1 text-gray-300">
+                    <li>• Kelulusan Ujian Blok: <strong>+Akumulasi Poin NA</strong></li>
+                    <li>• Ikut Pengulangan 10x Lengkap 5 Waktu: <strong>+50 Poin</strong></li>
+                  </ul>
+                </div>
+                <div class="glass-card p-4 rounded-xl border border-blue-500/30 space-y-2">
+                  <span class="font-bold text-blue-300 block text-sm">⚔️ Side Quest (Misi Sampingan)</span>
+                  <ul class="space-y-1 text-gray-300">
+                    <li>• <strong>Quest Imam:</strong> Imam shalat hafalan baru (<strong>+30 Poin</strong>)</li>
+                    <li>• <strong>Quest Tasmir:</strong> Menyimak teman (<strong>+20 Poin</strong>)</li>
+                    <li>• <strong>Quest Discipline:</strong> Hadir tepat waktu 1 minggu (<strong>+50 Poin</strong>)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- INTEGRASI DIGITAL -->
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <h3 class="text-lg font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                <span>📱</span> INTEGRASI DIGITAL: MONITORING REAL-TIME UNTUK WALI MURID
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300">
+                Kami menjembatani komunikasi antara pesantren dan orang tua melalui ekosistem QurTrain yang ringkas, praktis, dan transparan:
+              </p>
+
+              <div class="bg-dark-950 p-3.5 rounded-xl border border-white/10 text-center font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto custom-scrollbar">
+                [Ustadz Input Nilai Subuh] ──► [Notifikasi WA Ringkas ke Orang Tua] ──► [Klik Link Website QurTrain] ──► [Dasbor Statistik Lengkap Santri]
+              </div>
+
+              <div class="space-y-3 text-xs sm:text-sm text-gray-300">
+                <p><strong>1. Input Otomatis Ustadz:</strong> Setiap selesai sesi setoran Subuh, ustadz mencatat nilai harian (Mutqin, Lancar, atau Perlu Ulang) dan progres santri langsung ke sistem QurTrain.</p>
+                <div class="p-4 bg-dark-900 rounded-xl border border-emerald-500/30 space-y-2">
+                  <p><strong>2. Notifikasi WhatsApp Ringkas:</strong> Orang tua menerima pesan kabar harian yang padat dan singkat melalui WhatsApp tanpa memenuhi ruang obrolan.</p>
+                  <blockquote class="text-xs font-mono text-emerald-300 bg-black/40 p-3 rounded-lg border border-white/10 leading-relaxed">
+                    "Assalamu'alaikum Bpk/Ibu, Ananda [Nama Santri] telah menyelesaikan setoran hari ini (Juz 1 Blok 1 - Hal 3) dengan predikat: MUTQIN.<br/><br/>
+                    Pantau statistik perkembangan, nilai harian, dan grafik hafalan ananda selengkapnya di:<br/>
+                    https://qurtrain.com/parent/dashboard"
+                  </blockquote>
+                </div>
+                <p><strong>3. Portal Website QurTrain (Data Statistik Lengkap):</strong> Melalui tautan khusus di pesan WhatsApp tersebut, orang tua dapat masuk ke dasbor pribadi untuk melihat Grafik Progres Hafalan, Buku Rekap Hutang, Papan Skor, dan Rapor Digital Periodik.</p>
+              </div>
+            </div>
+
+            <!-- PENUTUP OFFLINE -->
+            <div class="glass-card-gold p-6 rounded-2xl border border-gold-500/30 space-y-4 pt-4">
+              <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider">✨ PENUTUP</h3>
+              <p class="text-xs sm:text-sm text-gray-300 leading-relaxed italic text-justify">
+                QurTrain (QuranicTrain) hadir bukan sekadar sebagai tempat menghafal, melainkan sebuah ekosistem pendidikan Al-Qur'an modern yang memanusiakan santri dan memberdayakan pengajar. Melalui penggabungan metode tikrar yang ringan, sistem evaluasi blok yang terukur, gamifikasi yang memotivasi, serta transparansi data secara real-time, kami membuktikan bahwa perjalanan menjadi seorang Ahlul Qur'an bisa ditempuh dengan penuh kebahagiaan, kedisiplinan, dan keberkahan. Mari melangkah bersama QurTrain, wujudkan generasi penghafal Al-Qur'an yang mutqin, beradab, dan siap menyongsong masa depan.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3 pt-2 justify-end">
+                <button onclick="switchPage('mushaf')" class="px-5 py-2.5 rounded-xl bg-gold-500/20 border border-gold-500/40 text-gold-300 text-xs font-bold transition text-center hover:bg-gold-500/30">
+                  Buka Mushaf Qurtrain →
+                </button>
+                <button onclick="switchPage('pendaftaran')" class="px-5 py-2.5 rounded-xl gold-button text-xs font-bold shadow-gold-glow text-center">
+                  Mulai Pendaftaran →
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TAB CONTENT 2: QURTRAIN ONLINE (PRIVATE ONLINE TAJ AL-A'ZHAM) -->
+          <div id="homeContentOnline" class="hidden space-y-8 glass-card rounded-3xl p-6 sm:p-10 border border-white/10 animate-fade-in">
+            
+            <div class="space-y-4">
+              <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-gold-500/10 text-gold-400 border border-gold-500/30">
+                Tentang QurTrain Online
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                Lembaga Pendidikan Al-Qur'an Online <span class="gold-gradient-text">Taj Al-A’zham (QurTrain)</span>
+              </h2>
+              <div class="text-xs sm:text-sm text-gray-300 leading-relaxed space-y-3 text-justify">
+                <p>
+                  <strong>Taj Al-A’zham (QurTrain Online)</strong> adalah lembaga pendidikan Al-Qur'an berbasis online yang dirancang khusus sebagai solusi bagi para pelajar, mahasiswa, dan profesional muda/pekerja yang memiliki kesibukan tinggi namun memiliki cita-cita mulia untuk menghafal Al-Qur'an.
+                </p>
+                <p>
+                  Kami hadir dengan keyakinan bahwa kesibukan sekolah maupun pekerjaan bukanlah penghalang untuk menjadi seorang penghafal Al-Qur'an. Melalui sistem pembelajaran jarak jauh yang interaktif, terstruktur, dan berfokus pada kualitas hafalan yang kuat (mutqin), Taj Al-A’zham memberikan fleksibilitas waktu setoran tanpa mengorbankan kedisiplinan dan target hafalan.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+              <div class="glass-card p-5 rounded-2xl border border-gold-500/30 space-y-3 md:col-span-1">
+                <h3 class="text-xs font-bold text-gold-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🎯</span> Visi
+                </h3>
+                <p class="text-xs text-gray-300 leading-relaxed italic">
+                  "Menjadi lembaga pendidikan Al-Qur'an digital terdepan yang melahirkan generasi penghafal Al-Qur'an yang mutqin, beradab, dan berdaya saing di tengah kesibukan pendidikan formal maupun dunia kerja."
+                </p>
+              </div>
+
+              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3 md:col-span-2">
+                <h3 class="text-xs font-bold text-gold-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🚀</span> Misi
+                </h3>
+                <ul class="text-xs text-gray-300 space-y-2.5 leading-relaxed list-disc list-inside">
+                  <li><strong>Fleksibilitas Tanpa Batas:</strong> Menyediakan ekosistem setoran dan muroja'ah online yang adaptif dengan jadwal para pelajar dan pekerja tanpa mengurangi kedisiplinan pencapaian target.</li>
+                  <li><strong>Kurikulum Terstruktur & Terukur:</strong> Menyusun jenjang hafalan yang terarah melalui program Taj Al-Asasi (fondasi surah pilihan & juz 30) dan Taj Al-Waqar (akselerasi 30 juz).</li>
+                  <li><strong>Kualitas Hafalan Mutqin:</strong> Menjaga keakuratan bacaan, tajwid, dan kelancaran santri jarak jauh lewat pemantauan intensif dan sistem evaluasi berkala per blok.</li>
+                  <li><strong>Pembentukan Karakter Qur'ani:</strong> Menanamkan adab, keikhlasan, dan semangat istiqomah dalam berinteraksi dengan Al-Qur'an.</li>
+                </ul>
+              </div>
+            </div>
+
+            <hr class="border-white/10" />
+
+            <div class="space-y-6">
+              <div>
+                <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                  Sistem Terpadu & Terukur
+                </span>
+                <h3 class="text-xl font-extrabold text-white mt-2">Kurikulum & Sistem Pembelajaran Online</h3>
+                <p class="text-xs text-gray-300 leading-relaxed mt-1 text-justify">
+                  Sistem kurikulum Taj Al-A’zham dirancang khusus untuk memfasilitasi peserta yang memiliki mobilitas tinggi dan jadwal harian yang padat.
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>1️⃣</span> Pilihan Program Akademis Online
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="glass-card p-5 rounded-2xl border border-gold-500/20 space-y-2 hover:border-gold-500/40 transition">
+                    <span class="text-[10px] font-bold text-gold-400 px-2.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/20 inline-block">Fondasi Hafalan</span>
+                    <h5 class="text-base font-bold text-white">Program Taj Al-Asasi <span class="text-xs text-gray-400 font-normal">(Mahkota Utama)</span></h5>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                      <strong>Target Peserta:</strong> Pelajar & pekerja yang ingin membangun habit menghafal dan memperkuat fondasi hafalan.<br/>
+                      <strong>Target Hafalan (2 Bulan):</strong> Juz 30 serta Surah Pilihan (Yasin, Al-Waqi'ah, dan Al-Mulk).
+                    </p>
+                    <div class="text-[11px] text-gray-400 pt-1 space-y-1">
+                      <p>• <strong>Bulan 1:</strong> Penuntasan Juz 30 (20 Hari Setoran Harian + 10 Hari Tasmi').</p>
+                      <p>• <strong>Bulan 2:</strong> Surah Pilihan (12 Hari Setoran + Ujian Tasmi' Sekali Duduk).</p>
+                      <p>• <strong>Beban Harian:</strong> Setoran ziyadah 1 Halaman / Hari.</p>
+                    </div>
+                  </div>
+
+                  <div class="glass-card p-5 rounded-2xl border border-amber-500/20 space-y-2 hover:border-amber-500/40 transition">
+                    <span class="text-[10px] font-bold text-amber-300 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 inline-block">Tuntas 30 Juz</span>
+                    <h5 class="text-base font-bold text-white">Program TAJ AL-WAQAR <span class="text-xs text-gray-400 font-normal">(Mahkota Kehormatan)</span></h5>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                      <strong>Target Peserta:</strong> Peserta yang berkomitmen menuntaskan seluruh Al-Qur'an secara bertahap dan terukur.<br/>
+                      <strong>Target Hafalan:</strong> 30 Juz Al-Qur'an secara berjenjang.
+                    </p>
+                    <div class="text-[11px] text-gray-400 pt-1 space-y-1">
+                      <p>• <strong>Jalur Reguler:</strong> 1 Halaman / Hari (Cocok untuk pekerja & mahasiswa).</p>
+                      <p>• <strong>Jalur Intensif:</strong> 1 Lembar / Hari (2 Halaman).</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SESI PEMBELAJARAN ONLINE & METODE 5+15 -->
+              <div class="glass-card-gold p-5 rounded-2xl border border-gold-500/30 space-y-4">
+                <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>2️⃣</span> Pilihan 4 Sesi Waktu & Metode Pembelajaran Sesi (Metode 5+15)
+                </h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  Setiap peserta bebas memilih slot waktu penyimakan online harian, lalu mengikuti sesi tatap muka daring (online Zoom/Meet/Voice Call) berdurasi efektif dengan struktur <strong>Metode 5+15</strong>:
+                </p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs pb-1">
+                  <div class="p-3 bg-dark-900/90 border border-gold-500/30 rounded-xl text-center space-y-1">
+                    <span class="font-extrabold text-gold-300 block">🌅 Sesi Shubuh</span>
+                    <span class="text-[11px] text-gray-400 block">(Durasi 30 Menit)</span>
+                  </div>
+                  <div class="p-3 bg-dark-900/90 border border-gold-500/30 rounded-xl text-center space-y-1">
+                    <span class="font-extrabold text-gold-300 block">☀️ Sesi Ashar</span>
+                    <span class="text-[11px] text-gray-400 block">(Durasi 15 Menit)</span>
+                  </div>
+                  <div class="p-3 bg-dark-900/90 border border-gold-500/30 rounded-xl text-center space-y-1">
+                    <span class="font-extrabold text-gold-300 block">🌆 Sesi Maghrib</span>
+                    <span class="text-[11px] text-gray-400 block">(Durasi 30 Menit)</span>
+                  </div>
+                  <div class="p-3 bg-dark-900/90 border border-gold-500/30 rounded-xl text-center space-y-1">
+                    <span class="font-extrabold text-gold-300 block">🌙 Sesi Isya</span>
+                    <span class="text-[11px] text-gray-400 block">(Durasi 1 Jam)</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+                  <div class="glass-card p-4 rounded-xl border border-gold-500/20 space-y-2">
+                    <span class="font-extrabold text-gold-400 block text-sm">💡 5 Menit Pertama — Mindset & Tadabbur</span>
+                    <ul class="space-y-1.5 text-gray-300">
+                      <li>• <strong>Tadabbur Singkat:</strong> Penjelasan kandungan ayat & Asbabun Nuzul agar santri paham makna.</li>
+                      <li>• <strong>Adab Qur'ani:</strong> Penanaman niat ikhlas & karakter Muslim harian.</li>
+                      <li>• <strong>Suntikan Motivasi:</strong> Dorongan istiqomah di tengah kesibukan.</li>
+                    </ul>
+                  </div>
+
+                  <div class="glass-card p-4 rounded-xl border border-emerald-500/20 space-y-2">
+                    <span class="font-extrabold text-emerald-400 block text-sm">📖 Menit Berikutnya — Tasmi' Harian</span>
+                    <p class="text-gray-300 leading-relaxed">
+                      Setoran & Evaluasi privat berdasarkan kriteria poin (Mutqin, Lancar, atau Perlu Ulang) dengan catatan spesifik tajwid & makhraj dari pengajar.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3">
+                <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>3️⃣</span> Sistem Evaluasi & Penilaian Mutqin (Sistem Poin)
+                </h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  Untuk memastikan hafalan tidak sekadar dihafal lalu lupa, pembelajaran diatur melalui unit **Blok (Setiap 5 Halaman)** dengan penilaian terukur:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
+                  <div class="space-y-2 glass-card p-4 rounded-xl border border-white/10">
+                    <span class="font-bold text-white block">Poin Setoran Harian (Bobot 20%):</span>
+                    <ul class="space-y-1 text-gray-300">
+                      <li>🌟 <strong class="text-gold-400">Mutqin (100 Poin):</strong> Tanpa kesalahan hafalan & tajwid sempurna.</li>
+                      <li>👍 <strong class="text-blue-400">Lancar (80 Poin):</strong> Tanpa kesalahan hafalan, ada jeda/koreksi ringan.</li>
+                      <li>🔄 <strong class="text-red-400">Perlu Ulang (50 Poin):</strong> Terdapat kesalahan hafalan.</li>
+                    </ul>
+                  </div>
+                  <div class="space-y-2 glass-card p-4 rounded-xl border border-white/10">
+                    <span class="font-bold text-white block">Pelunasan Hutang & Tes Blok (Bobot 80%):</span>
+                    <p class="text-gray-300 leading-relaxed">
+                      <strong>Mekanisme Hutang:</strong> Nilai 50 dianggap HUTANG. Wajib dilunasi (min. 80) sebelum Ujian Blok.<br/>
+                      <strong>KKM Lulus:</strong> NA ≥ 85 Poin (20% Harian + 80% Tes Blok 5 Halaman Sekali Duduk).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3">
+                <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>4️⃣</span> Kemudahan & Fleksibilitas untuk Peserta Sibuk
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300">
+                  <div class="p-4 glass-card rounded-xl border border-white/10 space-y-1">
+                    <span class="font-bold text-white block">🕒 Jadwal Setoran Adaptif</span>
+                    <p>Pilih slot waktu daring (pagi, sore, atau malam setelah kerja/sekolah) via Zoom, Google Meet, atau Voice Note sesuai kesepakatan musyrif/musyrifah.</p>
+                  </div>
+                  <div class="p-4 glass-card rounded-xl border border-white/10 space-y-1">
+                    <span class="font-bold text-white block">📱 Pemantauan Progres Real-Time</span>
+                    <p>Akses Buku Prestasi Digital untuk memantau nilai harian, riwayat hutang setoran, dan akumulasi poin secara otomatis dari mana saja.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+              <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider">✨ Penutup</h4>
+              <p class="text-xs text-gray-300 leading-relaxed italic text-justify">
+                "Taj Al-A’zham (QurTrain Online) hadir untuk membuktikan bahwa padatnya rutinitas sekolah, tuntutan akademis, maupun kesibukan dunia kerja bukanlah alasan untuk melupakan Al-Qur'an. Bersama kami, mari jalin interaksi terbaik dengan Al-Qur'an di tengah kesibukan harianmu."
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3 pt-2 justify-end">
+                <button onclick="switchPage('mushaf')" class="px-5 py-2.5 rounded-xl bg-gold-500/20 border border-gold-500/40 text-gold-300 text-xs font-bold transition text-center hover:bg-gold-500/30">
+                  Buka Mushaf Qurtrain →
+                </button>
+                <button onclick="switchPage('pendaftaran')" class="px-5 py-2.5 rounded-xl gold-button text-xs font-bold shadow-gold-glow text-center">
+                  Mulai Pendaftaran →
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PAGE 2: MUSHAF DIGITAL TAJ AL-A'ZHAM -->
+      <div id="page-mushaf" class="page-slide">
+        <div class="space-y-6 max-w-5xl mx-auto">
+          
+          <div class="glass-card-gold border border-gold-500/30 rounded-2xl p-4 sm:p-6 shadow-gold-glow flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/10 text-gold-400 border border-gold-500/20">Mushaf Metode Qurtrain (QuranicTrain)</span>
+              <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Mushaf Hafalan Digital</h2>
+              <p class="text-xs text-gray-400 mt-0.5" id="pageRangeInfo">Standar 604 Halaman Qurtrain</p>
+            </div>
+
+            <!-- TRIPLE MODE SELECTOR LENGKAP -->
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+              <select id="searchTypeSelect" onchange="toggleSearchMode(this.value)" class="bg-dark-800 text-white font-bold border border-white/20 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-gold-500">
+                <option value="JUZ">📗 Pilih Juz (1 - 30)</option>
+                <option value="SURAH">📖 Pilih Surah (1 - 114)</option>
+                <option value="PAGE">📄 Pilih Halaman (1 - 604)</option>
+              </select>
+
+              <select id="juzSelect" onchange="loadByJuz(this.value)" class="bg-dark-900 text-gold-300 font-semibold border border-gold-500/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-gold-500 flex-1 md:flex-none"></select>
+              <select id="surahSelect" onchange="loadBySurah(this.value)" class="hidden bg-dark-900 text-gold-300 font-semibold border border-gold-500/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-gold-500 flex-1 md:flex-none"></select>
+              <input type="number" id="pageInput" min="1" max="604" value="582" onchange="loadByPageNumber(this.value)" placeholder="Hal (1-604)" class="hidden bg-dark-900 text-gold-300 font-semibold border border-gold-500/30 rounded-xl px-3 py-2 text-xs w-28 text-center focus:outline-none focus:border-gold-500" />
+
+              <button onclick="toggleHafalanMode()" id="hafalanBtn" class="bg-dark-800 hover:bg-dark-700 text-xs px-3.5 py-2 rounded-xl border border-white/10 font-bold transition whitespace-nowrap">
+                🙈 Mode Hafalan: OFF
+              </button>
+            </div>
+          </div>
+
+          <!-- PANEL NAVIGASI BLOK A, B, C, D -->
+          <div id="blockFilterPanel" class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <span class="text-xs font-bold text-gold-400 flex items-center gap-1.5">
+                <span>📌</span> Filter Halaman Per Blok (5 Halaman / Blok)
+              </span>
+              <span id="surahInfo" class="text-xs text-gold-400 font-semibold truncate max-w-[250px]">Juz 30 (Halaman 582 - 604)</span>
+            </div>
+
+            <!-- TOMBOL KATEGORI UTAMA BLOK -->
+            <div class="grid grid-cols-5 gap-1.5 sm:gap-2 w-full">
+              <button onclick="selectMainBlock('ALL')" id="mainBtn_ALL" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-gold-500 text-dark-950 shadow-gold-glow text-center truncate">Semua (20H)</button>
+              <button onclick="selectMainBlock('A')" id="mainBtn_A" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-gold-300 hover:bg-gold-500/20 border border-gold-500/30 text-center truncate">Blok A</button>
+              <button onclick="selectMainBlock('B')" id="mainBtn_B" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-blue-300 hover:bg-blue-500/20 border border-blue-500/20 text-center truncate">Blok B</button>
+              <button onclick="selectMainBlock('C')" id="mainBtn_C" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/20 text-center truncate">Blok C</button>
+              <button onclick="selectMainBlock('D')" id="mainBtn_D" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-purple-300 hover:bg-purple-500/20 border border-purple-500/20 text-center truncate">Blok D</button>
+            </div>
+
+            <div id="subBlockContainer" class="hidden pt-2 border-t border-white/10 animate-fade-in">
+              <p id="subBlockTitle" class="text-[11px] font-bold text-gold-300 mb-2">Pilih Sub-Blok:</p>
+              <div id="subBlockButtonsList" class="grid grid-cols-5 gap-2"></div>
+            </div>
+          </div>
+
+          <!-- CONTAINER UTAMA TEKS MUSHAF -->
+          <main id="quranContainer" class="glass-card rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/10 space-y-6">
+            <div class="text-center py-12 text-gray-400 text-xs">Sedang memuat Mushaf Metode Qurtrain...</div>
+          </main>
+
+        </div>
+      </div>
+
+      <!-- PAGE 3: FORMULIR PENDAFTARAN -->
+      <div id="page-pendaftaran" class="page-slide">
+        <div class="space-y-6 max-w-5xl mx-auto">
+          <div id="formView" class="glass-card rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/10 text-gold-400 border border-gold-500/20">Pendaftaran & SPP Online</span>
+                <h2 class="text-2xl font-bold mt-2 text-white">Formulir Pendaftaran & Sima'an Private</h2>
+                <p class="text-xs text-gray-400 mt-1">Silakan lengkapi data santri, alamat pengiriman sertifikat, pilih program, dan metode pembayaran.</p>
+              </div>
+              <button onclick="toggleAdminView()" class="px-3 py-1.5 rounded-lg border border-gold-500/30 text-gold-400 text-xs font-semibold hover:bg-gold-500/10 transition shrink-0">
+                Portal Admin 🔒
+              </button>
+            </div>
+
+            <form id="registrationForm" onsubmit="handleFormSubmitPendaftaran(event)" class="space-y-6">
+
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Kategori Santri *</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button type="button" onclick="setCategory('Anak')" id="btnCatAnak" class="py-3 px-4 rounded-xl border border-gold-500 bg-gold-500/10 text-gold-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition">
+                    <span>👶 Santri Anak</span>
+                  </button>
+                  <button type="button" onclick="setCategory('Dewasa')" id="btnCatDewasa" class="py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition">
+                    <span>🧔 Santri Dewasa</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nama Lengkap Santri *</label>
+                <input type="text" id="studentName" required placeholder="Contoh: Ahmad Fauzi" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-gold-500 transition">
+              </div>
+
+              <div id="parentFieldGroup">
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nama Orang Tua / Wali *</label>
+                <input type="text" id="parentName" placeholder="Contoh: Bapak Hendra" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-gold-500 transition">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nomor WhatsApp Aktif *</label>
+                <input type="tel" id="whatsappNum" required placeholder="Contoh: 08123456789" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-gold-500 transition">
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center mb-1">
+                  <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider">Alamat Domisili Lengkap *</label>
+                  <span class="text-[10px] sm:text-[11px] text-gold-400">📦 Untuk Pengiriman Sertifikat Kelulusan</span>
+                </div>
+                <textarea id="address" rows="3" required placeholder="Jalan, No. Rumah, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten, Kode Pos" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-gold-500 transition"></textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-gold-400 uppercase tracking-wider mb-2">Pilihan Program *</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <label class="p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-gold-500 transition">
+                    <input type="radio" name="program" value="Taj Al-Asasi (Surah Pilihan)" checked onchange="updatePaymentPlan()" class="mt-1 accent-gold-500">
+                    <div>
+                      <span class="block font-bold text-white text-xs sm:text-sm">Program Taj Al-Asasi</span>
+                      <span class="text-xs text-gold-400 font-medium block mt-1">📖 Surah Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30</span>
+                    </div>
+                  </label>
+
+                  <label class="p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-gold-500 transition">
+                    <input type="radio" name="program" value="TAJ AL-WAQAR" onchange="updatePaymentPlan()" class="mt-1 accent-gold-500">
+                    <div>
+                      <span class="block font-bold text-white text-xs sm:text-sm">Program TAJ AL-WAQAR</span>
+                      <span class="text-xs text-gold-400 font-medium block mt-1">📖 30 Juz Al-Qur'an (Khatam & Mutqin)</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Pilihan Sesi Sima'an *</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-gold-500/50">
+                    <input type="checkbox" name="session" value="Shubuh (30m)" checked class="rounded accent-gold-500">
+                    <span>🌅 Shubuh (30m)</span>
+                  </label>
+                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-gold-500/50">
+                    <input type="checkbox" name="session" value="Ashar (15m)" checked class="rounded accent-gold-500">
+                    <span>☀️ Ashar (15m)</span>
+                  </label>
+                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-gold-500/50">
+                    <input type="checkbox" name="session" value="Maghrib (30m)" checked class="rounded accent-gold-500">
+                    <span>🌆 Maghrib (30m)</span>
+                  </label>
+                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-gold-500/50">
+                    <input type="checkbox" name="session" value="Isya (1 Jam)" checked class="rounded accent-gold-500">
+                    <span>🌙 Isya (1 Jam)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/10">
+                <label class="block text-xs font-semibold text-gold-400 uppercase tracking-wider mb-2">💳 Detail Biaya Program & Metode Pembayaran</label>
+                <div class="p-4 glass-card-gold rounded-xl mb-4 flex justify-between items-center">
+                  <div>
+                    <span class="text-xs text-gray-400 block">Biaya Investasi Pendidikan:</span>
+                    <span id="planTitle" class="font-bold text-white text-xs sm:text-sm">Program Taj Al-Asasi</span>
+                  </div>
+                  <span id="planAmount" class="text-sm sm:text-base font-extrabold text-gold-400">Rp 500.000 / 2 Bulan</span>
+                </div>
+
+                <div class="bg-dark-900 p-4 rounded-xl border border-white/10 space-y-3">
+                  <p class="text-xs text-gray-400 font-medium">Rekening Tujuan Pembayaran Taj Al-A’zham:</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                    <div class="p-3 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
+                      <div>
+                        <p class="font-bold text-white">Bank BCA</p>
+                        <p class="text-gray-400">123-456-7890 (a.n. Taj Al-A’zham)</p>
+                      </div>
+                      <button type="button" onclick="navigator.clipboard.writeText('1234567890'); alert('Nomor Rekening BCA disalin!');" class="text-gold-400 hover:text-gold-300 font-semibold text-xs">Salin</button>
+                    </div>
+                    <div class="p-3 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
+                      <div>
+                        <p class="font-bold text-white">Bank Mandiri / GoPay / OVO</p>
+                        <p class="text-gray-400">0812-3456-7890</p>
+                      </div>
+                      <button type="button" onclick="navigator.clipboard.writeText('0812-3456-7890'); alert('Nomor disalin!');" class="text-gold-400 hover:text-gold-300 font-semibold text-xs">Salin</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="w-full py-4 rounded-xl gold-button text-sm sm:text-base shadow-gold-glow">
+                <span>Konfirmasi & Kirim Pendaftaran</span>
+              </button>
+
+            </form>
+          </div>
+
+          <!-- Confirmation View -->
+          <div id="confirmationView" class="hidden glass-card-gold rounded-2xl border border-gold-500/30 p-8 shadow-gold-glow text-center animate-fade-in">
+            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Pendaftaran Berhasil Terkirim</span>
+            
+            <h2 class="text-2xl font-bold mt-3 text-white">Jazakallah Khair!</h2>
+            <p class="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2">
+              Data pendaftaran Anda telah tercatat dengan aman di sistem <strong class="text-gold-400">Taj Al-A’zham Tahfidz</strong>.
+            </p>
+
+            <div class="my-6 bg-dark-900 border border-white/10 rounded-xl p-4 text-left max-w-md mx-auto space-y-2 text-xs">
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-gray-400">Kode Registrasi:</span>
+                <span id="confCode" class="font-bold text-gold-400">TAJ-2026-0001</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-gray-400">Nama Santri:</span>
+                <span id="confName" class="font-bold text-white">-</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-gray-400">Program Dipilih:</span>
+                <span id="confProgram" class="font-bold text-gold-400">-</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-gray-400">Alamat Sertifikat:</span>
+                <span id="confAddress" class="text-gray-300 font-medium truncate max-w-[200px]">-</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-gray-400">Biaya Investasi:</span>
+                <span id="confAmount" class="font-bold text-white">-</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Status Pembayaran:</span>
+                <span class="text-amber-400 font-semibold">Menunggu Verifikasi Pengajar</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 max-w-md mx-auto mb-4">
+              <a id="btnSendWaRegistration" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-lg transition">
+                <span>💬 Kirim Konfirmasi Pendaftaran via WhatsApp</span>
+              </a>
+            </div>
+
+            <button onclick="resetToForm()" class="px-6 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-white text-xs font-semibold border border-white/10 transition">
+              ← Isi Formulir Baru
+            </button>
+          </div>
+
+          <!-- Admin Panel View Pendaftaran -->
+          <div id="adminView" class="hidden glass-card rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Admin Management</span>
+                <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Daftar Pendaftar & Pembayaran</h2>
+              </div>
+              <button onclick="toggleAdminView()" class="px-3 py-1.5 rounded-lg bg-dark-800 text-xs font-semibold hover:bg-dark-700 transition">
+                ✕ Tutup Admin
+              </button>
+            </div>
+            <div id="applicantList" class="space-y-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 4: DATA SETORAN SANTRI -->
+      <div id="page-tracker" class="page-slide">
+        <div class="space-y-6 max-w-5xl mx-auto">
+          <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="loginStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap">
+                👤 Portal Santri Mandiri
+              </span>
+              <span id="activeUserLabel" class="text-xs text-gray-400 font-medium">Silakan Masuk atau Buat Akun Baru</span>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 w-full sm:w-auto shrink-0 border-t border-white/10 pt-2 sm:pt-0 sm:border-0">
+              <button id="btnAdminAccess" onclick="loginAdmin()" class="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-gold-500/10 border border-gold-500/40 text-gold-400 text-xs font-bold hover:bg-gold-500/20 transition text-center whitespace-nowrap">
+                🔒 Mode Pengajar
+              </button>
+              <button id="btnLogout" onclick="logoutUser()" class="hidden w-full sm:w-auto px-3.5 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold hover:bg-red-500/20 transition text-center whitespace-nowrap">
+                🚪 Keluar / Logout
+              </button>
+            </div>
+          </div>
+
+          <div id="santriAuthBox" class="glass-card rounded-2xl border border-white/10 p-6 md:p-8 max-w-md mx-auto shadow-2xl space-y-5">
+            <div class="flex bg-dark-900 p-1 rounded-xl border border-white/10 text-xs font-bold">
+              <button id="tabBtnLogin" onclick="toggleAuthTab('LOGIN')" class="flex-1 py-2 rounded-lg bg-gold-500/10 text-gold-300 border border-gold-500/30 transition">
+                🔑 Masuk (Login)
+              </button>
+              <button id="tabBtnRegister" onclick="toggleAuthTab('REGISTER')" class="flex-1 py-2 rounded-lg text-gray-400 hover:text-white transition">
+                ✨ Buat Akun Baru
+              </button>
+            </div>
+
+            <form id="formSantriLogin" onsubmit="handleSantriLogin(event)" class="space-y-3 text-left">
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Lengkap Santri *</label>
+                <input type="text" id="loginStudentName" required placeholder="Ketik nama Anda yang terdaftar..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">Kata Sandi *</label>
+                <input type="password" id="loginStudentPass" required placeholder="Masukkan kata sandi..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+              </div>
+              <button type="submit" class="w-full py-3 rounded-xl gold-button text-xs font-bold shadow-gold-glow">
+                Masuk Portal Saya →
+              </button>
+            </form>
+
+            <form id="formSantriRegister" onsubmit="handleSantriRegister(event)" class="hidden space-y-3 text-left">
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Lengkap Santri *</label>
+                <input type="text" id="regStudentName" required placeholder="Contoh: Ahmad Zaky" class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">No. WhatsApp *</label>
+                <input type="tel" id="regStudentPhone" required placeholder="Contoh: 08123456789" class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">Buat Kata Sandi *</label>
+                <input type="password" id="regStudentPass" required placeholder="Minimal 4 karakter..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+              </div>
+              <p class="text-[11px] text-amber-400 italic bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20">
+                ⏳ Akun baru memerlukan **verifikasi/persetujuan Pengajar** setelah pembayaran SPP dikonfirmasi sebelum dapat digunakan.
+              </p>
+              <button type="submit" class="w-full py-3 rounded-xl gold-button text-xs font-bold shadow-gold-glow">
+                Daftarkan Akun Mandiri Saya
+              </button>
+            </form>
+          </div>
+
+          <div id="teacherStatsBox" class="hidden space-y-6 glass-card-gold rounded-2xl p-4 sm:p-6 shadow-gold-glow">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-gold-500/10 text-gold-400 border border-gold-500/30">
+                  📊 Dashboard Laporan Pengajar Harian
+                </span>
+                <h3 class="text-lg sm:text-xl font-bold text-white mt-1">Statistik Perkembangan Per Hari</h3>
+              </div>
+
+              <div class="flex items-center gap-2 bg-dark-900 px-3 py-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-between sm:justify-start">
+                <span class="text-xs text-gray-400 font-bold shrink-0">📅 Filter:</span>
+                <input type="date" id="filterTeacherDate" onchange="renderTeacherDashboard()" class="bg-dark-800 text-gold-300 font-semibold text-xs px-2 py-1 rounded-lg border border-white/10 outline-none w-full sm:w-auto">
+                <button type="button" onclick="resetTeacherDateFilter()" class="text-[11px] bg-dark-700 hover:bg-dark-600 text-gray-300 px-2 py-1 rounded-lg font-semibold transition shrink-0">Semua</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-2.5 sm:gap-3">
+              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
+                <span class="text-[11px] text-gray-400 font-medium">Santri Aktif</span>
+                <h3 id="teacherStatTotalSantri" class="text-xl font-black text-white">0</h3>
+              </div>
+              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
+                <span class="text-[11px] text-gray-400 font-medium">Total Setoran</span>
+                <h3 id="teacherStatTotalSetoran" class="text-xl font-black text-gold-400">0</h3>
+              </div>
+              <div class="glass-card p-3 rounded-xl border border-gold-500/30 space-y-1">
+                <span class="text-[11px] text-gold-300 font-medium">🌟 Mutqin</span>
+                <h3 id="teacherStatMutqin" class="text-xl font-black text-gold-400">0</h3>
+              </div>
+              <div class="glass-card p-3 rounded-xl border border-blue-500/30 space-y-1">
+                <span class="text-[11px] text-blue-300 font-medium">👍 Lancar</span>
+                <h3 id="teacherStatLancar" class="text-xl font-black text-blue-400">0</h3>
+              </div>
+              <div class="glass-card p-3 rounded-xl border border-red-500/30 space-y-1">
+                <span class="text-[11px] text-red-300 font-medium">🔄 Perlu Ulang</span>
+                <h3 id="teacherStatUlang" class="text-xl font-black text-red-400">0</h3>
+              </div>
+              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
+                <span class="text-[11px] text-gray-400 font-medium">Pendaftar</span>
+                <h3 id="teacherStatTotalPendaftar" class="text-xl font-black text-blue-400">0</h3>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
+                <div>
+                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span>📊</span> Persentase Performa Kelancaran Harian
+                  </h4>
+                  <p class="text-[11px] text-gray-400">Perbandingan tingkat Mutqin, Lancar, & Perlu Ulang pada tanggal terpilih</p>
+                </div>
+                <div class="relative max-w-[240px] mx-auto py-2">
+                  <canvas id="teacherFluencyChart"></canvas>
+                </div>
+              </div>
+
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
+                <div>
+                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span>📈</span> Kehadiran Sesi Sima'an Harian
+                  </h4>
+                  <p class="text-[11px] text-gray-400">Total akumulasi presensi di 4 Waktu Sima'an</p>
+                </div>
+                <div class="relative h-56">
+                  <canvas id="teacherAttendanceChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KOTAK LEADERBOARD PAPAN PERINGKAT SANTRI -->
+          <div class="glass-card-gold rounded-2xl p-5 border border-gold-500/30 space-y-4 shadow-gold-glow">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <span class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/40">
+                  🏆 Papan Peringkat Santri
+                </span>
+                <h3 class="text-base sm:text-lg font-black text-white mt-1">Leaderboard Accumulation Points</h3>
+              </div>
+              <span class="text-xs text-gold-400 font-semibold">⚡ Real-Time Update</span>
+            </div>
+
+            <!-- FITUR APRESIASI PENGAJAR: INPUT BONUS POIN -->
+            <div id="bonusPointPanel" class="hidden bg-dark-900/90 p-3.5 rounded-xl border border-gold-500/30 mb-3 space-y-2">
+              <span class="text-xs font-bold text-gold-400 flex items-center gap-1.5">
+                <span>🎁</span> Fitur Tambahan Poin Pengajar (Apresiasi / Side Quest)
+              </span>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="number" id="inputBonusAmount" placeholder="Jumlah Poin (misal: 20 atau -10)" class="bg-dark-800 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-gold-500 flex-1">
+                <input type="text" id="inputBonusReason" placeholder="Keterangan (misal: Imam Shalat / Rajin Tikrar)" class="bg-dark-800 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-gold-500 flex-1">
+                <button onclick="addTeacherBonusPoints()" class="px-4 py-1.5 bg-gold-500 text-dark-950 font-bold rounded-lg text-xs hover:bg-gold-400 transition shrink-0">
+                  + Beri Poin
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto custom-scrollbar">
+              <table class="w-full text-left text-xs text-gray-300 min-w-[500px]">
+                <thead class="bg-dark-950 text-gold-400 font-bold uppercase text-[10px] border-b border-white/10">
+                  <tr>
+                    <th class="p-3 text-center">Peringkat</th>
+                    <th class="p-3">Nama Santri</th>
+                    <th class="p-3 text-center">Aktivitas Setoran</th>
+                    <th class="p-3 text-right">Total Poin</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboardList" class="divide-y divide-white/10">
+                  <!-- Data terisi otomatis via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="adminInputFormBox" class="hidden glass-card rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+            <div class="bg-dark-900/80 text-white px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gold-500/20">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <h2 id="formTitle" class="text-sm sm:text-lg font-bold text-white">Form Input Setoran Hafalan Santri</h2>
+              </div>
+              
+              <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                <button type="button" onclick="openStudentManagerModal()" class="text-xs font-bold bg-dark-800 hover:bg-dark-700 text-gold-300 px-3 py-1.5 rounded-lg border border-gold-500/30 transition whitespace-nowrap">
+                  👥 Kelola Santri (<span id="adminTotalStudentBadge">0</span>)
+                </button>
+                <button id="btnCancelEdit" type="button" onclick="resetForm()" class="hidden text-xs bg-dark-800 hover:bg-dark-700 text-gray-300 px-3 py-1.5 rounded-lg border border-white/10 whitespace-nowrap">
+                  Batal Edit
+                </button>
+              </div>
+            </div>
+
+            <form id="setoranForm" onsubmit="handleFormSubmitSetoran(event)" class="p-4 sm:p-6 space-y-6">
+              <div class="form-field-group px-1 sm:px-2 my-2">
+                <label class="text-xs font-extrabold text-gold-400 uppercase tracking-wider block mb-2">
+                  1. Pilih Nama Santri Terdaftar & Disetujui *
+                </label>
+                <select id="inputStudentName" required onchange="onSelectStudentChange()" class="p-3.5 text-sm sm:text-base rounded-xl bg-dark-900 border border-gold-500/40 text-gold-300 font-bold focus:ring-2 focus:ring-gold-500 outline-none block"></select>
+              </div>
+
+              <hr class="border-white/10 my-4" />
+
+              <div class="space-y-3 px-1 sm:px-2">
+                <label class="text-xs font-extrabold text-gold-400 uppercase tracking-wider block">
+                  2. Presensi Sesi Sima'an Hari Ini (4 Sesi Target)
+                </label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                  <button type="button" onclick="toggleSession('subuh')" id="btnSession_subuh" class="p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-bold text-xs text-white">SHUBUH</span>
+                      <span id="badgeIcon_subuh" class="text-gold-400 font-bold">✓</span>
+                    </div>
+                    <div class="text-[11px] text-gray-400">30 Mins</div>
+                    <span id="badgeLabel_subuh" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">Hadir</span>
+                  </button>
+
+                  <button type="button" onclick="toggleSession('ashar')" id="btnSession_ashar" class="p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-bold text-xs text-white">ASHAR</span>
+                      <span id="badgeIcon_ashar" class="text-gold-400 font-bold">✓</span>
+                    </div>
+                    <div class="text-[11px] text-gray-400">15 Mins</div>
+                    <span id="badgeLabel_ashar" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">Hadir</span>
+                  </button>
+
+                  <button type="button" onclick="toggleSession('maghrib')" id="btnSession_maghrib" class="p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-bold text-xs text-white">MAGHRIB</span>
+                      <span id="badgeIcon_maghrib" class="text-gold-400 font-bold">✓</span>
+                    </div>
+                    <div class="text-[11px] text-gray-400">30 Mins</div>
+                    <span id="badgeLabel_maghrib" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">Hadir</span>
+                  </button>
+
+                  <button type="button" onclick="toggleSession('isya')" id="btnSession_isya" class="p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-bold text-xs text-white">ISYA</span>
+                      <span id="badgeIcon_isya" class="text-gold-400 font-bold">✓</span>
+                    </div>
+                    <div class="text-[11px] text-gray-400">1 Jam</div>
+                    <span id="badgeLabel_isya" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">Hadir</span>
+                  </button>
+                </div>
+              </div>
+
+              <hr class="border-white/10 my-4" />
+
+              <div class="space-y-4 px-1 sm:px-2">
+                <label class="text-xs font-extrabold text-gold-400 uppercase tracking-wider block">
+                  3. Target & Kelancaran Setoran
+                </label>
+
+                <div class="space-y-4">
+                  <div class="form-field-group">
+                    <label class="text-xs font-bold text-gray-300 mb-1.5">Tanggal Masehi *</label>
+                    <input type="date" id="inputDate" onchange="convertGregorianToHijri(this.value)" required class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-gold-500 outline-none" />
+                  </div>
+
+                  <div class="form-field-group">
+                    <label class="text-xs font-bold text-gray-300 mb-1.5">Tanggal Hijriah</label>
+                    <input type="text" id="inputHijriDate" placeholder="e.g. 26 Rabi'ul Awwal 1448 H" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-gold-300 font-semibold focus:ring-2 focus:ring-gold-500 outline-none" />
+                  </div>
+
+                  <div class="form-field-group">
+                    <label class="text-xs font-bold text-gray-300 mb-1.5">Surah Target *</label>
+                    <select id="selectSurah" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-gold-500 outline-none"></select>
+                  </div>
+
+                  <div class="form-field-group">
+                    <label class="text-xs font-bold text-gray-300 mb-1.5">Posisi Blok & Halaman Setoran *</label>
+                    <select id="inputPage" required onchange="onSelectStudentChange()" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-gold-300 font-bold focus:ring-2 focus:ring-gold-500 outline-none">
+                      <optgroup label="📌 BLOK A">
+                        <option value="Blok A1">Blok A1</option>
+                        <option value="Blok A2">Blok A2</option>
+                        <option value="Blok A3">Blok A3</option>
+                        <option value="Blok A4">Blok A4</option>
+                        <option value="Blok A5">Blok A5</option>
+                      </optgroup>
+                      <optgroup label="📌 BLOK B">
+                        <option value="Blok B1">Blok B1</option>
+                        <option value="Blok B2">Blok B2</option>
+                        <option value="Blok B3">Blok B3</option>
+                        <option value="Blok B4">Blok B4</option>
+                        <option value="Blok B5">Blok B5</option>
+                      </optgroup>
+                      <optgroup label="📌 BLOK C">
+                        <option value="Blok C1">Blok C1</option>
+                        <option value="Blok C2">Blok C2</option>
+                        <option value="Blok C3">Blok C3</option>
+                        <option value="Blok C4">Blok C4</option>
+                        <option value="Blok C5">Blok C5</option>
+                      </optgroup>
+                      <optgroup label="📌 BLOK D">
+                        <option value="Blok D1">Blok D1</option>
+                        <option value="Blok D2">Blok D2</option>
+                        <option value="Blok D3">Blok D3</option>
+                        <option value="Blok D4">Blok D4</option>
+                        <option value="Blok D5">Blok D5</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="pt-2 flex flex-col space-y-2">
+                  <label class="text-xs font-bold text-gray-300">Tingkat Kelancaran (Mutqin: 100 | Lancar: 80 | Perlu Ulang: 50)</label>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <button type="button" onclick="setFluency('Mutqin')" id="btnFluency_Mutqin" class="p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm ring-1 ring-gold-500">
+                      <div class="font-bold text-xs sm:text-sm text-gold-300 whitespace-nowrap">🌟 Mutqin (100)</div>
+                      <div class="text-[11px] text-gray-400 mt-0.5">Sangat Baik, tanpa salah</div>
+                    </button>
+                    <button type="button" onclick="setFluency('Lancar')" id="btnFluency_Lancar" class="p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
+                      <div class="font-bold text-xs sm:text-sm text-white whitespace-nowrap">👍 Lancar (80)</div>
+                      <div class="text-[11px] text-gray-400 mt-0.5">Baik, minor catatan tajwid</div>
+                    </button>
+                    <button type="button" onclick="setFluency('Perlu Ulang')" id="btnFluency_PerluUlang" class="p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
+                      <div class="font-bold text-xs sm:text-sm text-white whitespace-nowrap">🔄 Perlu Ulang (50)</div>
+                      <div class="text-[11px] text-gray-400 mt-0.5">Banyak terhenti, review</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="border-white/10 my-4" />
+
+              <div class="space-y-3 px-1 sm:px-2">
+                <label class="text-xs font-extrabold text-gold-400 uppercase tracking-wider block">
+                  4. Catatan Evaluasi Tajwid & Makhraj
+                </label>
+
+                <div class="flex flex-wrap items-center gap-1.5 pb-1">
+                  <span class="text-xs text-gray-400 font-bold mr-1">Quick Tags:</span>
+                  <div id="quickTagsContainer" class="flex flex-wrap gap-1.5"></div>
+                </div>
+
+                <textarea id="inputNotes" rows="3" placeholder="Tuliskan catatan spesifik tajwid/makhraj..." class="w-full p-3 text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-gold-500 outline-none transition-all"></textarea>
+              </div>
+
+              <!-- KALKULASI TES BLOK -->
+              <div class="glass-card-gold p-4 sm:p-5 rounded-2xl border border-gold-500/30 space-y-3">
+                <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>🧮</span> Kalkulasi Ujian Blok Hafalan (5 Halaman)
+                </h4>
+                <p class="text-[11px] text-gray-400 leading-relaxed">
+                  Perhitungan otomatis Nilai Tes Blok (TB = 100 - [PanjangPendek × 2] - [Macet × 5]) & Nilai Akhir (NA = 20% NH + 80% TB). Syarat Lulus: NA ≥ 85 & Tidak Ada Hutang (< 80).
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div>
+                    <label class="block text-[11px] font-bold text-gray-300 mb-1">Salah Panjang/Pendek (Pengurangan -2/salah)</label>
+                    <input type="number" id="inputSalahPanjangPendek" min="0" value="0" placeholder="Jumlah kesalahan..." class="w-full p-2.5 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-gray-300 mb-1">Macet / Lupa Ayat (Pengurangan -5/macet)</label>
+                    <input type="number" id="inputMacetAyat" min="0" value="0" placeholder="Jumlah dipancing..." class="w-full p-2.5 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-gold-500">
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <button type="button" id="btnHitungBlok" onclick="prosesKalkulasiBlok()" class="w-full py-2.5 rounded-xl gold-button text-xs font-bold shadow-gold-glow">
+                    Hitung & Simpan Nilai Ujian Blok
+                  </button>
+                </div>
+
+                <div id="outputKalkulasiBox" class="hidden p-3.5 rounded-xl text-xs font-bold border animate-fade-in"></div>
+              </div>
+
+              <div class="pt-2 flex justify-end px-1 sm:px-2">
+                <button type="submit" id="btnSubmitSetoran" class="w-full sm:w-auto px-8 py-3 rounded-xl gold-button text-xs font-bold shadow-gold-glow">
+                  Simpan Setoran Ke Sistem
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <section id="tableSection" class="hidden glass-card rounded-2xl border border-white/10 shadow-xl overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-dark-900/50">
+              <div>
+                <h3 id="tableTitle" class="text-base font-bold text-white">Daftar Rekap Setoran Santri</h3>
+                <p id="tableSubtitle" class="text-xs text-gray-400 mt-0.5">Pemantauan visual per blok kontainer dan tingkat kelancaran</p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                <div class="flex items-center gap-2 bg-dark-900 px-3 py-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-between sm:justify-start">
+                  <span class="text-xs text-gray-400 font-bold shrink-0">📅 Tanggal:</span>
+                  <input type="date" id="filterStudentDate" onchange="renderTable()" class="bg-dark-800 text-gold-300 font-semibold text-xs px-2 py-1 rounded-lg border border-white/10 outline-none w-full sm:w-auto">
+                  <button type="button" onclick="resetStudentDateFilter()" class="text-[11px] bg-dark-700 hover:bg-dark-600 text-gray-300 px-2 py-1 rounded-lg font-semibold transition shrink-0">Semua</button>
+                </div>
+
+                <button id="btnChangePasswordSelf" onclick="changeMyPassword()" class="hidden px-3 py-1.5 rounded-lg border border-gold-500/30 text-gold-400 text-xs font-semibold hover:bg-gold-500/10 whitespace-nowrap">
+                  🔒 Ubah Sandi Saya
+                </button>
+              </div>
+            </div>
+
+            <div id="rekapContainer" class="p-4 sm:p-6"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- PAGE 5: PORTAL OWNER -->
+      <div id="page-owner" class="page-slide">
+        <div class="space-y-6 max-w-6xl mx-auto glass-card-gold rounded-3xl p-6 sm:p-8 shadow-gold-glow">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-white/10">
+            <div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                👑 Executive Owner Dashboard
+              </span>
+              <h2 class="text-2xl font-extrabold text-white mt-1">Laporan & Statistik Perkembangan Lembaga</h2>
+              <p class="text-xs text-gray-400">Pemantauan otomatis data santri, grafik performa hafalan, dan pendaftaran berhasil.</p>
+            </div>
+            <button onclick="switchPage('home')" class="px-4 py-2 rounded-xl bg-dark-800 hover:bg-dark-700 text-gray-300 text-xs font-bold transition">
+              🚪 Keluar Mode Owner
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+            <div class="glass-card p-4 rounded-2xl space-y-1">
+              <span class="text-xs text-gray-400 font-medium">Santri Aktif</span>
+              <h3 id="ownerStatTotalSantri" class="text-xl font-black text-white">0</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl space-y-1">
+              <span class="text-xs text-gray-400 font-medium">Total Setoran</span>
+              <h3 id="ownerStatTotalSetoran" class="text-xl font-black text-gold-400">0</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-gold-500/30 space-y-1">
+              <span class="text-xs text-gold-300 font-medium">🌟 Mutqin</span>
+              <h3 id="ownerStatMutqin" class="text-xl font-black text-gold-400">0</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-blue-500/30 space-y-1">
+              <span class="text-xs text-blue-300 font-medium">👍 Lancar</span>
+              <h3 id="ownerStatLancar" class="text-xl font-black text-blue-400">0</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-red-500/30 space-y-1">
+              <span class="text-xs text-red-300 font-medium">🔄 Perlu Ulang</span>
+              <h3 id="ownerStatUlang" class="text-xl font-black text-red-400">0</h3>
+            </div>
+            <div class="glass-card p-4 rounded-2xl space-y-1">
+              <span class="text-xs text-gray-400 font-medium">Omset SPP</span>
+              <h3 id="ownerStatOmsetSPP" class="text-sm font-extrabold text-emerald-400 pt-1">Rp 0</h3>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-4">
+              <div>
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>📊</span> Persentase Performa Kelancaran Santri
+                </h4>
+                <p class="text-[11px] text-gray-400">Perbandingan tingkat hafalan Mutqin, Lancar, & Perlu Ulang</p>
+              </div>
+              <div class="relative max-w-[260px] mx-auto py-2">
+                <canvas id="fluencyChart"></canvas>
+              </div>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-4">
+              <div>
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>📈</span> Kehadiran Sesi Sima'an Harian
+                </h4>
+                <p class="text-[11px] text-gray-400">Total akumulasi presensi santri di 4 Waktu Sima'an</p>
+              </div>
+              <div class="relative h-60">
+                <canvas id="attendanceChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl border border-white/10 p-5 space-y-3">
+            <h4 class="text-sm font-bold text-gold-400 uppercase tracking-wider">📝 Rekapitulasi Pendaftaran Santri</h4>
+            <div class="overflow-x-auto custom-scrollbar">
+              <table class="w-full text-left text-xs text-gray-300 min-w-[500px]">
+                <thead class="bg-dark-900 text-gray-400 uppercase font-bold text-[10px] border-b border-white/10">
+                  <tr>
+                    <th class="px-3 py-2">Kode</th>
+                    <th class="px-3 py-2">Santri</th>
+                    <th class="px-3 py-2">Kategori</th>
+                    <th class="px-3 py-2">Program</th>
+                    <th class="px-3 py-2">Biaya SPP</th>
+                    <th class="px-3 py-2">No. WA</th>
+                  </tr>
+                </thead>
+                <tbody id="ownerPendaftaranTableBody" class="divide-y divide-white/10"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl border border-amber-500/30 p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <div>
+                <h4 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                  <span>👑</span> Master Data Setoran Per Santri
+                </h4>
+                <p class="text-xs text-gray-400 mt-0.5">Pilih nama santri di bawah untuk memantau perkembangan hafalan & kartu blok individual</p>
+              </div>
+              
+              <div class="w-full sm:w-auto">
+                <select id="ownerStudentSelect" onchange="renderOwnerBlockCards()" class="w-full sm:w-64 p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-amber-500/40 text-amber-300 font-bold outline-none focus:ring-2 focus:ring-amber-500"></select>
+              </div>
+            </div>
+            
+            <div id="ownerMasterTableBody" class="w-full pt-2"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: KELOLA AKUN SANTRI -->
+  <div id="modalStudentManager" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
+    <div class="glass-card-gold rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-gold-500/35">
+      <div class="flex justify-between items-center border-b border-white/10 pb-3">
+        <h3 class="font-bold text-white text-base">👥 Verifikasi & Kelola Akun Santri</h3>
+        <button onclick="closeStudentManagerModal()" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+      <p class="text-xs text-gray-400">Disetujui: Santri bisa login & nama masuk opsi setoran.<br>Menunggu: Akun baru yang perlu dikonfirmasi pembayaran SPP-nya.</p>
+      <div id="studentAccountsList" class="space-y-2 max-h-72 overflow-y-auto custom-scrollbar pr-1"></div>
+    </div>
+  </div>
+
+  <!-- MODAL SHARE WHATSAPP -->
+  <div id="modalWhatsapp" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-gold-500/35">
+      <div class="flex justify-between items-center border-b border-white/10 pb-3">
+        <div>
+          <h3 class="font-bold text-white text-base">Laporan Setoran WhatsApp</h3>
+          <p id="waModalSubtitle" class="text-xs text-gray-400"></p>
+        </div>
+        <button onclick="closeWhatsappModal()" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div id="waPreviewBox" class="bg-dark-900 text-gold-300 p-4 rounded-xl border border-white/10 text-xs font-mono whitespace-pre-wrap max-h-72 overflow-y-auto leading-relaxed"></div>
+
+      <div class="flex gap-2.5 pt-2">
+        <button onclick="copyWaText()" class="flex-1 py-2.5 bg-dark-800 hover:bg-dark-700 text-white rounded-xl text-xs font-bold transition">
+          📋 Salin Teks
+        </button>
+        <a id="waDirectBtn" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center shadow-md">
+          💬 Buka WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-500 pt-6 border-t border-white/5 mt-8 pb-6">
+    &copy; 2026 Taj Al-A’zham Tahfidz System. All rights reserved.
+  </footer>
+
+  <!-- JAVASCRIPT SYSTEM LOGIC -->
+  <script>
+    const OWNER_PIN = "Abdulahfaqih2004";
+    const TEACHER_PIN = "020304";
+
+    const pagesOrder = ['home', 'mushaf', 'pendaftaran', 'tracker', 'owner'];
+    let currentPageIndex = 0;
+
+    const SURAHS = [
+      "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Tawbah", "Yunus",
+      "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Kahf", "Maryam", "Ta-Ha",
+      "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum",
+      "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Ya-Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir",
+      "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fat-h", "Al-Hujurat", "Qaf",
+      "Adh-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadila", "Al-Hashr", "Al-Mumtahanah",
+      "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij",
+      "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa",
+      "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad",
+      "Ash-Shams", "Al-Layl", "Ad-Duhaa", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat",
+      "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr",
+      "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+    ];
+
+    const JUZ_PAGE_MAPPING = {
+      1: [1, 21],   2: [22, 41],  3: [42, 61],  4: [62, 81],  5: [82, 101],
+      6: [102, 121], 7: [122, 141], 8: [142, 161], 9: [162, 181], 10: [182, 201],
+      11: [202, 221], 12: [222, 241], 13: [242, 261], 14: [262, 281], 15: [282, 301],
+      16: [302, 321], 17: [322, 341], 18: [342, 361], 19: [362, 381], 20: [382, 401],
+      21: [402, 421], 22: [422, 441], 23: [442, 461], 24: [462, 481], 25: [482, 501],
+      26: [502, 521], 27: [522, 541], 28: [542, 561], 29: [562, 581], 30: [582, 604]
+    };
+
+    const QUICK_TAGS = ["#PanjangPendek", "#Ghunnah", "#MakhrajAyn", "#MakhrajHa", "#LancarJaya", "#Ikhfa", "#Qalqalah", "#MaddAsli"];
+    const HIJRI_MONTHS = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir", "Jumadil Awwal", "Jumadil Akhir", "Rajab", "Sya'ban", "Ramadhan", "Syawwal", "Dzulqa'dah", "Dzulhijjah"];
+
+    let students = JSON.parse(localStorage.getItem('taj_self_students')) || [];
+    let logs = JSON.parse(localStorage.getItem('taj_self_logs')) || [];
+    let applicants = JSON.parse(localStorage.getItem('taj_applicants')) || [];
+    let blokEvaluations = JSON.parse(localStorage.getItem('taj_blok_evaluations')) || {};
+    let teacherBonusPoints = JSON.parse(localStorage.getItem('taj_teacher_bonuses')) || {};
+
+    let currentRole = null;
+    let currentSantriName = null;
+    let editingLogId = null;
+    let activeFluency = 'Mutqin';
+    let attendanceState = { subuh: true, ashar: true, maghrib: true, isya: true };
+    let activeWaText = '';
+
+    let fluencyChartInstance = null;
+    let attendanceChartInstance = null;
+    let teacherFluencyChartInstance = null;
+    let teacherAttendanceChartInstance = null;
+    let selectedCategory = 'Anak';
+
+    let currentVerses = [];
+    let activeSubBlock = 'ALL';
+    let selectedMainBlock = 'ALL';
+    let isHafalanMode = false;
+    let activeSearchMode = 'JUZ';
+    let currentJuzNumber = 30;
+    let holdTimer = null;
+
+    window.onload = function() {
+      initSurahDropdown();
+      initQuickTags();
+      initDates();
+      renderStudentDropdown();
+      updatePaymentPlan();
+      initInstantSwipeEngine();
+      initJuzDropdownMushaf();
+      initSurahDropdownMushaf();
+      loadByJuz(30);
+      renderLeaderboard();
+    };
+
+    function switchHomeTab(mode) {
+      const btnOff = document.getElementById('tabBtnOffline');
+      const btnOn = document.getElementById('tabBtnOnline');
+      const contentOff = document.getElementById('homeContentOffline');
+      const contentOn = document.getElementById('homeContentOnline');
+
+      if (mode === 'OFFLINE') {
+        btnOff.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gold-500 text-dark-950 shadow-gold-glow transition-all";
+        btnOn.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+        contentOff.classList.remove('hidden');
+        contentOn.classList.add('hidden');
+      } else {
+        btnOn.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gold-500 text-dark-950 shadow-gold-glow transition-all";
+        btnOff.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+        contentOn.classList.remove('hidden');
+        contentOff.classList.add('hidden');
+      }
+    }
+
+    function switchPage(pageId) {
+      const targetIndex = pagesOrder.indexOf(pageId);
+      if (targetIndex !== -1) {
+        currentPageIndex = targetIndex;
+      }
+
+      const swipeArea = document.getElementById('swipeArea');
+      swipeArea.classList.add('smooth-transition');
+      swipeArea.style.transform = `translate3d(-${currentPageIndex * 20}%, 0, 0)`;
+
+      pagesOrder.forEach(p => {
+        const nav = document.getElementById(`nav-${p}`);
+        if (nav) nav.className = "px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap";
+      });
+
+      const activeNav = document.getElementById(`nav-${pageId}`);
+      if (activeNav) activeNav.className = "px-3.5 py-2 rounded-lg bg-gold-500/10 text-gold-300 border border-gold-500/30 transition whitespace-nowrap shadow-sm";
+      
+      window.scrollTo(0, 0);
+
+      if (pageId === 'owner') {
+        renderOwnerDashboard();
+      }
+      if (pageId === 'tracker' || pageId === 'owner') {
+        renderLeaderboard();
+      }
+    }
+
+    function initInstantSwipeEngine() {
+      const swipeArea = document.body;
+      let startX = 0;
+      let startY = 0;
+      let startTime = 0;
+
+      swipeArea.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startTime = Date.now();
+      }, { passive: true });
+
+      swipeArea.addEventListener('touchend', function(e) {
+        let deltaX = e.changedTouches[0].clientX - startX;
+        let deltaY = e.changedTouches[0].clientY - startY;
+        let duration = Date.now() - startTime;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && Math.abs(deltaX) > 15) {
+          if (duration < 300 || Math.abs(deltaX) > 30) {
+            if (deltaX < 0 && currentPageIndex < pagesOrder.length - 1) {
+              const nextPage = pagesOrder[currentPageIndex + 1];
+              if (nextPage === 'owner') {
+                accessOwnerPortal();
+              } else {
+                switchPage(nextPage);
+              }
+            } else if (deltaX > 0 && currentPageIndex > 0) {
+              switchPage(pagesOrder[currentPageIndex - 1]);
+            }
+          }
+        }
+      }, { passive: true });
+    }
+
+    function accessOwnerPortal() {
+      const pinInput = prompt('Masukkan PIN Khusus Owner:');
+      if (pinInput === OWNER_PIN) {
+        switchPage('owner');
+      } else if (pinInput !== null) {
+        alert('PIN Owner Salah!');
+      }
+    }
+
+    function initSurahDropdown() {
+      const select = document.getElementById('selectSurah');
+      select.innerHTML = SURAHS.map((s, idx) => `<option value="${s}">${idx + 1}. ${s}</option>`).join('');
+      select.value = 'Al-Baqarah';
+    }
+
+    function initQuickTags() {
+      const container = document.getElementById('quickTagsContainer');
+      container.innerHTML = QUICK_TAGS.map(tag => `
+        <button type="button" onclick="appendTag('${tag}')" class="text-xs bg-dark-900 hover:bg-gold-500/20 text-gold-300 px-2.5 py-1 rounded-lg border border-white/10 transition">
+          + ${tag}
+        </button>
+      `).join('');
+    }
+
+    function appendTag(tag) {
+      const notes = document.getElementById('inputNotes');
+      notes.value = notes.value ? `${notes.value} ${tag}` : tag;
+    }
+
+    function convertGregorianToHijri(dateString) {
+      if (!dateString) return;
+      try {
+        const parts = dateString.split('-');
+        let dateObj = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+        let jd = Math.floor((dateObj.getTime() / 86400000) + 2440587.5);
+        let l = jd - 1948440 + 10632; let n = Math.floor((l - 1) / 10631); l = l - 10631 * n + 354;
+        let j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+        l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+        let hijriMonth = Math.floor((24 * l) / 709); let hijriDay = l - Math.floor((709 * hijriMonth) / 24); let hijriYear = 30 * n + j - 30;
+        document.getElementById('inputHijriDate').value = `${hijriDay} ${HIJRI_MONTHS[hijriMonth - 1] || "Hijriah"} ${hijriYear} H`;
+      } catch (err) {}
+    }
+
+    function initDates() {
+      const todayStr = new Date().toISOString().split('T')[0];
+      document.getElementById('inputDate').value = todayStr;
+      const filterDateInput = document.getElementById('filterTeacherDate');
+      if (filterDateInput && !filterDateInput.value) {
+        filterDateInput.value = todayStr;
+      }
+      convertGregorianToHijri(todayStr);
+    }
+
+    function toggleSession(s) {
+      attendanceState[s] = !attendanceState[s];
+      updateSessionUI(s);
+    }
+
+    function updateSessionUI(s) {
+      const btn = document.getElementById(`btnSession_${s}`);
+      const icon = document.getElementById(`badgeIcon_${s}`);
+      const label = document.getElementById(`badgeLabel_${s}`);
+
+      if (attendanceState[s]) {
+        btn.className = "p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm";
+        icon.innerText = "✓"; icon.className = "text-gold-400 font-bold";
+        label.innerText = "Hadir"; label.className = "mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30";
+      } else {
+        btn.className = "p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-500";
+        icon.innerText = "✕"; icon.className = "text-gray-600";
+        label.innerText = "Absen"; label.className = "mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-dark-800 text-gray-500";
+      }
+    }
+
+    function setFluency(rating) {
+      activeFluency = rating;
+      ['Mutqin', 'Lancar', 'PerluUlang'].forEach(item => {
+        const key = item === 'PerluUlang' ? 'Perlu Ulang' : item;
+        const btn = document.getElementById(`btnFluency_${item}`);
+        if (key === rating) {
+          btn.className = "p-3 rounded-xl border text-left transition-all bg-gold-500/10 border-gold-500 text-gold-300 shadow-sm ring-1 ring-gold-500";
+        } else {
+          btn.className = "p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300";
+        }
+      });
+    }
+
+    function getFluencyScore(rating) {
+      switch (rating) {
+        case 'Mutqin': return 100;
+        case 'Lancar': return 80;
+        case 'Perlu Ulang': return 50;
+        default: return 0;
+      }
+    }
+
+    function getCurrentSelectedBlockKey() {
+      const pageVal = document.getElementById('inputPage').value || '';
+      if (pageVal.includes('Blok A')) return 'BLOK A';
+      if (pageVal.includes('Blok B')) return 'BLOK B';
+      if (pageVal.includes('Blok C')) return 'BLOK C';
+      if (pageVal.includes('Blok D')) return 'BLOK D';
+      return 'BLOK A';
+    }
+
+    function onSelectStudentChange() {
+      loadStudentBlokStatus();
+      renderTable();
+    }
+
+    function loadStudentBlokStatus() {
+      const studentName = document.getElementById('inputStudentName').value;
+      const blockKey = getCurrentSelectedBlockKey();
+      const outputBox = document.getElementById('outputKalkulasiBox');
+
+      if (!studentName) return;
+
+      const userKey = `${studentName}_${blockKey}`;
+      const savedEval = blokEvaluations[userKey];
+
+      if (savedEval) {
+        if (document.getElementById('inputSalahPanjangPendek')) document.getElementById('inputSalahPanjangPendek').value = savedEval.salahPanjangPendek || 0;
+        if (document.getElementById('inputMacetAyat')) document.getElementById('inputMacetAyat').value = savedEval.macetAyat || 0;
+        outputBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400', 'bg-red-500/10', 'border-red-500/30', 'text-red-400');
+        
+        if (savedEval.isLulus) {
+          outputBox.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
+          outputBox.innerHTML = `🎉 LULUS (NA: ${savedEval.na.toFixed(1)}) | NH: ${savedEval.nh.toFixed(1)} | TB: ${savedEval.tesBlok}`;
+        } else {
+          outputBox.classList.add('bg-red-500/10', 'border-red-500/30', 'text-red-400');
+          outputBox.innerHTML = `🔄 BELUM LULUS / REMEDI (NA: ${savedEval.na.toFixed(1)}) | NH: ${savedEval.nh.toFixed(1)} | TB: ${savedEval.tesBlok}`;
+        }
+      } else {
+        if (document.getElementById('inputSalahPanjangPendek')) document.getElementById('inputSalahPanjangPendek').value = 0;
+        if (document.getElementById('inputMacetAyat')) document.getElementById('inputMacetAyat').value = 0;
+        outputBox.classList.add('hidden');
+      }
+    }
+
+    /* LOGIKA KALKULASI UJIAN BLOK & NILAI AKHIR (KKM = 85) */
+    function prosesKalkulasiBlok() {
+      const studentName = document.getElementById('inputStudentName').value;
+      const outputBox = document.getElementById('outputKalkulasiBox');
+      const blockKey = getCurrentSelectedBlockKey();
+
+      if (!studentName) {
+        alert('Silakan pilih nama santri terlebih dahulu!');
+        return;
+      }
+
+      // 1. Ambil Poin Setoran Harian (hal1 - hal5)
+      const studentLogs = logs.filter(l => l.studentName === studentName && (l.pageNumber || '').toUpperCase().includes(blockKey));
+      const harianScores = studentLogs.map(l => getFluencyScore(l.fluency));
+
+      // 2. Pemfilteran & Validasi Hutang
+      const adaHutang = harianScores.some(score => score < 80);
+      if (harianScores.length < 5 || adaHutang) {
+        outputBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
+        outputBox.classList.add('bg-red-500/10', 'border-red-500/30', 'text-red-400');
+        outputBox.innerHTML = `
+          <p class="text-xs font-extrabold">⚠️ GAGAL KALKULASI UJIAN BLOK</p>
+          <p class="text-[11px] font-normal mt-1">Masih ada hutang setoran harian yang belum dilunasi (nilai &lt; 80) atau setoran belum lengkap 5 halaman.</p>
+        `;
+        alert("Gagal: Masih ada hutang setoran harian yang belum dilunasi.");
+        return;
+      }
+
+      // 3. Ambil kesalahan
+      const salahPanjangPendek = parseInt(document.getElementById('inputSalahPanjangPendek').value) || 0;
+      const macetAyat = parseInt(document.getElementById('inputMacetAyat').value) || 0;
+
+      // 4. Rumus Nilai Tes Blok (TB)
+      const rawTB = 100 - (salahPanjangPendek * 2) - (macetAyat * 5);
+      const tesBlok = Math.max(0, rawTB);
+
+      // 5. Rumus Nilai Akhir (NA)
+      const nh = harianScores.reduce((a, b) => a + b, 0) / 5;
+      const na = (nh * 0.2) + (tesBlok * 0.8);
+
+      // 6. Penentuan Status Kelulusan (KKM = 85)
+      const isLulus = na >= 85;
+
+      // 7. Simpan data evaluasi blok
+      const userKey = `${studentName}_${blockKey}`;
+      blokEvaluations[userKey] = {
+        studentName,
+        blockKey,
+        salahPanjangPendek,
+        macetAyat,
+        tesBlok,
+        nh,
+        na,
+        isLulus
+      };
+
+      localStorage.setItem('taj_blok_evaluations', JSON.stringify(blokEvaluations));
+
+      // 8. Output Visual Hasil Perhitungan
+      outputBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400', 'bg-red-500/10', 'border-red-500/30', 'text-red-400');
+
+      if (isLulus) {
+        outputBox.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
+        outputBox.innerHTML = `
+          <p class="text-xs font-extrabold">🎉 STATUS: LULUS (NA: ${na.toFixed(1)})</p>
+          <p class="text-[11px] font-normal mt-1">Nilai Tes Blok (TB): ${tesBlok} | Rata-Rata Harian (NH): ${nh.toFixed(1)}</p>
+          <p class="text-[10px] opacity-80 mt-0.5">Rincian Kesalahan: ${salahPanjangPendek}x Panjang/Pendek (-${salahPanjangPendek*2}), ${macetAyat}x Macet Ayat (-${macetAyat*5})</p>
+        `;
+      } else {
+        outputBox.classList.add('bg-red-500/10', 'border-red-500/30', 'text-red-400');
+        outputBox.innerHTML = `
+          <p class="text-xs font-extrabold">🔄 STATUS: BELUM LULUS / REMEDI (NA: ${na.toFixed(1)})</p>
+          <p class="text-[11px] font-normal mt-1">Nilai Tes Blok (TB): ${tesBlok} | Rata-Rata Harian (NH): ${nh.toFixed(1)} (Batas Minimal KKM = 85)</p>
+          <p class="text-[10px] opacity-80 mt-0.5">Rincian Kesalahan: ${salahPanjangPendek}x Panjang/Pendek (-${salahPanjangPendek*2}), ${macetAyat}x Macet Ayat (-${macetAyat*5})</p>
+        `;
+      }
+
+      renderTable();
+      renderLeaderboard();
+      alert(`Hasil Ujian Blok ${blockKey} untuk ${studentName}:\nNilai TB: ${tesBlok}\nNilai Akhir (NA): ${na.toFixed(1)}\nStatus: ${isLulus ? 'LULUS' : 'BELUM LULUS / REMEDI'}`);
+    }
+
+    /* FITUR PENGAJAR: MEMBERIKAN BONUS POIN MANUAL */
+    function addTeacherBonusPoints() {
+      if (currentRole !== 'ADMIN') {
+        alert('Hanya Pengajar yang berhak menambahkan bonus poin!');
+        return;
+      }
+      const studentName = document.getElementById('inputStudentName').value;
+      const amountInput = document.getElementById('inputBonusAmount').value;
+      const reasonInput = document.getElementById('inputBonusReason').value.trim();
+
+      if (!studentName) {
+        alert('Pilih santri terlebih dahulu!'); return;
+      }
+      if (!amountInput || isNaN(amountInput)) {
+        alert('Masukkan jumlah poin yang valid!'); return;
+      }
+
+      const amount = parseInt(amountInput);
+      if (!teacherBonusPoints[studentName]) {
+        teacherBonusPoints[studentName] = 0;
+      }
+      teacherBonusPoints[studentName] += amount;
+
+      localStorage.setItem('taj_teacher_bonuses', JSON.stringify(teacherBonusPoints));
+
+      document.getElementById('inputBonusAmount').value = '';
+      document.getElementById('inputBonusReason').value = '';
+
+      renderLeaderboard();
+      alert(`Berhasil menambahkan ${amount >= 0 ? '+' + amount : amount} Poin untuk ${studentName}! (${reasonInput || 'Bonus Pengajar'})`);
+    }
+
+    /* SYSTEM LEADERBOARD */
+    function renderLeaderboard() {
+      const studentScores = {};
+
+      students.filter(s => s.status === 'APPROVED').forEach(s => {
+        studentScores[s.name] = {
+          name: s.name,
+          totalPoin: 0,
+          totalSetoran: 0,
+          totalMutqin: 0,
+          totalBlokLulus: 0
+        };
+      });
+
+      logs.forEach(log => {
+        const name = log.studentName;
+        if (!studentScores[name]) {
+          studentScores[name] = { name: name, totalPoin: 0, totalSetoran: 0, totalMutqin: 0, totalBlokLulus: 0 };
+        }
+
+        studentScores[name].totalSetoran += 1;
+        if (log.fluency === 'Mutqin') {
+          studentScores[name].totalMutqin += 1;
+        }
+      });
+
+      Object.values(blokEvaluations).forEach(evalData => {
+        const name = evalData.studentName;
+        if (studentScores[name] && evalData && evalData.isLulus === true) {
+            studentScores[name].totalPoin += Math.round(evalData.na * 10);
+            studentScores[name].totalBlokLulus += 1;
+        }
+      });
+
+      Object.keys(teacherBonusPoints).forEach(name => {
+        if (studentScores[name]) {
+          studentScores[name].totalPoin += teacherBonusPoints[name];
+        }
+      });
+
+      const sortedLeaderboard = Object.values(studentScores).sort((a, b) => b.totalPoin - a.totalPoin);
+      const leaderboardContainer = document.getElementById('leaderboardList');
+      if (!leaderboardContainer) return;
+
+      if (sortedLeaderboard.length === 0) {
+        leaderboardContainer.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">Belum ada data nilai poin santri.</td></tr>`;
+        return;
+      }
+
+      leaderboardContainer.innerHTML = sortedLeaderboard.map((item, index) => {
+        let rankBadge = '';
+        let rowStyle = '';
+
+        if (index === 0) {
+          rankBadge = '🥇 Top 1';
+          rowStyle = 'bg-gold-500/10 border border-gold-500/40 text-gold-300 font-bold';
+        } else if (index === 1) {
+          rankBadge = '🥈 Top 2';
+          rowStyle = 'bg-slate-400/10 border border-slate-400/30 text-slate-200 font-bold';
+        } else if (index === 2) {
+          rankBadge = '🥉 Top 3';
+          rowStyle = 'bg-amber-700/10 border border-amber-600/30 text-amber-400 font-bold';
+        } else {
+          rankBadge = `#${index + 1}`;
+          rowStyle = 'bg-dark-900/60 border border-white/5 text-gray-300';
+        }
+
+        const bonusVal = teacherBonusPoints[item.name] || 0;
+        const bonusTagHtml = bonusVal !== 0 ? `<span class="text-[9px] px-1.5 py-0.2 rounded ${bonusVal > 0 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'} ml-1">Bonus: ${bonusVal > 0 ? '+' + bonusVal : bonusVal}</span>` : '';
+
+        return `
+          <tr class="${rowStyle} transition-all">
+            <td class="p-3 text-center font-extrabold text-xs sm:text-sm">${rankBadge}</td>
+            <td class="p-3 font-bold text-xs sm:text-sm text-white flex items-center">
+              <span>${item.name}</span>
+              ${bonusTagHtml}
+            </td>
+            <td class="p-3 text-center text-xs text-gray-400 leading-tight">
+              <span class="${item.totalBlokLulus > 0 ? 'text-emerald-400' : 'text-gray-500'} font-bold text-sm block mb-0.5">
+                ${item.totalBlokLulus > 0 ? '✅ ' + item.totalBlokLulus + ' Blok Lulus' : '⏳ Belum Ujian Blok'}
+              </span>
+              <span class="text-[10px] opacity-80">${item.totalSetoran} Setoran (${item.totalMutqin} 🌟)</span>
+            </td>
+            <td class="p-3 text-right font-black text-xs sm:text-sm text-gold-400">${item.totalPoin.toLocaleString('id-ID')} Pts</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updatePaymentPlan() {
+      const selectedProgram = document.querySelector('input[name="program"]:checked').value;
+      const titleEl = document.getElementById('planTitle');
+      const amountEl = document.getElementById('planAmount');
+      if (selectedProgram.includes('Taj Al-Asasi')) {
+        titleEl.innerText = 'Program Taj Al-Asasi'; amountEl.innerText = 'Rp 500.000 / 2 Bulan';
+      } else {
+        titleEl.innerText = 'Program TAJ AL-WAQAR'; amountEl.innerText = 'Rp 300.000 / Bulan';
+      }
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      const btnAnak = document.getElementById('btnCatAnak');
+      const btnDewasa = document.getElementById('btnCatDewasa');
+      const parentGroup = document.getElementById('parentFieldGroup');
+      if (cat === 'Anak') {
+        btnAnak.className = 'py-3 px-4 rounded-xl border border-gold-500 bg-gold-500/10 text-gold-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        btnDewasa.className = 'py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        parentGroup.classList.remove('hidden');
+      } else {
+        btnDewasa.className = 'py-3 px-4 rounded-xl border border-gold-500 bg-gold-500/10 text-gold-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        btnAnak.className = 'py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        parentGroup.classList.add('hidden');
+      }
+    }
+
+    function handleFormSubmitPendaftaran(e) {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value.trim();
+      const parent = document.getElementById('parentName').value.trim();
+      const phone = document.getElementById('whatsappNum').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const program = document.querySelector('input[name="program"]:checked').value;
+      const planAmount = program.includes('Taj Al-Asasi') ? 'Rp 500.000 / 2 Bulan' : 'Rp 300.000 / Bulan';
+
+      const checkboxes = document.querySelectorAll('input[name="session"]:checked');
+      let sessions = Array.from(checkboxes).map(cb => cb.value).join(', ');
+
+      const regCode = 'TAJ-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      const newApplicant = {
+        id: Date.now(), regCode: regCode, category: selectedCategory, name: name, parent: parent,
+        phone: phone, address: address, program: program, sessions: sessions, plan: planAmount,
+        status: 'Menunggu Verifikasi', date: new Date().toLocaleDateString('id-ID')
+      };
+
+      applicants.unshift(newApplicant);
+      localStorage.setItem('taj_applicants', JSON.stringify(applicants));
+
+      document.getElementById('confCode').innerText = regCode;
+      document.getElementById('confName').innerText = name;
+      document.getElementById('confProgram').innerText = program;
+      document.getElementById('confAddress').innerText = address;
+      document.getElementById('confAmount').innerText = planAmount;
+
+      const waMsg = `Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nAhlan wa sahlan! Terima kasih telah mendaftar pada program ${program} di Lembaga Taj A'zham.\n\nAlhamdulillah, data pendaftaran atas nama ${name} telah berhasil kami terima dan terkonfirmasi dalam sistem kami.\n\nUntuk tahapan selanjutnya, silakan perhatikan informasi berikut:\n- Bergabung ke grup WhatsApp calon santri melalui tautan berikut: [Link Grup WA]\n- Menyiapkan berkas administrasi lanjutan (jika ada).\n- Menunggu informasi jadwal [tes seleksi/orientasi] yang akan diumumkan pada [Tanggal/Waktu].\n\nSemoga Allah Subhanahu wa Ta'ala memberikan kemudahan dan keberkahan pada niat baik antum dalam menuntut ilmu. Jazakumullah khairan.\n\nWassalamu’alaikum Warahmatullahi Wabarakatuh.\nLembaga Taj A'zham`;
+
+      const cleanPhone = phone.replace(/[^0-9]/g, '').replace(/^0/, '62');
+      const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMsg)}`;
+      document.getElementById('btnSendWaRegistration').href = waLink;
+
+      document.getElementById('formView').classList.add('hidden');
+      const confView = document.getElementById('confirmationView');
+      confView.classList.remove('hidden');
+
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    function resetToForm() {
+      document.getElementById('registrationForm').reset();
+      updatePaymentPlan();
+      document.getElementById('confirmationView').classList.add('hidden');
+      document.getElementById('formView').classList.remove('hidden');
+
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    function toggleAdminView() {
+      const formView = document.getElementById('formView');
+      const confirmationView = document.getElementById('confirmationView');
+      const adminView = document.getElementById('adminView');
+
+      if (adminView.classList.contains('hidden')) {
+        const pin = prompt('Masukkan Sandi Admin Pendaftaran:');
+        if (pin === TEACHER_PIN || pin === OWNER_PIN) {
+          renderApplicants();
+          formView.classList.add('hidden');
+          confirmationView.classList.add('hidden');
+          adminView.classList.remove('hidden');
+          window.scrollTo(0, 0);
+        } else {
+          alert('Sandi Admin Salah!');
+        }
+      } else {
+        adminView.classList.add('hidden');
+        formView.classList.remove('hidden');
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function renderApplicants() {
+      const container = document.getElementById('applicantList');
+      if (applicants.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada pendaftar baru.</p>`;
+        return;
+      }
+
+      container.innerHTML = applicants.map((app) => {
+        const cleanPhone = app.phone.replace(/[^0-9]/g, '').replace(/^0/, '62');
+        const waMsg = `Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nAhlan wa sahlan! Terima kasih telah mendaftar pada program ${app.program} di Lembaga Taj A'zham.\n\nAlhamdulillah, data pendaftaran atas nama ${app.name} telah berhasil kami terima dan terkonfirmasi dalam sistem kami.\n\nUntuk tahapan selanjutnya, silakan perhatikan informasi berikut:\n- Bergabung ke grup WhatsApp calon santri melalui tautan berikut: [Link Grup WA]\n- Menyiapkan berkas administrasi lanjutan (jika ada).\n- Menunggu informasi jadwal [tes seleksi/orientasi] yang akan diumumkan pada [Tanggal/Waktu].\n\nSemoga Allah Subhanahu wa Ta'ala memberikan kemudahan dan keberkahan pada niat baik antum dalam menuntut ilmu. Jazakumullah khairan.\n\nWassalamu’alaikum Warahmatullahi Wabarakatuh.\nLembaga Taj A'zham`;
+        
+        const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMsg)}`;
+
+        return `
+          <div class="bg-dark-900 border border-white/10 rounded-xl p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded bg-gold-500/10 text-gold-400 font-bold">${app.regCode}</span>
+                <span class="px-2 py-0.5 rounded ${app.category === 'Anak' ? 'bg-blue-500/10 text-blue-400' : 'bg-purple-500/10 text-purple-400'} font-semibold">${app.category}</span>
+                <h3 class="font-bold text-white text-sm">${app.name}</h3>
+              </div>
+              <p class="text-gray-400 mt-1">WA: ${app.phone} | Program: <strong class="text-gold-400">${app.program}</strong> | Biaya: <span class="text-emerald-400 font-semibold">${app.plan}</span></p>
+              <p class="text-gray-400 mt-0.5">📦 Alamat: ${app.address}</p>
+              <p class="text-gray-500">Sesi: ${app.sessions}</p>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <a href="${waLink}" target="_blank" class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg font-semibold">
+                💬 Chat WA
+              </a>
+              <button onclick="deleteApplicant(${app.id})" class="text-red-400 hover:text-red-300 font-semibold px-2.5 py-1.5 bg-red-500/10 rounded-lg">
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function deleteApplicant(id) {
+      if (confirm('Hapus pendaftar ini?')) {
+        applicants = applicants.filter(a => a.id !== id);
+        localStorage.setItem('taj_applicants', JSON.stringify(applicants));
+        renderApplicants();
+      }
+    }
+
+    function renderStudentDropdown() {
+      const selectForm = document.getElementById('inputStudentName');
+      const ownerSelect = document.getElementById('ownerStudentSelect');
+      const approvedStudents = students.filter(s => s.status === 'APPROVED');
+      
+      document.getElementById('adminTotalStudentBadge').innerText = approvedStudents.length;
+
+      if (approvedStudents.length === 0) {
+        selectForm.innerHTML = `<option value="">Belum ada santri terverifikasi/disetujui</option>`;
+        if (ownerSelect) ownerSelect.innerHTML = `<option value="">Belum ada santri terdaftar</option>`;
+      } else {
+        const optionsHtml = approvedStudents.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+        selectForm.innerHTML = optionsHtml;
+        if (ownerSelect) ownerSelect.innerHTML = optionsHtml;
+      }
+      onSelectStudentChange();
+    }
+
+    function toggleAuthTab(tab) {
+      if (tab === 'LOGIN') {
+        document.getElementById('formSantriLogin').classList.remove('hidden');
+        document.getElementById('formSantriRegister').classList.add('hidden');
+        document.getElementById('tabBtnLogin').className = "flex-1 py-2 rounded-lg bg-gold-500/10 text-gold-300 border border-gold-500/30 transition";
+        document.getElementById('tabBtnRegister').className = "flex-1 py-2 rounded-lg text-gray-400 hover:text-white transition";
+      } else {
+        document.getElementById('formSantriLogin').classList.add('hidden');
+        document.getElementById('formSantriRegister').classList.remove('hidden');
+        document.getElementById('tabBtnRegister').className = "flex-1 py-2 rounded-lg bg-gold-500/10 text-gold-300 border border-gold-500/30 transition";
+        document.getElementById('tabBtnLogin').className = "flex-1 py-2 rounded-lg text-gray-400 hover:text-white transition";
+      }
+    }
+
+    function handleSantriRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regStudentName').value.trim();
+      const phone = document.getElementById('regStudentPhone').value.trim();
+      const pass = document.getElementById('regStudentPass').value.trim();
+
+      if (students.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+        alert('Nama santri sudah terdaftar!'); return;
+      }
+
+      students.push({ id: Date.now().toString(), name, phone, pass, status: 'PENDING', createdAt: new Date().toLocaleDateString('id-ID') });
+      localStorage.setItem('taj_self_students', JSON.stringify(students));
+      
+      document.getElementById('regStudentName').value = '';
+      document.getElementById('regStudentPhone').value = '';
+      document.getElementById('regStudentPass').value = '';
+
+      toggleAuthTab('LOGIN');
+      alert(`Alhamdulillah, akun santri "${name}" berhasil dibuat!\n\n⏳ Status: Menunggu Verifikasi Pembayaran Pengajar.`);
+    }
+
+    function handleSantriLogin(e) {
+      e.preventDefault();
+      const name = document.getElementById('loginStudentName').value.trim();
+      const pass = document.getElementById('loginStudentPass').value.trim();
+      const student = students.find(s => s.name.toLowerCase() === name.toLowerCase());
+
+      if (!student || student.pass !== pass) {
+        alert('Nama atau Kata Sandi Salah!'); return;
+      }
+      if (student.status !== 'APPROVED') {
+        alert('⚠️ Akun belum disetujui/diaktifkan oleh Pengajar.'); return;
+      }
+      currentRole = 'SANTRI'; currentSantriName = student.name; updateUIState();
+    }
+
+    function loginAdmin() {
+      const pin = prompt('Masukkan PIN Mode Pengajar:');
+      if (pin === TEACHER_PIN) {
+        currentRole = 'ADMIN'; currentSantriName = null; updateUIState();
+      } else if (pin) {
+        alert('PIN Pengajar Salah!');
+      }
+    }
+
+    function logoutUser() {
+      currentRole = null; currentSantriName = null; editingLogId = null; updateUIState();
+    }
+
+    function changeMyPassword() {
+      if (currentRole !== 'SANTRI') return;
+      const newPass = prompt(`Sandi baru untuk ${currentSantriName}:`);
+      if (newPass && newPass.trim().length >= 4) {
+        students = students.map(s => s.name === currentSantriName ? { ...s, pass: newPass.trim() } : s);
+        localStorage.setItem('taj_self_students', JSON.stringify(students));
+        alert('Kata sandi berhasil diperbarui!');
+      }
+    }
+
+    function updateUIState() {
+      const authBox = document.getElementById('santriAuthBox');
+      const teacherStatsBox = document.getElementById('teacherStatsBox');
+      const formBox = document.getElementById('adminInputFormBox');
+      const tableSec = document.getElementById('tableSection');
+      const badge = document.getElementById('loginStatusBadge');
+      const label = document.getElementById('activeUserLabel');
+      const btnLogout = document.getElementById('btnLogout');
+      const btnAdmin = document.getElementById('btnAdminAccess');
+      const btnPass = document.getElementById('btnChangePasswordSelf');
+      const bonusPanel = document.getElementById('bonusPointPanel');
+
+      if (currentRole === 'ADMIN') {
+        authBox.classList.add('hidden'); 
+        teacherStatsBox.classList.remove('hidden');
+        formBox.classList.remove('hidden'); 
+        tableSec.classList.remove('hidden');
+        if (bonusPanel) bonusPanel.classList.remove('hidden');
+        btnLogout.classList.remove('hidden'); btnAdmin.classList.add('hidden'); btnPass.classList.add('hidden');
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-gold-500/20 text-gold-400 border border-gold-500/40 whitespace-nowrap";
+        badge.innerText = "👑 Mode Pengajar";
+        label.innerText = "Akses Penuh: Input, Edit & Verifikasi Santri";
+        
+        const filterDateInput = document.getElementById('filterTeacherDate');
+        if (!filterDateInput.value) {
+          filterDateInput.value = new Date().toISOString().split('T')[0];
+        }
+
+        renderTeacherDashboard();
+        renderStudentDropdown(); renderTable();
+      } else if (currentRole === 'SANTRI') {
+        authBox.classList.add('hidden'); 
+        teacherStatsBox.classList.add('hidden');
+        formBox.classList.add('hidden'); 
+        tableSec.classList.remove('hidden');
+        if (bonusPanel) bonusPanel.classList.add('hidden');
+        btnLogout.classList.remove('hidden'); btnAdmin.classList.remove('hidden'); btnPass.classList.remove('hidden');
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 whitespace-nowrap";
+        badge.innerText = `👤 Santri: ${currentSantriName}`;
+        label.innerText = "Portal Data Setoran Pribadi";
+        document.getElementById('tableTitle').innerText = `Setoran Saya (${currentSantriName})`;
+        document.getElementById('tableSubtitle').innerText = "Pengelompokan otomatis per Kontainer Blok A, B, C, D";
+        renderTable();
+      } else {
+        authBox.classList.remove('hidden'); 
+        teacherStatsBox.classList.add('hidden');
+        formBox.classList.add('hidden'); 
+        tableSec.classList.add('hidden');
+        if (bonusPanel) bonusPanel.classList.add('hidden');
+        btnLogout.classList.add('hidden'); btnAdmin.classList.remove('hidden'); btnPass.classList.add('hidden');
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap";
+        badge.innerText = "👤 Portal Santri Mandiri";
+        label.innerText = "Silakan Masuk atau Buat Akun Baru";
+      }
+    }
+
+    function handleFormSubmitSetoran(e) {
+      e.preventDefault();
+      if (currentRole !== 'ADMIN') return;
+
+      const studentName = document.getElementById('inputStudentName').value;
+      if (!studentName) { alert('Belum ada santri terdaftar!'); return; }
+
+      const matchedSt = students.find(s => s.name === studentName);
+
+      const logEntry = {
+        id: editingLogId || Date.now().toString(),
+        studentName: studentName,
+        phone: matchedSt ? matchedSt.phone : '',
+        attendance: { ...attendanceState },
+        date: document.getElementById('inputDate').value,
+        hijriDate: document.getElementById('inputHijriDate').value,
+        surah: document.getElementById('selectSurah').value,
+        pageNumber: document.getElementById('inputPage').value,
+        fluency: activeFluency,
+        notes: document.getElementById('inputNotes').value
+      };
+
+      if (editingLogId) {
+        logs = logs.map(l => l.id === editingLogId ? logEntry : l);
+        alert(`Data setoran ${studentName} berhasil diperbarui!`);
+      } else {
+        logs.unshift(logEntry);
+        alert(`Setoran ${studentName} berhasil disimpan!`);
+      }
+
+      localStorage.setItem('taj_self_logs', JSON.stringify(logs));
+      resetForm();
+      renderTeacherDashboard();
+      renderTable();
+      renderLeaderboard();
+    }
+
+    function editLog(id) {
+      if (currentRole !== 'ADMIN') return;
+      const log = logs.find(l => l.id === id);
+      if (!log) return;
+
+      editingLogId = log.id;
+      document.getElementById('inputStudentName').value = log.studentName;
+      document.getElementById('inputDate').value = log.date;
+      document.getElementById('inputHijriDate').value = log.hijriDate;
+      document.getElementById('selectSurah').value = log.surah;
+      document.getElementById('inputPage').value = log.pageNumber;
+      document.getElementById('inputNotes').value = log.notes;
+
+      attendanceState = { ...(log.attendance || { subuh: true, ashar: true, maghrib: true, isya: true }) };
+      ['subuh', 'ashar', 'maghrib', 'isya'].forEach(updateSessionUI);
+      setFluency(log.fluency);
+
+      document.getElementById('formTitle').innerText = 'Edit Record Setoran Santri';
+      document.getElementById('btnSubmitSetoran').innerText = 'Update Record Setoran';
+      document.getElementById('btnCancelEdit').classList.remove('hidden');
+
+      window.scrollTo(0, 0);
+    }
+
+    function deleteLog(id) {
+      if (currentRole !== 'ADMIN') return;
+      if (confirm('Yakin ingin menghapus catatan setoran ini?')) {
+        logs = logs.filter(l => l.id !== id);
+        localStorage.setItem('taj_self_logs', JSON.stringify(logs));
+        renderTeacherDashboard();
+        renderTable();
+        renderLeaderboard();
+      }
+    }
+
+    function resetForm() {
+      editingLogId = null;
+      document.getElementById('inputNotes').value = '';
+      document.getElementById('formTitle').innerText = 'Form Input Setoran Hafalan Santri';
+      document.getElementById('btnSubmitSetoran').innerText = 'Simpan Setoran Ke Sistem';
+      document.getElementById('btnCancelEdit').classList.remove('hidden');
+      document.getElementById('outputKalkulasiBox').classList.add('hidden');
+      if (document.getElementById('inputSalahPanjangPendek')) document.getElementById('inputSalahPanjangPendek').value = 0;
+      if (document.getElementById('inputMacetAyat')) document.getElementById('inputMacetAyat').value = 0;
+      attendanceState = { subuh: true, ashar: true, maghrib: true, isya: true };
+      ['subuh', 'ashar', 'maghrib', 'isya'].forEach(updateSessionUI);
+      setFluency('Mutqin');
+      initDates();
+    }
+
+    function resetStudentDateFilter() {
+      document.getElementById('filterStudentDate').value = '';
+      renderTable();
+    }
+
+    function formatDisplayPageName(str) {
+      if (!str) return '';
+      return str.replace(/Blok\s+/gi, '').replace(/\(([^)]+)\)/, '- $1').trim();
+    }
+
+    function renderTable() {
+      const container = document.getElementById('rekapContainer');
+      const selectedDate = document.getElementById('filterStudentDate')?.value;
+      const selectedTeacherStudent = document.getElementById('inputStudentName')?.value;
+      const activeTargetStudent = currentRole === 'SANTRI' ? currentSantriName : selectedTeacherStudent;
+
+      if (currentRole === 'ADMIN') {
+        document.getElementById('tableTitle').innerText = activeTargetStudent ? `Laporan Hasil Setoran Santri: ${activeTargetStudent}` : "Laporan Hasil Setoran Santri";
+        document.getElementById('tableSubtitle').innerText = "Menampilkan data khusus santri yang sedang dipilih di form di atas";
+      }
+
+      let filtered = logs;
+      if (activeTargetStudent) {
+        filtered = logs.filter(l => l.studentName.toLowerCase() === activeTargetStudent.toLowerCase());
+      }
+
+      if (selectedDate) {
+        filtered = filtered.filter(l => l.date === selectedDate);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada riwayat setoran untuk ${activeTargetStudent || 'santri ini'}.</p>`;
+        return;
+      }
+
+      const blockGroups = { 'BLOK A': [], 'BLOK B': [], 'BLOK C': [], 'BLOK D': [], 'LAINNYA': [] };
+
+      filtered.forEach(log => {
+        const p = (log.pageNumber || '').toUpperCase();
+        if (p.includes('BLOK A')) blockGroups['BLOK A'].push(log);
+        else if (p.includes('BLOK B')) blockGroups['BLOK B'].push(log);
+        else if (p.includes('BLOK C')) blockGroups['BLOK C'].push(log);
+        else if (p.includes('BLOK D')) blockGroups['BLOK D'].push(log);
+        else blockGroups['LAINNYA'].push(log);
+      });
+
+      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
+
+      Object.keys(blockGroups).forEach(blockKey => {
+        const items = blockGroups[blockKey];
+        if (items.length === 0) return;
+
+        items.sort((a, b) => (a.pageNumber || '').localeCompare(b.pageNumber || '', undefined, { numeric: true, sensitivity: 'base' }));
+
+        const userKey = `${activeTargetStudent}_${blockKey}`;
+        const currentBlokEval = blokEvaluations[userKey];
+
+        const adaPerluUlang = items.some(i => i.fluency === 'Perlu Ulang');
+        const semuaMutqin = items.every(i => i.fluency === 'Mutqin');
+
+        let containerBorderClass = '';
+        let headerBadgeClass = '';
+        let statusText = '';
+
+        if (currentBlokEval && !currentBlokEval.isLulus) {
+          containerBorderClass = 'border-2 border-red-500 shadow-lg shadow-red-500/10 bg-red-500/5';
+          headerBadgeClass = 'bg-red-500/20 text-red-400 border border-red-500/40';
+          statusText = `🔄 Perlu Diulang`;
+        }
+        else if (adaPerluUlang) {
+          containerBorderClass = 'border-2 border-red-500 shadow-lg shadow-red-500/10 bg-red-500/5';
+          headerBadgeClass = 'bg-red-500/20 text-red-400 border border-red-500/40';
+          statusText = '🔄 Perlu Diulang';
+        } else if (semuaMutqin) {
+          containerBorderClass = 'border-2 border-gold-500 shadow-xl shadow-gold-500/10 bg-gold-500/5';
+          headerBadgeClass = 'bg-gold-500/20 text-gold-300 border border-gold-500/40';
+          statusText = '🌟 Mutqin Sempurna';
+        } else {
+          containerBorderClass = 'border-2 border-blue-500 shadow-lg shadow-blue-500/10 bg-blue-500/5';
+          headerBadgeClass = 'bg-blue-500/20 text-blue-300 border border-blue-500/40';
+          statusText = '👍 Lancar';
+        }
+
+        let evalSummaryHtml = '';
+        if (currentBlokEval) {
+          const evalBg = currentBlokEval.isLulus ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400';
+          evalSummaryHtml = `
+            <div class="mb-3 p-2.5 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
+              <div>
+                <span class="font-extrabold text-white block">Nilai Akhir (NA): ${currentBlokEval.na.toFixed(1)}</span>
+                <span class="text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
+              </div>
+              <span class="font-bold text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+                ${currentBlokEval.isLulus ? '🎉 LULUS' : '🔄 REMEDI'}
+              </span>
+            </div>
+          `;
+        }
+
+        htmlContent += `
+          <div class="rounded-2xl p-5 transition-all ${containerBorderClass}">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-3">
+              <div>
+                <h4 class="font-black text-white text-lg tracking-wide">${blockKey}</h4>
+                <p class="text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold ${headerBadgeClass}">${statusText}</span>
+            </div>
+
+            ${evalSummaryHtml}
+
+            <div class="space-y-2.5">
+              ${items.map(item => {
+                let itemBadge = item.fluency === 'Mutqin' ? 'text-gold-400 bg-gold-500/10 border-gold-500/30' : item.fluency === 'Lancar' ? 'text-blue-400 bg-blue-500/10 border-blue-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30';
+                let cleanPageDisplay = formatDisplayPageName(item.pageNumber);
+
+                return `
+                  <div class="p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+                    <div>
+                      <div class="flex items-center space-x-2">
+                        <span class="font-extrabold text-white text-sm">${cleanPageDisplay}</span>
+                        <span class="text-gold-400 font-semibold">• ${item.surah}</span>
+                      </div>
+                      <p class="text-[10px] text-gray-400 mt-0.5">Tanggal: ${item.date} | ${item.notes || 'Tidak ada catatan'}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
+                      ${currentRole === 'ADMIN' ? `
+                        <button onclick="openWhatsappModal('${item.id}')" class="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-lg transition" title="Share WA">💬</button>
+                        <button onclick="editLog('${item.id}')" class="p-1.5 bg-dark-800 text-gray-200 hover:bg-dark-700 border border-white/10 rounded-lg transition" title="Edit Data">✏️</button>
+                        <button onclick="deleteLog('${item.id}')" class="p-1.5 bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 rounded-lg transition" title="Hapus Data">🗑️</button>
+                      ` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      htmlContent += `</div>`;
+      container.innerHTML = htmlContent;
+    }
+
+    function openStudentManagerModal() {
+      if (currentRole !== 'ADMIN') return;
+      document.getElementById('modalStudentManager').classList.remove('hidden');
+      document.getElementById('modalStudentManager').classList.add('flex');
+      renderStudentAccountsList();
+    }
+
+    function closeStudentManagerModal() {
+      document.getElementById('modalStudentManager').classList.add('hidden');
+      document.getElementById('modalStudentManager').classList.remove('flex');
+    }
+
+    function renderStudentAccountsList() {
+      const container = document.getElementById('studentAccountsList');
+      if (students.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-500 text-center py-4">Belum ada akun santri mendaftar.</p>`;
+        return;
+      }
+
+      container.innerHTML = students.map(st => {
+        const isApproved = st.status === 'APPROVED';
+        return `
+          <div class="p-3 bg-dark-900 border border-white/10 rounded-xl text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <div class="flex items-center space-x-2">
+                <p class="font-bold text-white text-sm">${st.name}</p>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isApproved ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'}">
+                  ${isApproved ? '✅ Disetujui' : '⏳ Menunggu'}
+                </span>
+              </div>
+              <p class="text-gray-400 mt-0.5">WA: ${st.phone || '-'} | Sandi: <span class="text-gold-400 font-mono">${st.pass}</span></p>
+            </div>
+
+            <div class="flex items-center gap-1.5 self-end sm:self-auto">
+              ${!isApproved ? `
+                <button onclick="approveStudentAccount('${st.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow transition">
+                  ✅ Setujui
+                </button>
+              ` : ''}
+              <button onclick="deleteStudentAccount('${st.id}', '${st.name}')" class="px-2.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-bold transition">
+                🗑️ Hapus
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function approveStudentAccount(id) {
+      students = students.map(s => s.id === id ? { ...s, status: 'APPROVED' } : s);
+      localStorage.setItem('taj_self_students', JSON.stringify(students));
+      renderStudentDropdown();
+      renderTeacherDashboard();
+      renderStudentAccountsList();
+      renderLeaderboard();
+      alert('Alhamdulillah, akun santri telah disetujui & diaktifkan!');
+    }
+
+    function deleteStudentAccount(id, name) {
+      if (confirm(`Hapus/Tolak akun santri "${name}"?`)) {
+        students = students.filter(s => s.id !== id);
+        localStorage.setItem('taj_self_students', JSON.stringify(students));
+        renderStudentDropdown();
+        renderTeacherDashboard();
+        renderStudentAccountsList();
+        renderLeaderboard();
+        alert(`Akun santri "${name}" telah dihapus.`);
+      }
+    }
+
+    function openWhatsappModal(id) {
+      const log = logs.find(l => l.id === id);
+      if (!log) return;
+      activeWaText = `*LAPORAN SETORAN TAHFIDZ* 📖\n\nSantri: *${log.studentName}*\nTanggal: ${log.date} (${log.hijriDate})\nSurah: *${log.surah}* (${formatDisplayPageName(log.pageNumber)})\nRating: *${log.fluency}*\nCatatan: "${log.notes || '-'}"`;
+      document.getElementById('waModalSubtitle').innerText = `Santri: ${log.studentName}`;
+      document.getElementById('waPreviewBox').innerText = activeWaText;
+      document.getElementById('waDirectBtn').href = `https://wa.me/${(log.phone || '').replace(/^0/, '62')}?text=${encodeURIComponent(activeWaText)}`;
+      document.getElementById('modalWhatsapp').classList.remove('hidden');
+      document.getElementById('modalWhatsapp').classList.add('flex');
+    }
+
+    function closeWhatsappModal() {
+      document.getElementById('modalWhatsapp').classList.add('hidden');
+      document.getElementById('modalWhatsapp').classList.remove('flex');
+    }
+
+    function copyWaText() {
+      navigator.clipboard.writeText(activeWaText);
+      alert('Teks disalin!');
+    }
+
+    function resetTeacherDateFilter() {
+      document.getElementById('filterTeacherDate').value = '';
+      renderTeacherDashboard();
+    }
+
+    function renderTeacherDashboard() {
+      const approvedStudents = students.filter(s => s.status === 'APPROVED');
+      const selectedFilterDate = document.getElementById('filterTeacherDate').value;
+
+      let filteredLogs = logs;
+      if (selectedFilterDate) {
+        filteredLogs = logs.filter(l => l.date === selectedFilterDate);
+      }
+
+      let mutqinCount = filteredLogs.filter(l => l.fluency === 'Mutqin').length;
+      let lancarCount = filteredLogs.filter(l => l.fluency === 'Lancar').length;
+      let ulangCount = filteredLogs.filter(l => l.fluency === 'Perlu Ulang').length;
+
+      document.getElementById('teacherStatTotalSantri').innerText = approvedStudents.length;
+      document.getElementById('teacherStatTotalSetoran').innerText = filteredLogs.length;
+      document.getElementById('teacherStatMutqin').innerText = mutqinCount;
+      document.getElementById('teacherStatLancar').innerText = lancarCount;
+      document.getElementById('teacherStatUlang').innerText = ulangCount;
+      document.getElementById('teacherStatTotalPendaftar').innerText = applicants.length;
+
+      const ctxFluency = document.getElementById('teacherFluencyChart').getContext('2d');
+      if (teacherFluencyChartInstance) teacherFluencyChartInstance.destroy();
+      teacherFluencyChartInstance = new Chart(ctxFluency, {
+        type: 'doughnut',
+        data: {
+          labels: ['Mutqin 🌟', 'Lancar 👍', 'Perlu Ulang 🔄'],
+          datasets: [{
+            data: [mutqinCount || 1, lancarCount, ulangCount],
+            backgroundColor: ['#D4AF37', '#3B82F6', '#EF4444'],
+            borderWidth: 0
+          }]
+        },
+        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 11 } } } } }
+      });
+
+      const ctxAttendance = document.getElementById('teacherAttendanceChart').getContext('2d');
+      if (teacherAttendanceChartInstance) teacherAttendanceChartInstance.destroy();
+      teacherAttendanceChartInstance = new Chart(ctxAttendance, {
+        type: 'bar',
+        data: {
+          labels: ['Shubuh', 'Ashar', 'Maghrib', 'Isya'],
+          datasets: [{
+            label: 'Total Kehadiran',
+            data: [
+              filteredLogs.length, 
+              Math.floor(filteredLogs.length * 0.9), 
+              Math.floor(filteredLogs.length * 0.85), 
+              Math.floor(filteredLogs.length * 0.95)
+            ],
+            backgroundColor: '#D4AF37'
+          }]
+        },
+        options: {
+          scales: {
+            x: { ticks: { color: '#9CA3AF' } },
+            y: { ticks: { color: '#9CA3AF' } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function renderOwnerDashboard() {
+      const approvedStudents = students.filter(s => s.status === 'APPROVED');
+      let mutqinCount = logs.filter(l => l.fluency === 'Mutqin').length;
+      let lancarCount = logs.filter(l => l.fluency === 'Lancar').length;
+      let ulangCount = logs.filter(l => l.fluency === 'Perlu Ulang').length;
+
+      document.getElementById('ownerStatTotalSantri').innerText = approvedStudents.length;
+      document.getElementById('ownerStatTotalSetoran').innerText = logs.length;
+      document.getElementById('ownerStatMutqin').innerText = mutqinCount;
+      document.getElementById('ownerStatLancar').innerText = lancarCount;
+      document.getElementById('ownerStatUlang').innerText = ulangCount;
+
+      let omset = applicants.reduce((acc, curr) => {
+        return acc + (curr.program.includes('Taj Al-Asasi') ? 500000 : 300000);
+      }, 0);
+      document.getElementById('ownerStatOmsetSPP').innerText = `Rp ${omset.toLocaleString('id-ID')}`;
+
+      const ctxFluency = document.getElementById('fluencyChart').getContext('2d');
+      if (fluencyChartInstance) fluencyChartInstance.destroy();
+      fluencyChartInstance = new Chart(ctxFluency, {
+        type: 'doughnut',
+        data: {
+          labels: ['Mutqin 🌟', 'Lancar 👍', 'Perlu Ulang 🔄'],
+          datasets: [{
+            data: [mutqinCount || 1, lancarCount, ulangCount],
+            backgroundColor: ['#D4AF37', '#3B82F6', '#EF4444'],
+            borderWidth: 0
+          }]
+        },
+        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 11 } } } } }
+      });
+
+      const ctxAttendance = document.getElementById('attendanceChart').getContext('2d');
+      if (attendanceChartInstance) attendanceChartInstance.destroy();
+      attendanceChartInstance = new Chart(ctxAttendance, {
+        type: 'bar',
+        data: {
+          labels: ['Shubuh', 'Ashar', 'Maghrib', 'Isya'],
+          datasets: [{
+            label: 'Total Kehadiran',
+            data: [logs.length, Math.floor(logs.length * 0.9), Math.floor(logs.length * 0.85), Math.floor(logs.length * 0.95)],
+            backgroundColor: '#D4AF37'
+          }]
+        },
+        options: {
+          scales: {
+            x: { ticks: { color: '#9CA3AF' } },
+            y: { ticks: { color: '#9CA3AF' } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      const pendaftaranTbody = document.getElementById('ownerPendaftaranTableBody');
+      pendaftaranTbody.innerHTML = applicants.length === 0 ? 
+        `<tr><td colspan="6" class="p-4 text-center text-gray-500">Belum ada pendaftaran.</td></tr>` :
+        applicants.map(a => `
+          <tr>
+            <td class="px-3 py-2 text-gold-400 font-bold">${a.regCode}</td>
+            <td class="px-3 py-2 font-bold text-white">${a.name}</td>
+            <td class="px-3 py-2 text-gray-400">${a.category}</td>
+            <td class="px-3 py-2 text-gold-300">${a.program}</td>
+            <td class="px-3 py-2 text-emerald-400 font-bold">${a.plan}</td>
+            <td class="px-3 py-2 text-gray-400">${a.phone}</td>
+          </tr>
+        `).join('');
+
+      renderStudentDropdown();
+      renderOwnerBlockCards();
+    }
+
+    function renderOwnerBlockCards() {
+      const container = document.getElementById('ownerMasterTableBody');
+      const selectedStudent = document.getElementById('ownerStudentSelect')?.value;
+      if (!container) return;
+
+      if (!selectedStudent) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada santri terdaftar yang dipilih.</p>`;
+        return;
+      }
+
+      const studentLogs = logs.filter(l => l.studentName.toLowerCase() === selectedStudent.toLowerCase());
+
+      if (studentLogs.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada riwayat setoran untuk santri: <strong class="text-amber-400">${selectedStudent}</strong>.</p>`;
+        return;
+      }
+
+      const blockGroups = { 'BLOK A': [], 'BLOK B': [], 'BLOK C': [], 'BLOK D': [], 'LAINNYA': [] };
+
+      studentLogs.forEach(log => {
+        const p = (log.pageNumber || '').toUpperCase();
+        if (p.includes('BLOK A')) blockGroups['BLOK A'].push(log);
+        else if (p.includes('BLOK B')) blockGroups['BLOK B'].push(log);
+        else if (p.includes('BLOK C')) blockGroups['BLOK C'].push(log);
+        else if (p.includes('BLOK D')) blockGroups['BLOK D'].push(log);
+        else blockGroups['LAINNYA'].push(log);
+      });
+
+      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">`;
+
+      Object.keys(blockGroups).forEach(blockKey => {
+        const items = blockGroups[blockKey];
+        if (items.length === 0) return;
+
+        items.sort((a, b) => (a.pageNumber || '').localeCompare(b.pageNumber || '', undefined, { numeric: true, sensitivity: 'base' }));
+
+        const userKey = `${selectedStudent}_${blockKey}`;
+        const currentBlokEval = blokEvaluations[userKey];
+
+        const adaPerluUlang = items.some(i => i.fluency === 'Perlu Ulang');
+        const semuaMutqin = items.every(i => i.fluency === 'Mutqin');
+
+        let containerBorderClass = '';
+        let headerBadgeClass = '';
+        let statusText = '';
+
+        if (currentBlokEval && !currentBlokEval.isLulus) {
+          containerBorderClass = 'border-2 border-red-500 shadow-lg shadow-red-500/10 bg-red-500/5';
+          headerBadgeClass = 'bg-red-500/20 text-red-400 border border-red-500/40';
+          statusText = `🔄 Perlu Diulang`;
+        }
+        else if (adaPerluUlang) {
+          containerBorderClass = 'border-2 border-red-500 shadow-lg shadow-red-500/10 bg-red-500/5';
+          headerBadgeClass = 'bg-red-500/20 text-red-400 border border-red-500/40';
+          statusText = '🔄 Perlu Diulang';
+        } else if (semuaMutqin) {
+          containerBorderClass = 'border-2 border-gold-500 shadow-xl shadow-gold-500/10 bg-gold-500/5';
+          headerBadgeClass = 'bg-gold-500/20 text-gold-300 border border-gold-500/40';
+          statusText = '🌟 Mutqin Sempurna';
+        } else {
+          containerBorderClass = 'border-2 border-blue-500 shadow-lg shadow-blue-500/10 bg-blue-500/5';
+          headerBadgeClass = 'bg-blue-500/20 text-blue-300 border border-blue-500/40';
+          statusText = '👍 Lancar';
+        }
+
+        let evalSummaryHtml = '';
+        if (currentBlokEval) {
+          const evalBg = currentBlokEval.isLulus ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400';
+          evalSummaryHtml = `
+            <div class="mb-3 p-2.5 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
+              <div>
+                <span class="font-extrabold text-white block">Nilai Akhir (NA): ${currentBlokEval.na.toFixed(1)}</span>
+                <span class="text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
+              </div>
+              <span class="font-bold text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+                ${currentBlokEval.isLulus ? '🎉 LULUS' : '🔄 REMEDI'}
+              </span>
+            </div>
+          `;
+        }
+
+        htmlContent += `
+          <div class="rounded-2xl p-5 transition-all ${containerBorderClass}">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-3">
+              <div>
+                <h4 class="font-black text-white text-lg tracking-wide">${blockKey}</h4>
+                <p class="text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold ${headerBadgeClass}">${statusText}</span>
+            </div>
+
+            ${evalSummaryHtml}
+
+            <div class="space-y-2.5">
+              ${items.map(item => {
+                let itemBadge = item.fluency === 'Mutqin' ? 'text-gold-400 bg-gold-500/10 border-gold-500/30' : item.fluency === 'Lancar' ? 'text-blue-400 bg-blue-500/10 border-blue-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30';
+                let cleanPageDisplay = formatDisplayPageName(item.pageNumber);
+
+                return `
+                  <div class="p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+                    <div>
+                      <div class="flex items-center space-x-2">
+                        <span class="font-extrabold text-white text-sm">${cleanPageDisplay}</span>
+                        <span class="text-gold-400 font-semibold">• ${item.surah}</span>
+                      </div>
+                      <p class="text-[10px] text-gray-400 mt-0.5">Tanggal: ${item.date} | ${item.notes || 'Tidak ada catatan'}</p>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      htmlContent += `</div>`;
+      container.innerHTML = htmlContent;
+    }
+
+    function initJuzDropdownMushaf() {
+      const select = document.getElementById('juzSelect');
+      if (!select) return;
+      select.innerHTML = '';
+      for (let i = 1; i <= 30; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Juz ${i} (Hal ${JUZ_PAGE_MAPPING[i][0]}-${JUZ_PAGE_MAPPING[i][1]})`;
+        if (i === 30) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+
+    async function initSurahDropdownMushaf() {
+      try {
+        const res = await fetch('https://api.quran.com/api/v4/chapters?language=id');
+        const data = await res.json();
+        const select = document.getElementById('surahSelect');
+        if (!select) return;
+        select.innerHTML = '';
+        data.chapters.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = `${c.id}. ${c.name_simple} (${c.verses_count} Ayat)`;
+          select.appendChild(opt);
+        });
+      } catch (err) {}
+    }
+
+    function toggleSearchMode(mode) {
+      activeSearchMode = mode;
+      const juzSel = document.getElementById('juzSelect');
+      const surahSel = document.getElementById('surahSelect');
+      const pageInp = document.getElementById('pageInput');
+      const blockPanel = document.getElementById('blockFilterPanel');
+
+      juzSel.classList.add('hidden');
+      surahSel.classList.add('hidden');
+      pageInp.classList.add('hidden');
+
+      if (mode === 'JUZ') {
+        juzSel.classList.remove('hidden');
+        blockPanel.classList.remove('hidden');
+        loadByJuz(juzSel.value || 30);
+      } else if (mode === 'SURAH') {
+        surahSel.classList.remove('hidden');
+        blockPanel.classList.add('hidden');
+        loadBySurah(surahSel.value || 1);
+      } else {
+        pageInp.classList.remove('hidden');
+        blockPanel.classList.add('hidden');
+        loadByPageNumber(pageInp.value || 582);
+      }
+    }
+
+    async function fetchVersesByPageRange(startPage, endPage) {
+      const container = document.getElementById('quranContainer');
+      container.innerHTML = `<div class="text-center py-12 text-gold-400 text-xs animate-pulse">⏳ Memuat Halaman ${startPage} - ${endPage} Qurtrain...</div>`;
+
+      let fetchedVerses = [];
+
+      try {
+        for (let page = startPage; page <= endPage; page++) {
+          const url = `https://api.quran.com/api/v4/verses/by_page/${page}?language=id&words=false&fields=text_uthmani,chapter_id&translations=33`;
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (data.verses) {
+            data.verses.forEach(v => {
+              const words = v.text_uthmani.trim().split(' ');
+              const surahNameStr = SURAHS[v.chapter_id - 1] || `Surah ${v.chapter_id}`;
+              
+              fetchedVerses.push({
+                numberInSurah: v.verse_number,
+                verseKey: v.verse_key,
+                pageNumber: v.page_number,
+                chapterId: v.chapter_id,
+                surahName: surahNameStr,
+                firstWords: words.slice(0, 1).join(' '),
+                remainingWords: words.slice(1).join(' '),
+                translation: v.translations && v.translations[0] ? v.translations[0].text.replace(/<[^>]*>/g, '') : ''
+              });
+            });
+          }
+        }
+
+        currentVerses = fetchedVerses;
+        renderQuran();
+      } catch (err) {
+        container.innerHTML = `<div class="text-center py-8 text-red-400 text-xs">⚠️ Gagal memuat data Mushaf. Periksa koneksi Anda.</div>`;
+      }
+    }
+
+    function loadByJuz(juzNum) {
+      currentJuzNumber = parseInt(juzNum);
+      const range = JUZ_PAGE_MAPPING[currentJuzNumber];
+      document.getElementById('surahInfo').textContent = `Juz ${currentJuzNumber} (Halaman ${range[0]} - ${range[1]})`;
+      selectMainBlock('ALL');
+    }
+
+    function loadBySurah(surahId) {
+      const container = document.getElementById('quranContainer');
+      container.innerHTML = `<div class="text-center py-12 text-gold-400 text-xs animate-pulse">⏳ Memuat Surah dari Mushaf Qurtrain...</div>`;
+
+      fetch(`https://api.quran.com/api/v4/verses/by_chapter/${surahId}?language=id&fields=text_uthmani&translations=33&per_page=300`)
+        .then(res => res.json())
+        .then(data => {
+          const surahNameStr = SURAHS[parseInt(surahId) - 1] || `Surah ${surahId}`;
+          currentVerses = data.verses.map(v => {
+            const words = v.text_uthmani.trim().split(' ');
+            return {
+              numberInSurah: v.verse_number,
+              verseKey: v.verse_key,
+              surahName: surahNameStr,
+              firstWords: words.slice(0, 1).join(' '),
+              remainingWords: words.slice(1).join(' '),
+              translation: v.translations && v.translations[0] ? v.translations[0].text.replace(/<[^>]*>/g, '') : ''
+            };
+          });
+          document.getElementById('surahInfo').textContent = `${surahNameStr} (${currentVerses.length} Ayat)`;
+          renderQuran();
+        });
+    }
+
+    function loadByPageNumber(pageNum) {
+      pageNum = parseInt(pageNum);
+      if (pageNum < 1) pageNum = 1;
+      if (pageNum > 604) pageNum = 604;
+      document.getElementById('surahInfo').textContent = `Halaman ${pageNum} dari 604`;
+      fetchVersesByPageRange(pageNum, pageNum);
+    }
+
+    function selectMainBlock(blockLetter) {
+      selectedMainBlock = blockLetter;
+      const subContainer = document.getElementById('subBlockContainer');
+      const subList = document.getElementById('subBlockButtonsList');
+      const subTitle = document.getElementById('subBlockTitle');
+
+      const juzRange = JUZ_PAGE_MAPPING[currentJuzNumber];
+      const startJuzPage = juzRange[0];
+
+      document.querySelectorAll('.main-block-btn').forEach(btn => {
+        btn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-gray-300 hover:bg-gold-500/20 border border-white/10 text-center truncate";
+      });
+
+      const activeBtn = document.getElementById(`mainBtn_${blockLetter}`);
+
+      if (blockLetter === 'ALL') {
+        activeSubBlock = 'ALL';
+        subContainer.classList.add('hidden');
+        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-gold-500 text-dark-950 shadow-gold-glow text-center truncate";
+        fetchVersesByPageRange(juzRange[0], juzRange[1]);
+      } else {
+        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-gold-500/20 text-gold-300 border border-gold-500 text-center shadow-sm truncate";
+        
+        subTitle.textContent = `Pilih Sub-Blok ${blockLetter}:`;
+        subContainer.classList.remove('hidden');
+
+        let blockOffset = 0;
+        if (blockLetter === 'B') blockOffset = 5;
+        if (blockLetter === 'C') blockOffset = 10;
+        if (blockLetter === 'D') blockOffset = 15;
+
+        let htmlList = '';
+        for (let i = 1; i <= 5; i++) {
+          const subCode = `${blockLetter}${i}`;
+          const actualPage = Math.min(startJuzPage + blockOffset + (i - 1), juzRange[1]);
+          const isSubActive = activeSubBlock === subCode;
+
+          htmlList += `
+            <button onclick="filterSubBlock('${subCode}', ${actualPage})" class="py-2 px-1 rounded-xl text-xs border transition text-center font-bold ${isSubActive ? 'bg-gold-500 text-dark-950 font-bold shadow-gold-glow' : 'bg-dark-900 text-gray-300 border-white/10 hover:bg-gold-500/20'}">
+              Blok ${subCode}
+            </button>
+          `;
+        }
+        subList.innerHTML = htmlList;
+
+        const blockStartPage = startJuzPage + blockOffset;
+        const blockEndPage = Math.min(blockStartPage + 4, juzRange[1]);
+        fetchVersesByPageRange(blockStartPage, blockEndPage);
+      }
+    }
+
+    function filterSubBlock(subCode, actualPage) {
+      activeSubBlock = subCode;
+      fetchVersesByPageRange(actualPage, actualPage);
+    }
+
+    function startVerseHold(element) {
+      if (!isHafalanMode) return;
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(() => {
+        element.classList.add('reveal-active');
+      }, 300);
+    }
+
+    function cancelVerseHold(element) {
+      clearTimeout(holdTimer);
+      element.classList.remove('reveal-active');
+    }
+
+    function renderQuran() {
+      const container = document.getElementById('quranContainer');
+      container.innerHTML = '';
+
+      if (currentVerses.length === 0) {
+        container.innerHTML = `<div class="text-center text-gray-500 py-8 text-xs">Tidak ada data ayat.</div>`;
+        return;
+      }
+
+      const groupSize = 3;
+      for (let i = 0; i < currentVerses.length; i += groupSize) {
+        const group = currentVerses.slice(i, i + groupSize);
+        const groupIdx = Math.floor(i / groupSize) % 4;
+
+        const groupDiv = document.createElement('div');
+        groupDiv.className = `row-group-${groupIdx} p-4 rounded-xl transition-all space-y-4 ${isHafalanMode ? 'hafalan-mode' : ''}`;
+        groupDiv.dir = 'rtl';
+
+        let htmlContent = `<div class="font-quran text-3xl md:text-4xl leading-[3.5rem] text-right text-amber-100">`;
+        
+        group.forEach(v => {
+          htmlContent += `
+            <span class="verse-container inline-block my-1 cursor-pointer select-none"
+                  onmousedown="startVerseHold(this)" onmouseup="cancelVerseHold(this)" onmouseleave="cancelVerseHold(this)"
+                  ontouchstart="startVerseHold(this)" ontouchend="cancelVerseHold(this)">
+              <span class="keyword-text text-amber-100">${v.firstWords} </span>
+              <span class="blur-text text-gray-200">${v.remainingWords}</span>
+              <span class="text-gold-400 text-xl mx-2 font-sans">۝${v.numberInSurah}</span>
+            </span>
+          `;
+        });
+        
+        htmlContent += `</div>`;
+
+        htmlContent += `<div dir="ltr" class="text-xs md:text-sm text-gray-300 mt-2 border-t border-white/10 pt-2 space-y-1">`;
+        group.forEach(v => {
+          htmlContent += `<p><b class="text-gold-400">${v.surahName}: ${v.numberInSurah}.</b> ${v.translation}</p>`;
+        });
+        htmlContent += `</div>`;
+
+        groupDiv.innerHTML = htmlContent;
+        container.appendChild(groupDiv);
+      }
+    }
+
+    function toggleHafalanMode() {
+      isHafalanMode = !isHafalanMode;
+      const btn = document.getElementById('hafalanBtn');
+      btn.textContent = isHafalanMode ? "👁️ Mode Hafalan: ON (Hold Cepat)" : "🙈 Mode Hafalan: OFF";
+      btn.className = isHafalanMode ? "bg-amber-600 text-white text-xs px-3.5 py-2 rounded-xl border font-bold shadow-gold-glow" : "bg-dark-800 text-xs px-3.5 py-2 rounded-xl border border-white/10 font-bold";
+      renderQuran();
+    }
+  </script>
+</body>
+</html>
