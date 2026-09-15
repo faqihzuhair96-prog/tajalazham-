@@ -1540,7 +1540,107 @@
     &copy; 2026 Taj Al-A’zham Tahfidz System. All rights reserved.
   </footer>
 
-  <!-- JAVASCRIPT SYSTEM LOGIC -->
+  <!-- 🚀 INTEGRASI FIREBASE SDK MODULAR DIHUBUNGKAN KE SYSTEM 🚀 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbipMehmZK5woQpFfRovxrL8f_SP-O-JM",
+      authDomain: "taj-al-azham.firebaseapp.com",
+      projectId: "taj-al-azham",
+      storageBucket: "taj-al-azhambasestorage.app",
+      messagingSenderId: "968288235660",
+      appId: "1:968288235660:web:ce3a4b02daf3bdfbbb0ba9",
+      measurementId: "G-QKETM0Y338"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const logsRef = collection(db, "taj_logs");
+    const studentsRef = collection(db, "taj_students");
+    const applicantsRef = collection(db, "taj_applicants");
+    const evaluationsRef = collection(db, "taj_evaluations");
+    const bonusesRef = collection(db, "taj_bonuses");
+
+    // REALTIME LISTENERS
+    onSnapshot(query(logsRef, orderBy("createdAt", "desc")), (snapshot) => {
+      logs = [];
+      snapshot.forEach(d => logs.push({ id: d.id, ...d.data() }));
+      renderTable(); renderLeaderboard();
+      if (typeof renderTeacherDashboard === 'function') renderTeacherDashboard();
+      if (typeof renderOwnerDashboard === 'function') renderOwnerDashboard();
+    });
+
+    onSnapshot(studentsRef, (snapshot) => {
+      students = [];
+      snapshot.forEach(d => students.push({ id: d.id, ...d.data() }));
+      renderStudentDropdown(); renderLeaderboard();
+    });
+
+    onSnapshot(applicantsRef, (snapshot) => {
+      applicants = [];
+      snapshot.forEach(d => applicants.push({ id: d.id, ...d.data() }));
+      if (typeof renderApplicants === 'function') renderApplicants();
+    });
+
+    onSnapshot(evaluationsRef, (snapshot) => {
+      blokEvaluations = {};
+      snapshot.forEach(d => blokEvaluations[d.id] = d.data());
+      renderTable(); renderLeaderboard();
+    });
+
+    onSnapshot(bonusesRef, (snapshot) => {
+      teacherBonusPoints = {};
+      snapshot.forEach(d => teacherBonusPoints[d.id] = d.data().amount || 0);
+      renderLeaderboard();
+    });
+
+    // WINDOW FIREBASE HELPER FUNCTIONS
+    window.fbAddLog = async (logData) => {
+      logData.createdAt = new Date().toISOString();
+      await addDoc(logsRef, logData);
+    };
+
+    window.fbUpdateLog = async (id, logData) => {
+      await updateDoc(doc(db, "taj_logs", id), logData);
+    };
+
+    window.fbDeleteLog = async (id) => {
+      await deleteDoc(doc(db, "taj_logs", id));
+    };
+
+    window.fbAddStudent = async (studentData) => {
+      await setDoc(doc(db, "taj_students", studentData.id), studentData);
+    };
+
+    window.fbUpdateStudent = async (id, studentData) => {
+      await updateDoc(doc(db, "taj_students", id), studentData);
+    };
+
+    window.fbDeleteStudent = async (id) => {
+      await deleteDoc(doc(db, "taj_students", id));
+    };
+
+    window.fbAddApplicant = async (appData) => {
+      await setDoc(doc(db, "taj_applicants", appData.id.toString()), appData);
+    };
+
+    window.fbDeleteApplicant = async (id) => {
+      await deleteDoc(doc(db, "taj_applicants", id.toString()));
+    };
+
+    window.fbSaveEvaluation = async (userKey, evalData) => {
+      await setDoc(doc(db, "taj_evaluations", userKey), evalData);
+    };
+
+    window.fbSaveBonus = async (studentName, amount) => {
+      await setDoc(doc(db, "taj_bonuses", studentName), { studentName, amount });
+    };
+  </script>
+
+  <!-- JAVASCRIPT SYSTEM LOGIC (UTUH 100%) -->
   <script>
     const OWNER_PIN = "Abdulahfaqih2004";
     const TEACHER_PIN = "020304";
@@ -1880,7 +1980,7 @@
 
       // 7. Simpan data evaluasi blok
       const userKey = `${studentName}_${blockKey}`;
-      blokEvaluations[userKey] = {
+      const evalPayload = {
         studentName,
         blockKey,
         salahPanjangPendek,
@@ -1890,7 +1990,9 @@
         na,
         isLulus
       };
-
+      
+      blokEvaluations[userKey] = evalPayload;
+      if (window.fbSaveEvaluation) window.fbSaveEvaluation(userKey, evalPayload);
       localStorage.setItem('taj_blok_evaluations', JSON.stringify(blokEvaluations));
 
       // 8. Output Visual Hasil Perhitungan
@@ -1940,6 +2042,7 @@
       }
       teacherBonusPoints[studentName] += amount;
 
+      if (window.fbSaveBonus) window.fbSaveBonus(studentName, teacherBonusPoints[studentName]);
       localStorage.setItem('taj_teacher_bonuses', JSON.stringify(teacherBonusPoints));
 
       document.getElementById('inputBonusAmount').value = '';
@@ -2086,6 +2189,7 @@
       };
 
       applicants.unshift(newApplicant);
+      if (window.fbAddApplicant) window.fbAddApplicant(newApplicant);
       localStorage.setItem('taj_applicants', JSON.stringify(applicants));
 
       document.getElementById('confCode').innerText = regCode;
@@ -2185,6 +2289,7 @@
     function deleteApplicant(id) {
       if (confirm('Hapus pendaftar ini?')) {
         applicants = applicants.filter(a => a.id !== id);
+        if (window.fbDeleteApplicant) window.fbDeleteApplicant(id);
         localStorage.setItem('taj_applicants', JSON.stringify(applicants));
         renderApplicants();
       }
@@ -2232,7 +2337,9 @@
         alert('Nama santri sudah terdaftar!'); return;
       }
 
-      students.push({ id: Date.now().toString(), name, phone, pass, status: 'PENDING', createdAt: new Date().toLocaleDateString('id-ID') });
+      const newSt = { id: Date.now().toString(), name, phone, pass, status: 'PENDING', createdAt: new Date().toLocaleDateString('id-ID') };
+      students.push(newSt);
+      if (window.fbAddStudent) window.fbAddStudent(newSt);
       localStorage.setItem('taj_self_students', JSON.stringify(students));
       
       document.getElementById('regStudentName').value = '';
@@ -2275,6 +2382,11 @@
       if (currentRole !== 'SANTRI') return;
       const newPass = prompt(`Sandi baru untuk ${currentSantriName}:`);
       if (newPass && newPass.trim().length >= 4) {
+        const targetSt = students.find(s => s.name === currentSantriName);
+        if (targetSt) {
+          targetSt.pass = newPass.trim();
+          if (window.fbUpdateStudent) window.fbUpdateStudent(targetSt.id, { pass: newPass.trim() });
+        }
         students = students.map(s => s.name === currentSantriName ? { ...s, pass: newPass.trim() } : s);
         localStorage.setItem('taj_self_students', JSON.stringify(students));
         alert('Kata sandi berhasil diperbarui!');
@@ -2347,7 +2459,6 @@
       const matchedSt = students.find(s => s.name === studentName);
 
       const logEntry = {
-        id: editingLogId || Date.now().toString(),
         studentName: studentName,
         phone: matchedSt ? matchedSt.phone : '',
         attendance: { ...attendanceState },
@@ -2360,11 +2471,12 @@
       };
 
       if (editingLogId) {
-        logs = logs.map(l => l.id === editingLogId ? logEntry : l);
-        alert(`Data setoran ${studentName} berhasil diperbarui!`);
+        if (window.fbUpdateLog) window.fbUpdateLog(editingLogId, logEntry);
+        logs = logs.map(l => l.id === editingLogId ? { id: editingLogId, ...logEntry } : l);
+        alert(`Data setoran ${studentName} berhasil diperbarui di Firebase!`);
       } else {
-        logs.unshift(logEntry);
-        alert(`Setoran ${studentName} berhasil disimpan!`);
+        if (window.fbAddLog) window.fbAddLog(logEntry);
+        alert(`Setoran ${studentName} berhasil disimpan ke Firebase Realtime!`);
       }
 
       localStorage.setItem('taj_self_logs', JSON.stringify(logs));
@@ -2402,6 +2514,7 @@
       if (currentRole !== 'ADMIN') return;
       if (confirm('Yakin ingin menghapus catatan setoran ini?')) {
         logs = logs.filter(l => l.id !== id);
+        if (window.fbDeleteLog) window.fbDeleteLog(id);
         localStorage.setItem('taj_self_logs', JSON.stringify(logs));
         renderTeacherDashboard();
         renderTable();
@@ -2619,6 +2732,7 @@
 
     function approveStudentAccount(id) {
       students = students.map(s => s.id === id ? { ...s, status: 'APPROVED' } : s);
+      if (window.fbUpdateStudent) window.fbUpdateStudent(id, { status: 'APPROVED' });
       localStorage.setItem('taj_self_students', JSON.stringify(students));
       renderStudentDropdown();
       renderTeacherDashboard();
@@ -2630,6 +2744,7 @@
     function deleteStudentAccount(id, name) {
       if (confirm(`Hapus/Tolak akun santri "${name}"?`)) {
         students = students.filter(s => s.id !== id);
+        if (window.fbDeleteStudent) window.fbDeleteStudent(id);
         localStorage.setItem('taj_self_students', JSON.stringify(students));
         renderStudentDropdown();
         renderTeacherDashboard();
