@@ -120,7 +120,10 @@
     .page-slide {
       width: 20%;
       flex-shrink: 0;
-      padding: 0 0.5rem;
+      padding: 0 0.25rem;
+    }
+    @media (min-width: 640px) {
+      .page-slide { padding: 0 0.5rem; }
     }
 
     .modal-backdrop-blur {
@@ -197,58 +200,59 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-8">
+<body class="min-h-screen flex flex-col justify-between p-2 sm:p-6 md:p-8">
 
   <!-- HEADER BRANDING & NAVIGASI UTAMA -->
-  <header class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-white/10 sticky top-0 glass-nav rounded-2xl p-4 z-40 shadow-glass">
-    <div class="flex items-center space-x-3.5 cursor-pointer" onclick="switchPage('home')">
-      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-dark-900 to-black border border-purpleCustom-500/50 flex items-center justify-center p-1.5 shadow-purple-glow shrink-0">
-        <svg viewBox="0 0 100 100" class="w-full h-full text-purpleCustom-400 fill-none stroke-current" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="50" cy="50" r="46" stroke="#A855F7" stroke-width="1.5" opacity="0.6"/>
-          <path d="M 50 32 L 63 48 L 78 40 L 70 60 L 50 50 L 30 60 L 22 40 L 37 48 Z" stroke="#C084FC" stroke-width="3" fill="none"/>
-          <path d="M 28 62 Q 50 53 72 62" stroke="#A855F7" stroke-width="3"/>
-          <path d="M 30 66 Q 50 57 70 66" stroke="#A855F7" stroke-width="2.5"/>
-          <path d="M 50 53 L 50 67" stroke="#A855F7" stroke-width="2"/>
-        </svg>
-      </div>
-      <div>
-        <h1 class="text-xl sm:text-2xl font-extrabold purple-gradient-text tracking-wider font-serif">TAJ AL-A’ZHAM</h1>
-        <p class="text-xs text-purple-200/70 font-medium">Quran Learning & Modern Tahfidz System</p>
+  <header class="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-3 pb-3 border-b border-white/10 sticky top-0 glass-nav rounded-2xl p-3 sm:p-4 z-40 shadow-glass">
+    <div class="flex items-center space-x-3 cursor-pointer w-full md:w-auto justify-between md:justify-start" onclick="switchPage('home')">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-dark-900 to-black border border-purpleCustom-500/50 flex items-center justify-center p-1.5 shadow-purple-glow shrink-0">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-purpleCustom-400 fill-none stroke-current" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="50" cy="50" r="46" stroke="#A855F7" stroke-width="1.5" opacity="0.6"/>
+            <path d="M 50 32 L 63 48 L 78 40 L 70 60 L 50 50 L 30 60 L 22 40 L 37 48 Z" stroke="#C084FC" stroke-width="3" fill="none"/>
+            <path d="M 28 62 Q 50 53 72 62" stroke="#A855F7" stroke-width="3"/>
+            <path d="M 30 66 Q 50 57 70 66" stroke="#A855F7" stroke-width="2.5"/>
+            <path d="M 50 53 L 50 67" stroke="#A855F7" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-2xl font-extrabold purple-gradient-text tracking-wider font-serif">TAJ AL-A’ZHAM</h1>
+          <p class="text-[10px] sm:text-xs text-purple-200/70 font-medium">Quran Learning & Modern Tahfidz System</p>
+        </div>
       </div>
     </div>
 
     <!-- NAVBAR UTAMA -->
-    <nav class="flex items-center space-x-1.5 bg-dark-900/80 p-1.5 rounded-xl border border-white/10 text-xs font-semibold overflow-x-auto max-w-full custom-scrollbar">
-      <button onclick="switchPage('home')" id="nav-home" class="px-3.5 py-2 rounded-lg bg-purpleCustom-500/10 text-purpleCustom-300 border border-purpleCustom-500/30 transition whitespace-nowrap shadow-sm">
-        👑 Home (Profil)
+    <nav class="flex items-center space-x-1.5 bg-dark-900/80 p-1.5 rounded-xl border border-white/10 text-xs font-semibold overflow-x-auto w-full md:w-auto custom-scrollbar">
+      <button onclick="switchPage('home')" id="nav-home" class="px-3 py-2 rounded-lg bg-purpleCustom-500/10 text-purpleCustom-300 border border-purpleCustom-500/30 transition whitespace-nowrap shadow-sm text-xs">
+        👑 Home
       </button>
-      <button onclick="switchPage('mushaf')" id="nav-mushaf" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
-        📖 Mushaf Qurtrain
+      <button onclick="switchPage('mushaf')" id="nav-mushaf" class="px-3 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap text-xs">
+        📖 Mushaf
       </button>
-      <button onclick="switchPage('pendaftaran')" id="nav-pendaftaran" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
+      <button onclick="switchPage('pendaftaran')" id="nav-pendaftaran" class="px-3 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap text-xs">
         📝 Pendaftaran
       </button>
-      <button onclick="switchPage('tracker')" id="nav-tracker" class="px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap">
-        📊 Data Setoran Santri
+      <button onclick="switchPage('tracker')" id="nav-tracker" class="px-3 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap text-xs">
+        📊 Data Setoran
       </button>
-      <button onclick="accessOwnerPortal()" id="nav-owner" class="px-3.5 py-2 rounded-lg text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 transition whitespace-nowrap">
+      <button onclick="accessOwnerPortal()" id="nav-owner" class="px-3 py-2 rounded-lg text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 transition whitespace-nowrap text-xs">
         📊 Portal Owner 👑
       </button>
     </nav>
   </header>
 
   <!-- MAIN CONTAINER SLIDER VIEWPORT -->
-  <div class="slider-viewport w-full max-w-7xl mx-auto my-auto py-6">
+  <div class="slider-viewport w-full max-w-7xl mx-auto my-auto py-4 sm:py-6">
     <main id="swipeArea" class="smooth-transition">
 
       <!-- PAGE 1: HOME -->
       <div id="page-home" class="page-slide">
-        <div class="space-y-10 max-w-5xl mx-auto">
+        <div class="space-y-6 sm:space-y-10 max-w-5xl mx-auto">
           
           <!-- HERO SECTION TANPA VIDEO (DESAIN ISLAMI STYLISH UNGU) -->
-          <div class="relative w-full min-h-[380px] sm:min-h-[440px] flex items-center justify-center text-center p-6 sm:p-10 rounded-3xl overflow-hidden my-2 border border-purpleCustom-500/30 shadow-purple-glow bg-gradient-to-br from-dark-900 via-dark-850 to-black">
+          <div class="relative w-full min-h-[340px] sm:min-h-[440px] flex items-center justify-center text-center p-4 sm:p-10 rounded-3xl overflow-hidden my-1 border border-purpleCustom-500/30 shadow-purple-glow bg-gradient-to-br from-dark-900 via-dark-850 to-black">
             
-            <!-- 1. BACKGROUND SVG GEOMETRIS ISLAMI ELEGAN -->
             <div class="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
               <svg width="600" height="600" viewBox="0 0 100 100" fill="none" stroke="#A855F7" stroke-width="0.5">
                 <circle cx="50" cy="50" r="45" />
@@ -259,30 +263,28 @@
               </svg>
             </div>
 
-            <!-- 2. OVERLAY RADIAL PURPLE GLOW -->
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(168,85,247,0.2)_0%,_transparent_70%)] pointer-events-none"></div>
 
-            <!-- 3. KONTEN TEKS & TOMBOL HERO -->
-            <div class="relative z-20 space-y-5 max-w-2xl mx-auto">
+            <div class="relative z-20 space-y-4 sm:space-y-5 max-w-2xl mx-auto">
               
-              <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 hero-btn-anim backdrop-blur-md">
+              <div class="inline-block px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 hero-btn-anim backdrop-blur-md">
                 👑 Welcome to Taj Al-A’zham
               </div>
 
-              <h1 class="text-4xl sm:text-6xl font-black purple-gradient-text tracking-wide font-serif hero-title-anim drop-shadow-2xl">
+              <h1 class="text-3xl sm:text-6xl font-black purple-gradient-text tracking-wide font-serif hero-title-anim drop-shadow-2xl">
                 Taj Al-A’zham
               </h1>
 
-              <p class="text-sm sm:text-base text-purple-100/90 font-medium leading-relaxed italic hero-sub-anim drop-shadow-md">
+              <p class="text-xs sm:text-base text-purple-100/90 font-medium leading-relaxed italic hero-sub-anim drop-shadow-md px-2">
                 "Bersama Taj Al-A’zham, mari jalin interaksi terbaik dengan Al-Qur'an di tengah kesibukan harianmu"
               </p>
 
-              <div class="pt-4 flex justify-center hero-btn-anim">
-                <div class="p-1.5 rounded-2xl flex items-center space-x-2 bg-dark-900/80 backdrop-blur-md border border-white/10">
-                  <button onclick="switchHomeTab('OFFLINE')" id="tabBtnOffline" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all">
+              <div class="pt-2 sm:pt-4 flex justify-center hero-btn-anim">
+                <div class="p-1 sm:p-1.5 rounded-2xl flex items-center space-x-1.5 sm:space-x-2 bg-dark-900/80 backdrop-blur-md border border-white/10 w-full sm:w-auto">
+                  <button onclick="switchHomeTab('OFFLINE')" id="tabBtnOffline" class="flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all">
                     🏛️ QurTrain Offline
                   </button>
-                  <button onclick="switchHomeTab('ONLINE')" id="tabBtnOnline" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all">
+                  <button onclick="switchHomeTab('ONLINE')" id="tabBtnOnline" class="flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all">
                     🌐 QurTrain Online
                   </button>
                 </div>
@@ -292,51 +294,51 @@
           </div>
 
           <!-- TAB CONTENT 1: QURTRAIN OFFLINE (PESANTREN MODERN) -->
-          <div id="homeContentOffline" class="space-y-8 glass-card rounded-3xl p-6 sm:p-10 border border-white/10 animate-fade-in">
+          <div id="homeContentOffline" class="space-y-6 sm:space-y-8 glass-card rounded-3xl p-4 sm:p-10 border border-white/10 animate-fade-in">
             
-            <div class="space-y-3 border-b border-white/10 pb-6">
-              <span class="px-3.5 py-1 rounded-full text-xs font-extrabold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40">
+            <div class="space-y-3 border-b border-white/10 pb-5 sm:pb-6">
+              <span class="px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 inline-block">
                 # QURTRAIN (QURANIC TRAIN)
               </span>
-              <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+              <h2 class="text-xl sm:text-4xl font-extrabold text-white mt-1.5 leading-snug">
                 Revolusi Pesantren Tahfidz Modern Berbasis Digital & Gamifikasi
               </h2>
-              <blockquote class="text-sm sm:text-base text-purpleCustom-300 italic border-l-4 border-purpleCustom-500 pl-4 py-1 bg-purpleCustom-500/10 rounded-r-xl">
+              <blockquote class="text-xs sm:text-base text-purpleCustom-300 italic border-l-4 border-purpleCustom-500 pl-3 sm:pl-4 py-1 bg-purpleCustom-500/10 rounded-r-xl">
                 "Menghafal Al-Qur'an dengan Metode Efektif, Tanpa Beban Mental, Terukur Real-Time hingga ke Genggaman Orang Tua."
               </blockquote>
             </div>
 
             <!-- KENAPA HARUS QURTRAIN -->
             <div class="space-y-4">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>⭐</span> KENAPA HARUS QURTRAIN?
               </h3>
               <p class="text-xs sm:text-sm text-gray-300 leading-relaxed text-justify">
                 QurTrain (QuranicTrain) menghadirkan pengalaman menghafal Al-Qur'an di pesantren dengan pendekatan yang interaktif, terstruktur, dan transparan. Kami membangun ekosistem yang tidak hanya berfokus pada progres santri, tetapi juga memberdayakan para pengajar.
               </p>
               
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 pt-1">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-purpleCustom-300 text-xs sm:text-sm block">🔄 Ekosistem Saling Menguntungkan</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Ustadz yang memimpin pengulangan (tikrar) setiap hari secara otomatis ikut menjaga hafalan, menguatkan muroja'ah, dan menyegarkan kembali ayat-ayat yang pernah dihafal.</p>
                 </div>
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-blue-300 text-xs sm:text-sm block">🚉 Sistem Stasiun (Multi-Stage Progress)</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Jalur kelulusan terarah dari fondasi hingga tahap Mutqin sempurna.</p>
                 </div>
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-emerald-300 text-xs sm:text-sm block">⏱️ Metode Tikrar 20 Menit</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Menghafal tanpa merasa menghafal di setiap jeda shalat fardhu.</p>
                 </div>
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-fuchsia-300 text-xs sm:text-sm block">🧱 Sistem 4 Blok / Juz</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Evaluasi berkala per 5 halaman untuk menjaga kualitas hafalan tetap mutqin.</p>
                 </div>
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-purple-300 text-xs sm:text-sm block">🎮 Gamifikasi & Side Quest</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Kumpulkan poin harian dan naikkan peringkat papan skor santri di pesantren.</p>
                 </div>
-                <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-1.5">
+                <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 space-y-1">
                   <span class="font-bold text-teal-300 text-xs sm:text-sm block">📱 Laporan Real-Time WA & Portal</span>
                   <p class="text-xs text-gray-300 leading-relaxed">Orang tua menerima ringkasan singkat di WhatsApp dan dapat memantau data statistik lengkap di website.</p>
                 </div>
@@ -345,42 +347,42 @@
 
             <!-- JALUR KELULUSAN (SISTEM STASIUN) -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>🗺️</span> JALUR KELULUSAN (SISTEM STASIUN)
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
                 Setiap santri akan berpetualang melewati 4 Stasiun Utama di QurTrain untuk mencapai puncaknya sebagai Ahlul Qur'an:
               </p>
 
-              <div class="overflow-x-auto custom-scrollbar">
-                <table class="w-full text-left text-xs text-gray-300 min-w-[600px] border border-white/10 rounded-2xl overflow-hidden">
-                  <thead class="bg-dark-900 text-purpleCustom-300 font-bold uppercase text-[11px] border-b border-white/10">
+              <div class="overflow-x-auto custom-scrollbar -mx-2 sm:mx-0">
+                <table class="w-full text-left text-xs text-gray-300 min-w-[550px] border border-white/10 rounded-2xl overflow-hidden">
+                  <thead class="bg-dark-900 text-purpleCustom-300 font-bold uppercase text-[10px] sm:text-[11px] border-b border-white/10">
                     <tr>
-                      <th class="p-3.5">Stasiun</th>
-                      <th class="p-3.5">Nama Stasiun</th>
-                      <th class="p-3.5">Fokus Utama & Target Materi</th>
+                      <th class="p-3">Stasiun</th>
+                      <th class="p-3">Nama Stasiun</th>
+                      <th class="p-3">Fokus Utama & Target Materi</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-white/10 bg-dark-950/50">
                     <tr>
-                      <td class="p-3.5 font-bold text-white">STASIUN 1</td>
-                      <td class="p-3.5 font-bold text-purpleCustom-300">Taj Al-Asasi</td>
-                      <td class="p-3.5"><strong>Fondasi & Habit:</strong> Pembentukan karakter, adab, serta penguasaan Surah Al-Kahfi, Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30.</td>
+                      <td class="p-3 font-bold text-white">STASIUN 1</td>
+                      <td class="p-3 font-bold text-purpleCustom-300">Taj Al-Asasi</td>
+                      <td class="p-3"><strong>Fondasi & Habit:</strong> Pembentukan karakter, adab, serta penguasaan Surah Al-Kahfi, Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30.</td>
                     </tr>
                     <tr>
-                      <td class="p-3.5 font-bold text-white">STASIUN 2</td>
-                      <td class="p-3.5 font-bold text-blue-300">Setoran Eksplorasi</td>
-                      <td class="p-3.5"><strong>Ziyadah 30 Juz (Tahun Ke-1):</strong> Fokus kelancaran bacaan dan pemetaan ayat tanpa dibebani kewajiban muroja'ah berat.</td>
+                      <td class="p-3 font-bold text-white">STASIUN 2</td>
+                      <td class="p-3 font-bold text-blue-300">Setoran Eksplorasi</td>
+                      <td class="p-3"><strong>Ziyadah 30 Juz (Tahun Ke-1):</strong> Fokus kelancaran bacaan dan pemetaan ayat tanpa dibebani kewajiban muroja'ah berat.</td>
                     </tr>
                     <tr>
-                      <td class="p-3.5 font-bold text-white">STASIUN 3</td>
-                      <td class="p-3.5 font-bold text-fuchsia-300">Konsolidasi & Muroja'ah</td>
-                      <td class="p-3.5"><strong>Penguncian Hafalan (Tahun Ke-2):</strong> Setoran 1 lembar/hari diimbangi muroja'ah terstruktur hingga tuntas 30 Juz.</td>
+                      <td class="p-3 font-bold text-white">STASIUN 3</td>
+                      <td class="p-3 font-bold text-fuchsia-300">Konsolidasi & Muroja'ah</td>
+                      <td class="p-3"><strong>Penguncian Hafalan (Tahun Ke-2):</strong> Setoran 1 lembar/hari diimbangi muroja'ah terstruktur hingga tuntas 30 Juz.</td>
                     </tr>
                     <tr>
-                      <td class="p-3.5 font-bold text-white">STASIUN 4</td>
-                      <td class="p-3.5 font-bold text-emerald-300">Qubro</td>
-                      <td class="p-3.5"><strong>Ujian Puncak & Sanad:</strong> Ujian Tasmi' sekali duduk (5, 10, hingga 30 Juz) untuk meraih predikat Mutqin.</td>
+                      <td class="p-3 font-bold text-white">STASIUN 4</td>
+                      <td class="p-3 font-bold text-emerald-300">Qubro</td>
+                      <td class="p-3"><strong>Ujian Puncak & Sanad:</strong> Ujian Tasmi' sekali duduk (5, 10, hingga 30 Juz) untuk meraih predikat Mutqin.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -389,7 +391,7 @@
 
             <!-- METODE MENGHAFAL -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>⏱️</span> METODE MENGHAFAL: SISTEM 20 MENIT BA'DA SHALAT
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
@@ -397,15 +399,15 @@
               </p>
 
               <div class="space-y-3 text-xs sm:text-sm text-gray-300">
-                <div class="glass-card p-4 rounded-xl border border-white/10">
+                <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-white/10">
                   <strong class="text-purpleCustom-300 block mb-1">• Dzuhur, Ashar, Maghrib, Isya (20 Menit / Sesi):</strong>
                   Santri tidak menghafal mati, melainkan melakukan Tikrar (membaca ulang) target halaman harian sebanyak 10 kali dipandu langsung oleh ustadz. Sesi ini sekaligus menjadi ajang muroja'ah rutin bagi ustadz.
                 </div>
-                <div class="glass-card p-4 rounded-xl border border-white/10">
+                <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-white/10">
                   <strong class="text-emerald-300 block mb-1">• Subuh (1 Jam Utuh):</strong>
                   Sesi utama penyimakan hafalan (Tasmi') dari materi yang telah diulang pada hari sebelumnya.
                 </div>
-                <div class="glass-card p-4 rounded-xl border border-white/10">
+                <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-white/10">
                   <strong class="text-blue-300 block mb-1">• Teknis Mikro 1 Halaman:</strong>
                   Satu halaman dipecah menjadi blok kecil: 3 Baris dihafal per 5 Menit. Santri tuntas 1 halaman tanpa merasa lelah.
                 </div>
@@ -414,14 +416,14 @@
 
             <!-- SISTEM EVALUASI & KELULUSAN BLOK -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>📊</span> SISTEM EVALUASI & KELULUSAN BLOK
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
                 Untuk memastikan hafalan santri terjaga dengan kuat, setiap 1 Juz (20 Halaman) dibagi menjadi 4 Blok Evaluasi:
               </p>
 
-              <div class="bg-dark-950 p-3.5 rounded-xl border border-white/10 text-center font-mono text-xs sm:text-sm text-purpleCustom-300 overflow-x-auto custom-scrollbar">
+              <div class="bg-dark-950 p-3 rounded-xl border border-white/10 text-center font-mono text-[11px] sm:text-sm text-purpleCustom-300 overflow-x-auto custom-scrollbar whitespace-nowrap">
                 [JUZ 1] ──► [Blok 1: Hal 1-5] ──► [Blok 2: Hal 6-10] ──► [Blok 3: Hal 11-15] ──► [Blok 4: Hal 16-20]
               </div>
 
@@ -435,7 +437,7 @@
 
             <!-- SOP PENGAJAR -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>👨‍🏫</span> SOP PENGAJAR: MENUNTUN DENGAN ADAB & KETELADANAN
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
@@ -453,22 +455,22 @@
 
             <!-- GAMIFIKASI -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>🏆</span> GAMIFIKASI: POIN & SIDE QUEST SANTRI
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
                 Sistem belajar interaktif dengan papan peringkat (leaderboard) bulanan agar santri senantiasa bersemangat:
               </p>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
-                <div class="glass-card p-4 rounded-xl border border-purpleCustom-500/30 space-y-2">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-purpleCustom-500/30 space-y-2">
                   <span class="font-bold text-purpleCustom-300 block text-sm">🎯 Main Quest (Misi Utama)</span>
                   <ul class="space-y-1 text-gray-300">
                     <li>• Kelulusan Ujian Blok: <strong>+Akumulasi Poin NA</strong></li>
                     <li>• Ikut Pengulangan 10x Lengkap 5 Waktu: <strong>+50 Poin</strong></li>
                   </ul>
                 </div>
-                <div class="glass-card p-4 rounded-xl border border-blue-500/30 space-y-2">
+                <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-blue-500/30 space-y-2">
                   <span class="font-bold text-blue-300 block text-sm">⚔️ Side Quest (Misi Sampingan)</span>
                   <ul class="space-y-1 text-gray-300">
                     <li>• <strong>Quest Imam:</strong> Imam shalat hafalan baru (<strong>+30 Poin</strong>)</li>
@@ -481,22 +483,22 @@
 
             <!-- INTEGRASI DIGITAL -->
             <div class="space-y-4 pt-4 border-t border-white/10">
-              <h3 class="text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-bold text-purpleCustom-400 uppercase tracking-wider flex items-center gap-2">
                 <span>📱</span> INTEGRASI DIGITAL: MONITORING REAL-TIME UNTUK WALI MURID
               </h3>
               <p class="text-xs sm:text-sm text-gray-300">
                 Kami menjembatani komunikasi antara pesantren dan orang tua melalui ekosistem QurTrain yang ringkas, praktis, dan transparan:
               </p>
 
-              <div class="bg-dark-950 p-3.5 rounded-xl border border-white/10 text-center font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto custom-scrollbar">
+              <div class="bg-dark-950 p-3 rounded-xl border border-white/10 text-center font-mono text-[11px] sm:text-sm text-emerald-400 overflow-x-auto custom-scrollbar whitespace-nowrap">
                 [Ustadz Input Nilai Subuh] ──► [Notifikasi WA Ringkas ke Orang Tua] ──► [Klik Link Website QurTrain] ──► [Dasbor Statistik Lengkap Santri]
               </div>
 
               <div class="space-y-3 text-xs sm:text-sm text-gray-300">
                 <p><strong>1. Input Otomatis Ustadz:</strong> Setiap selesai sesi setoran Subuh, ustadz mencatat nilai harian (Mutqin, Lancar, atau Perlu Ulang) dan progres santri langsung ke sistem QurTrain.</p>
-                <div class="p-4 bg-dark-900 rounded-xl border border-emerald-500/30 space-y-2">
+                <div class="p-3.5 sm:p-4 bg-dark-900 rounded-xl border border-emerald-500/30 space-y-2">
                   <p><strong>2. Notifikasi WhatsApp Ringkas:</strong> Orang tua menerima pesan kabar harian yang padat dan singkat melalui WhatsApp tanpa memenuhi ruang obrolan.</p>
-                  <blockquote class="text-xs font-mono text-emerald-300 bg-black/40 p-3 rounded-lg border border-white/10 leading-relaxed">
+                  <blockquote class="text-[11px] sm:text-xs font-mono text-emerald-300 bg-black/40 p-3 rounded-lg border border-white/10 leading-relaxed">
                     "Assalamu'alaikum Bpk/Ibu, Ananda [Nama Santri] telah menyelesaikan setoran hari ini (Juz 1 Blok 1 - Hal 3) dengan predikat: MUTQIN.<br/><br/>
                     Pantau statistik perkembangan, nilai harian, dan grafik hafalan ananda selengkapnya di:<br/>
                     https://qurtrain.com/parent/dashboard"
@@ -507,16 +509,16 @@
             </div>
 
             <!-- PENUTUP OFFLINE -->
-            <div class="glass-card-purple p-6 rounded-2xl border border-purpleCustom-500/30 space-y-4 pt-4">
-              <h3 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">✨ PENUTUP</h3>
+            <div class="glass-card-purple p-4 sm:p-6 rounded-2xl border border-purpleCustom-500/30 space-y-3 sm:space-y-4 pt-3 sm:pt-4">
+              <h3 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">✨ PENUTUP</h3>
               <p class="text-xs sm:text-sm text-gray-300 leading-relaxed italic text-justify">
                 QurTrain (QuranicTrain) hadir bukan sekadar sebagai tempat menghafal, melainkan sebuah ekosistem pendidikan Al-Qur'an modern yang memanusiakan santri dan memberdayakan pengajar. Melalui penggabungan metode tikrar yang ringan, sistem evaluasi blok yang terukur, gamifikasi yang memotivasi, serta transparansi data secara real-time, kami membuktikan bahwa perjalanan menjadi seorang Ahlul Qur'an bisa ditempuh dengan penuh kebahagiaan, kedisiplinan, dan keberkahan. Mari melangkah bersama QurTrain, wujudkan generasi penghafal Al-Qur'an yang mutqin, beradab, dan siap menyongsong masa depan.
               </p>
-              <div class="flex flex-col sm:flex-row gap-3 pt-2 justify-end">
-                <button onclick="switchPage('mushaf')" class="px-5 py-2.5 rounded-xl bg-purpleCustom-500/20 border border-purpleCustom-500/40 text-purpleCustom-300 text-xs font-bold transition text-center hover:bg-purpleCustom-500/30">
+              <div class="flex flex-col sm:flex-row gap-2.5 pt-2 justify-end">
+                <button onclick="switchPage('mushaf')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-purpleCustom-500/20 border border-purpleCustom-500/40 text-purpleCustom-300 text-xs font-bold transition text-center hover:bg-purpleCustom-500/30">
                   Buka Mushaf Qurtrain →
                 </button>
-                <button onclick="switchPage('pendaftaran')" class="px-5 py-2.5 rounded-xl purple-button text-xs font-bold shadow-purple-glow text-center">
+                <button onclick="switchPage('pendaftaran')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl purple-button text-xs font-bold shadow-purple-glow text-center">
                   Mulai Pendaftaran →
                 </button>
               </div>
@@ -525,13 +527,13 @@
           </div>
 
           <!-- TAB CONTENT 2: QURTRAIN ONLINE (PRIVATE ONLINE TAJ AL-A'ZHAM) -->
-          <div id="homeContentOnline" class="hidden space-y-8 glass-card rounded-3xl p-6 sm:p-10 border border-white/10 animate-fade-in">
+          <div id="homeContentOnline" class="hidden space-y-6 sm:space-y-8 glass-card rounded-3xl p-4 sm:p-10 border border-white/10 animate-fade-in">
             
-            <div class="space-y-4">
-              <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40">
+            <div class="space-y-3 sm:space-y-4">
+              <span class="px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 inline-block">
                 Tentang QurTrain Online
               </span>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+              <h2 class="text-xl sm:text-3xl font-extrabold text-white leading-snug">
                 Lembaga Pendidikan Al-Qur'an Online <span class="purple-gradient-text">Taj Al-A’zham (QurTrain)</span>
               </h2>
               <div class="text-xs sm:text-sm text-gray-300 leading-relaxed space-y-3 text-justify">
@@ -544,8 +546,8 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-              <div class="glass-card p-5 rounded-2xl border border-purpleCustom-500/30 space-y-3 md:col-span-1">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-1">
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-purpleCustom-500/30 space-y-2.5 md:col-span-1">
                 <h3 class="text-xs font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-1.5">
                   <span>🎯</span> Visi
                 </h3>
@@ -554,11 +556,11 @@
                 </p>
               </div>
 
-              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3 md:col-span-2">
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-2.5 md:col-span-2">
                 <h3 class="text-xs font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-1.5">
                   <span>🚀</span> Misi
                 </h3>
-                <ul class="text-xs text-gray-300 space-y-2.5 leading-relaxed list-disc list-inside">
+                <ul class="text-xs text-gray-300 space-y-2 leading-relaxed list-disc list-inside">
                   <li><strong>Fleksibilitas Tanpa Batas:</strong> Menyediakan ekosistem setoran dan muroja'ah online yang adaptif dengan jadwal para pelajar dan pekerja tanpa mengurangi kedisiplinan pencapaian target.</li>
                   <li><strong>Kurikulum Terstruktur & Terukur:</strong> Menyusun jenjang hafalan yang terarah melalui program Taj Al-Asasi (fondasi surah pilihan & juz 30) dan Taj Al-Waqar (akselerasi 30 juz).</li>
                   <li><strong>Kualitas Hafalan Mutqin:</strong> Menjaga keakuratan bacaan, tajwid, dan kelancaran santri jarak jauh lewat pemantauan intensif dan sistem evaluasi berkala per blok.</li>
@@ -569,25 +571,25 @@
 
             <hr class="border-white/10" />
 
-            <div class="space-y-6">
+            <div class="space-y-5 sm:space-y-6">
               <div>
-                <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40">
+                <span class="px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 inline-block">
                   Sistem Terpadu & Terukur
                 </span>
-                <h3 class="text-xl font-extrabold text-white mt-2">Kurikulum & Sistem Pembelajaran Online</h3>
+                <h3 class="text-lg sm:text-xl font-extrabold text-white mt-2">Kurikulum & Sistem Pembelajaran Online</h3>
                 <p class="text-xs text-gray-300 leading-relaxed mt-1 text-justify">
                   Sistem kurikulum Taj Al-A’zham dirancang khusus untuk memfasilitasi peserta yang memiliki mobilitas tinggi dan jadwal harian yang padat.
                 </p>
               </div>
 
               <div class="space-y-3">
-                <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
+                <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
                   <span>1️⃣</span> Pilihan Program Akademis Online
                 </h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="glass-card p-5 rounded-2xl border border-purpleCustom-500/20 space-y-2 hover:border-purpleCustom-500/40 transition">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                  <div class="glass-card p-4 sm:p-5 rounded-2xl border border-purpleCustom-500/20 space-y-2 hover:border-purpleCustom-500/40 transition">
                     <span class="text-[10px] font-bold text-purpleCustom-300 px-2.5 py-0.5 rounded bg-purpleCustom-500/20 border border-purpleCustom-500/30 inline-block">Fondasi Hafalan</span>
-                    <h5 class="text-base font-bold text-white">Program Taj Al-Asasi <span class="text-xs text-gray-400 font-normal">(Mahkota Utama)</span></h5>
+                    <h5 class="text-sm sm:text-base font-bold text-white">Program Taj Al-Asasi <span class="text-xs text-gray-400 font-normal">(Mahkota Utama)</span></h5>
                     <p class="text-xs text-gray-300 leading-relaxed">
                       <strong>Target Peserta:</strong> Pelajar & pekerja yang ingin membangun habit menghafal dan memperkuat fondasi hafalan.<br/>
                       <strong>Target Hafalan (2 Bulan):</strong> Juz 30 serta Surah Pilihan (Yasin, Al-Waqi'ah, dan Al-Mulk).
@@ -599,9 +601,9 @@
                     </div>
                   </div>
 
-                  <div class="glass-card p-5 rounded-2xl border border-purple-500/20 space-y-2 hover:border-purple-500/40 transition">
+                  <div class="glass-card p-4 sm:p-5 rounded-2xl border border-purple-500/20 space-y-2 hover:border-purple-500/40 transition">
                     <span class="text-[10px] font-bold text-purple-300 px-2.5 py-0.5 rounded bg-purple-500/20 border border-purple-500/30 inline-block">Tuntas 30 Juz</span>
-                    <h5 class="text-base font-bold text-white">Program TAJ AL-WAQAR <span class="text-xs text-gray-400 font-normal">(Mahkota Kehormatan)</span></h5>
+                    <h5 class="text-sm sm:text-base font-bold text-white">Program TAJ AL-WAQAR <span class="text-xs text-gray-400 font-normal">(Mahkota Kehormatan)</span></h5>
                     <p class="text-xs text-gray-300 leading-relaxed">
                       <strong>Target Peserta:</strong> Peserta yang berkomitmen menuntaskan seluruh Al-Qur'an secara bertahap dan terukur.<br/>
                       <strong>Target Hafalan:</strong> 30 Juz Al-Qur'an secara berjenjang.
@@ -615,45 +617,45 @@
               </div>
 
               <!-- SESI PEMBELAJARAN ONLINE & METODE 5+15 -->
-              <div class="glass-card-purple p-5 rounded-2xl border border-purpleCustom-500/30 space-y-4">
-                <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
+              <div class="glass-card-purple p-4 sm:p-5 rounded-2xl border border-purpleCustom-500/30 space-y-3.5">
+                <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
                   <span>2️⃣</span> Pilihan 4 Sesi Waktu & Metode Pembelajaran Sesi (Metode 5+15)
                 </h4>
                 <p class="text-xs text-gray-300 leading-relaxed">
                   Setiap peserta bebas memilih slot waktu penyimakan online harian, lalu mengikuti sesi tatap muka daring (online Zoom/Meet/Voice Call) berdurasi efektif dengan struktur <strong>Metode 5+15</strong>:
                 </p>
                 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs pb-1">
-                  <div class="p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-1">
-                    <span class="font-extrabold text-purpleCustom-300 block">🌅 Sesi Shubuh</span>
-                    <span class="text-[11px] text-gray-400 block">(Durasi 30 Menit)</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pb-1">
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-0.5">
+                    <span class="font-extrabold text-purpleCustom-300 block text-xs">🌅 Shubuh</span>
+                    <span class="text-[10px] sm:text-[11px] text-gray-400 block">(30 Mins)</span>
                   </div>
-                  <div class="p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-1">
-                    <span class="font-extrabold text-purpleCustom-300 block">☀️ Sesi Ashar</span>
-                    <span class="text-[11px] text-gray-400 block">(Durasi 15 Menit)</span>
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-0.5">
+                    <span class="font-extrabold text-purpleCustom-300 block text-xs">☀️ Ashar</span>
+                    <span class="text-[10px] sm:text-[11px] text-gray-400 block">(15 Mins)</span>
                   </div>
-                  <div class="p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-1">
-                    <span class="font-extrabold text-purpleCustom-300 block">🌆 Sesi Maghrib</span>
-                    <span class="text-[11px] text-gray-400 block">(Durasi 30 Menit)</span>
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-0.5">
+                    <span class="font-extrabold text-purpleCustom-300 block text-xs">🌆 Maghrib</span>
+                    <span class="text-[10px] sm:text-[11px] text-gray-400 block">(30 Mins)</span>
                   </div>
-                  <div class="p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-1">
-                    <span class="font-extrabold text-purpleCustom-300 block">🌙 Sesi Isya</span>
-                    <span class="text-[11px] text-gray-400 block">(Durasi 1 Jam)</span>
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 border border-purpleCustom-500/30 rounded-xl text-center space-y-0.5">
+                    <span class="font-extrabold text-purpleCustom-300 block text-xs">🌙 Isya</span>
+                    <span class="text-[10px] sm:text-[11px] text-gray-400 block">(1 Jam)</span>
                   </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
-                  <div class="glass-card p-4 rounded-xl border border-purpleCustom-500/20 space-y-2">
-                    <span class="font-extrabold text-purpleCustom-300 block text-sm">💡 5 Menit Pertama — Mindset & Tadabbur</span>
-                    <ul class="space-y-1.5 text-gray-300">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs pt-1">
+                  <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-purpleCustom-500/20 space-y-1.5">
+                    <span class="font-extrabold text-purpleCustom-300 block text-xs sm:text-sm">💡 5 Menit Pertama — Mindset & Tadabbur</span>
+                    <ul class="space-y-1 text-gray-300">
                       <li>• <strong>Tadabbur Singkat:</strong> Penjelasan kandungan ayat & Asbabun Nuzul agar santri paham makna.</li>
                       <li>• <strong>Adab Qur'ani:</strong> Penanaman niat ikhlas & karakter Muslim harian.</li>
                       <li>• <strong>Suntikan Motivasi:</strong> Dorongan istiqomah di tengah kesibukan.</li>
                     </ul>
                   </div>
 
-                  <div class="glass-card p-4 rounded-xl border border-emerald-500/20 space-y-2">
-                    <span class="font-extrabold text-emerald-400 block text-sm">📖 Menit Berikutnya — Tasmi' Harian</span>
+                  <div class="glass-card p-3.5 sm:p-4 rounded-xl border border-emerald-500/20 space-y-1.5">
+                    <span class="font-extrabold text-emerald-400 block text-xs sm:text-sm">📖 Menit Berikutnya — Tasmi' Harian</span>
                     <p class="text-gray-300 leading-relaxed">
                       Setoran & Evaluasi privat berdasarkan kriteria poin (Mutqin, Lancar, atau Perlu Ulang) dengan catatan spesifik tajwid & makhraj dari pengajar.
                     </p>
@@ -661,15 +663,15 @@
                 </div>
               </div>
 
-              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3">
-                <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-3">
+                <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
                   <span>3️⃣</span> Sistem Evaluasi & Penilaian Mutqin (Sistem Poin)
                 </h4>
                 <p class="text-xs text-gray-300 leading-relaxed">
                   Untuk memastikan hafalan tidak sekadar dihafal lalu lupa, pembelajaran diatur melalui unit **Blok (Setiap 5 Halaman)** dengan penilaian terukur:
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-                  <div class="space-y-2 glass-card p-4 rounded-xl border border-white/10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs">
+                  <div class="space-y-2 glass-card p-3.5 sm:p-4 rounded-xl border border-white/10">
                     <span class="font-bold text-white block">Poin Setoran Harian (Bobot 20%):</span>
                     <ul class="space-y-1 text-gray-300">
                       <li>🌟 <strong class="text-purpleCustom-300">Mutqin (100 Poin):</strong> Tanpa kesalahan hafalan & tajwid sempurna.</li>
@@ -677,7 +679,7 @@
                       <li>🔄 <strong class="text-red-400">Perlu Ulang (50 Poin):</strong> Terdapat kesalahan hafalan.</li>
                     </ul>
                   </div>
-                  <div class="space-y-2 glass-card p-4 rounded-xl border border-white/10">
+                  <div class="space-y-2 glass-card p-3.5 sm:p-4 rounded-xl border border-white/10">
                     <span class="font-bold text-white block">Pelunasan Hutang & Tes Blok (Bobot 80%):</span>
                     <p class="text-gray-300 leading-relaxed">
                       <strong>Mekanisme Hutang:</strong> Nilai 50 dianggap HUTANG. Wajib dilunasi (min. 80) sebelum Ujian Blok.<br/>
@@ -687,16 +689,16 @@
                 </div>
               </div>
 
-              <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-3">
-                <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
+              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-3">
+                <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
                   <span>4️⃣</span> Kemudahan & Fleksibilitas untuk Peserta Sibuk
                 </h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300">
-                  <div class="p-4 glass-card rounded-xl border border-white/10 space-y-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs text-gray-300">
+                  <div class="p-3.5 sm:p-4 glass-card rounded-xl border border-white/10 space-y-1">
                     <span class="font-bold text-white block">🕒 Jadwal Setoran Adaptif</span>
                     <p>Pilih slot waktu daring (pagi, sore, atau malam setelah kerja/sekolah) via Zoom, Google Meet, atau Voice Note sesuai kesepakatan musyrif/musyrifah.</p>
                   </div>
-                  <div class="p-4 glass-card rounded-xl border border-white/10 space-y-1">
+                  <div class="p-3.5 sm:p-4 glass-card rounded-xl border border-white/10 space-y-1">
                     <span class="font-bold text-white block">📱 Pemantauan Progres Real-Time</span>
                     <p>Akses Buku Prestasi Digital untuk memantau nilai harian, riwayat hutang setoran, dan akumulasi poin secara otomatis dari mana saja.</p>
                   </div>
@@ -704,16 +706,16 @@
               </div>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
-              <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">✨ Penutup</h4>
+            <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/10 space-y-3 sm:space-y-4">
+              <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">✨ Penutup</h4>
               <p class="text-xs text-gray-300 leading-relaxed italic text-justify">
                 "Taj Al-A’zham (QurTrain Online) hadir untuk membuktikan bahwa padatnya rutinitas sekolah, tuntutan akademis, maupun kesibukan dunia kerja bukanlah alasan untuk melupakan Al-Qur'an. Bersama kami, mari jalin interaksi terbaik dengan Al-Qur'an di tengah kesibukan harianmu."
               </p>
-              <div class="flex flex-col sm:flex-row gap-3 pt-2 justify-end">
-                <button onclick="switchPage('mushaf')" class="px-5 py-2.5 rounded-xl bg-purpleCustom-500/20 border border-purpleCustom-500/40 text-purpleCustom-300 text-xs font-bold transition text-center hover:bg-purpleCustom-500/30">
+              <div class="flex flex-col sm:flex-row gap-2.5 pt-2 justify-end">
+                <button onclick="switchPage('mushaf')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-purpleCustom-500/20 border border-purpleCustom-500/40 text-purpleCustom-300 text-xs font-bold transition text-center hover:bg-purpleCustom-500/30">
                   Buka Mushaf Qurtrain →
                 </button>
-                <button onclick="switchPage('pendaftaran')" class="px-5 py-2.5 rounded-xl purple-button text-xs font-bold shadow-purple-glow text-center">
+                <button onclick="switchPage('pendaftaran')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl purple-button text-xs font-bold shadow-purple-glow text-center">
                   Mulai Pendaftaran →
                 </button>
               </div>
@@ -726,59 +728,59 @@
 
       <!-- PAGE 2: MUSHAF DIGITAL TAJ AL-A'ZHAM -->
       <div id="page-mushaf" class="page-slide">
-        <div class="space-y-6 max-w-5xl mx-auto">
+        <div class="space-y-4 sm:space-y-6 max-w-5xl mx-auto">
           
-          <div class="glass-card-purple border border-purpleCustom-500/30 rounded-2xl p-4 sm:p-6 shadow-purple-glow flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Mushaf Metode Qurtrain (QuranicTrain)</span>
-              <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Mushaf Hafalan Digital</h2>
-              <p class="text-xs text-gray-400 mt-0.5" id="pageRangeInfo">Standar 604 Halaman Qurtrain</p>
+          <div class="glass-card-purple border border-purpleCustom-500/30 rounded-2xl p-3.5 sm:p-6 shadow-purple-glow flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="w-full md:w-auto text-center md:text-left">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30 inline-block">Mushaf Metode Qurtrain</span>
+              <h2 class="text-lg sm:text-2xl font-bold mt-1 text-white">Mushaf Hafalan Digital</h2>
+              <p class="text-[11px] sm:text-xs text-gray-400 mt-0.5" id="pageRangeInfo">Standar 604 Halaman Qurtrain</p>
             </div>
 
             <!-- TRIPLE MODE SELECTOR LENGKAP -->
-            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-              <select id="searchTypeSelect" onchange="toggleSearchMode(this.value)" class="bg-dark-800 text-white font-bold border border-white/20 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-purpleCustom-500">
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-between md:justify-end">
+              <select id="searchTypeSelect" onchange="toggleSearchMode(this.value)" class="bg-dark-800 text-white font-bold border border-white/20 rounded-xl px-2.5 py-2 text-xs focus:outline-none focus:border-purpleCustom-500 flex-1 sm:flex-none">
                 <option value="JUZ">📗 Pilih Juz (1 - 30)</option>
                 <option value="SURAH">📖 Pilih Surah (1 - 114)</option>
                 <option value="PAGE">📄 Pilih Halaman (1 - 604)</option>
               </select>
 
-              <select id="juzSelect" onchange="loadByJuz(this.value)" class="bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-purpleCustom-500 flex-1 md:flex-none"></select>
-              <select id="surahSelect" onchange="loadBySurah(this.value)" class="hidden bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-purpleCustom-500 flex-1 md:flex-none"></select>
-              <input type="number" id="pageInput" min="1" max="604" value="582" onchange="loadByPageNumber(this.value)" placeholder="Hal (1-604)" class="hidden bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-3 py-2 text-xs w-28 text-center focus:outline-none focus:border-purpleCustom-500" />
+              <select id="juzSelect" onchange="loadByJuz(this.value)" class="bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-2.5 py-2 text-xs focus:outline-none focus:border-purpleCustom-500 flex-1 sm:flex-none"></select>
+              <select id="surahSelect" onchange="loadBySurah(this.value)" class="hidden bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-2.5 py-2 text-xs focus:outline-none focus:border-purpleCustom-500 flex-1 sm:flex-none"></select>
+              <input type="number" id="pageInput" min="1" max="604" value="582" onchange="loadByPageNumber(this.value)" placeholder="Hal (1-604)" class="hidden bg-dark-900 text-purpleCustom-300 font-semibold border border-purpleCustom-500/30 rounded-xl px-2.5 py-2 text-xs w-24 text-center focus:outline-none focus:border-purpleCustom-500" />
 
-              <button onclick="toggleHafalanMode()" id="hafalanBtn" class="bg-dark-800 hover:bg-dark-700 text-xs px-3.5 py-2 rounded-xl border border-white/10 font-bold transition whitespace-nowrap">
+              <button onclick="toggleHafalanMode()" id="hafalanBtn" class="bg-dark-800 hover:bg-dark-700 text-[11px] sm:text-xs px-3 py-2 rounded-xl border border-white/10 font-bold transition whitespace-nowrap w-full sm:w-auto">
                 🙈 Mode Hafalan: OFF
               </button>
             </div>
           </div>
 
           <!-- PANEL NAVIGASI BLOK A, B, C, D -->
-          <div id="blockFilterPanel" class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
+          <div id="blockFilterPanel" class="glass-card p-3 sm:p-4 rounded-2xl border border-white/10 space-y-2.5">
             <div class="flex items-center justify-between pb-2 border-b border-white/10">
-              <span class="text-xs font-bold text-purpleCustom-300 flex items-center gap-1.5">
-                <span>📌</span> Filter Halaman Per Blok (5 Halaman / Blok)
+              <span class="text-[11px] sm:text-xs font-bold text-purpleCustom-300 flex items-center gap-1.5">
+                <span>📌</span> Filter Blok (5 Halaman / Blok)
               </span>
-              <span id="surahInfo" class="text-xs text-purpleCustom-300 font-semibold truncate max-w-[250px]">Juz 30 (Halaman 582 - 604)</span>
+              <span id="surahInfo" class="text-[11px] sm:text-xs text-purpleCustom-300 font-semibold truncate max-w-[180px] sm:max-w-[250px]">Juz 30 (Halaman 582 - 604)</span>
             </div>
 
             <!-- TOMBOL KATEGORI UTAMA BLOK -->
-            <div class="grid grid-cols-5 gap-1.5 sm:gap-2 w-full">
-              <button onclick="selectMainBlock('ALL')" id="mainBtn_ALL" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-purpleCustom-500 text-white shadow-purple-glow text-center truncate">Semua (20H)</button>
-              <button onclick="selectMainBlock('A')" id="mainBtn_A" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-purpleCustom-300 hover:bg-purpleCustom-500/20 border border-purpleCustom-500/30 text-center truncate">Blok A</button>
-              <button onclick="selectMainBlock('B')" id="mainBtn_B" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-blue-300 hover:bg-blue-500/20 border border-blue-500/20 text-center truncate">Blok B</button>
-              <button onclick="selectMainBlock('C')" id="mainBtn_C" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/20 text-center truncate">Blok C</button>
-              <button onclick="selectMainBlock('D')" id="mainBtn_D" class="main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-fuchsia-300 hover:bg-fuchsia-500/20 border border-fuchsia-500/20 text-center truncate">Blok D</button>
+            <div class="grid grid-cols-5 gap-1 sm:gap-2 w-full">
+              <button onclick="selectMainBlock('ALL')" id="mainBtn_ALL" class="main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-purpleCustom-500 text-white shadow-purple-glow text-center truncate">Semua</button>
+              <button onclick="selectMainBlock('A')" id="mainBtn_A" class="main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-dark-900 text-purpleCustom-300 hover:bg-purpleCustom-500/20 border border-purpleCustom-500/30 text-center truncate">Blok A</button>
+              <button onclick="selectMainBlock('B')" id="mainBtn_B" class="main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-dark-900 text-blue-300 hover:bg-blue-500/20 border border-blue-500/20 text-center truncate">Blok B</button>
+              <button onclick="selectMainBlock('C')" id="mainBtn_C" class="main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-dark-900 text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/20 text-center truncate">Blok C</button>
+              <button onclick="selectMainBlock('D')" id="mainBtn_D" class="main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-dark-900 text-fuchsia-300 hover:bg-fuchsia-500/20 border border-fuchsia-500/20 text-center truncate">Blok D</button>
             </div>
 
             <div id="subBlockContainer" class="hidden pt-2 border-t border-white/10 animate-fade-in">
-              <p id="subBlockTitle" class="text-[11px] font-bold text-purpleCustom-300 mb-2">Pilih Sub-Blok:</p>
-              <div id="subBlockButtonsList" class="grid grid-cols-5 gap-2"></div>
+              <p id="subBlockTitle" class="text-[10px] sm:text-[11px] font-bold text-purpleCustom-300 mb-1.5">Pilih Sub-Blok:</p>
+              <div id="subBlockButtonsList" class="grid grid-cols-5 gap-1.5"></div>
             </div>
           </div>
 
           <!-- CONTAINER UTAMA TEKS MUSHAF -->
-          <main id="quranContainer" class="glass-card rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/10 space-y-6">
+          <main id="quranContainer" class="glass-card rounded-2xl p-3 sm:p-6 shadow-2xl border border-white/10 space-y-4 sm:space-y-6">
             <div class="text-center py-12 text-gray-400 text-xs">Sedang memuat Mushaf Metode Qurtrain...</div>
           </main>
 
@@ -787,28 +789,28 @@
 
       <!-- PAGE 3: FORMULIR PENDAFTARAN -->
       <div id="page-pendaftaran" class="page-slide">
-        <div class="space-y-6 max-w-5xl mx-auto">
-          <div id="formView" class="glass-card rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl">
-            <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+        <div class="space-y-4 sm:space-y-6 max-w-5xl mx-auto">
+          <div id="formView" class="glass-card rounded-2xl border border-white/10 p-4 sm:p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-4 sm:mb-6 border-b border-white/10 pb-3 sm:pb-4 gap-2">
               <div>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Pendaftaran & SPP Online</span>
-                <h2 class="text-2xl font-bold mt-2 text-white">Formulir Pendaftaran & Sima'an Private</h2>
-                <p class="text-xs text-gray-400 mt-1">Silakan lengkapi data santri, alamat pengiriman sertifikat, pilih program, dan metode pembayaran.</p>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30 inline-block">Pendaftaran & SPP Online</span>
+                <h2 class="text-lg sm:text-2xl font-bold mt-1 text-white">Formulir Pendaftaran & Sima'an Private</h2>
+                <p class="text-[11px] sm:text-xs text-gray-400 mt-0.5">Lengkapi data santri, alamat sertifikat, dan program.</p>
               </div>
-              <button onclick="toggleAdminView()" class="px-3 py-1.5 rounded-lg border border-purpleCustom-500/40 text-purpleCustom-300 text-xs font-semibold hover:bg-purpleCustom-500/10 transition shrink-0">
+              <button onclick="toggleAdminView()" class="px-2.5 py-1.5 rounded-lg border border-purpleCustom-500/40 text-purpleCustom-300 text-[11px] sm:text-xs font-semibold hover:bg-purpleCustom-500/10 transition shrink-0">
                 Portal Admin 🔒
               </button>
             </div>
 
-            <form id="registrationForm" onsubmit="handleFormSubmitPendaftaran(event)" class="space-y-6">
+            <form id="registrationForm" onsubmit="handleFormSubmitPendaftaran(event)" class="space-y-4 sm:space-y-6">
 
               <div>
-                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Kategori Santri *</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button type="button" onclick="setCategory('Anak')" id="btnCatAnak" class="py-3 px-4 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition">
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Kategori Santri *</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="setCategory('Anak')" id="btnCatAnak" class="py-2.5 px-3 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs flex items-center justify-center space-x-1.5 transition">
                     <span>👶 Santri Anak</span>
                   </button>
-                  <button type="button" onclick="setCategory('Dewasa')" id="btnCatDewasa" class="py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition">
+                  <button type="button" onclick="setCategory('Dewasa')" id="btnCatDewasa" class="py-2.5 px-3 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs flex items-center justify-center space-x-1.5 transition">
                     <span>🧔 Santri Dewasa</span>
                   </button>
                 </div>
@@ -816,94 +818,94 @@
 
               <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nama Lengkap Santri *</label>
-                <input type="text" id="studentName" required placeholder="Contoh: Ahmad Fauzi" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
+                <input type="text" id="studentName" required placeholder="Contoh: Ahmad Fauzi" class="w-full bg-dark-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
               </div>
 
               <div id="parentFieldGroup">
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nama Orang Tua / Wali *</label>
-                <input type="text" id="parentName" placeholder="Contoh: Bapak Hendra" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
+                <input type="text" id="parentName" placeholder="Contoh: Bapak Hendra" class="w-full bg-dark-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
               </div>
 
               <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Nomor WhatsApp Aktif *</label>
-                <input type="tel" id="whatsappNum" required placeholder="Contoh: 08123456789" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
+                <input type="tel" id="whatsappNum" required placeholder="Contoh: 08123456789" class="w-full bg-dark-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition">
               </div>
 
               <div>
                 <div class="flex justify-between items-center mb-1">
                   <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider">Alamat Domisili Lengkap *</label>
-                  <span class="text-[10px] sm:text-[11px] text-purpleCustom-300">📦 Untuk Pengiriman Sertifikat Kelulusan</span>
+                  <span class="text-[10px] text-purpleCustom-300">📦 Untuk Sertifikat</span>
                 </div>
-                <textarea id="address" rows="3" required placeholder="Jalan, No. Rumah, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten, Kode Pos" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition"></textarea>
+                <textarea id="address" rows="3" required placeholder="Jalan, No. Rumah, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten, Kode Pos" class="w-full bg-dark-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-purpleCustom-500 transition"></textarea>
               </div>
 
               <div>
-                <label class="block text-xs font-semibold text-purpleCustom-300 uppercase tracking-wider mb-2">Pilihan Program *</label>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <label class="p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-purpleCustom-500 transition">
+                <label class="block text-xs font-semibold text-purpleCustom-300 uppercase tracking-wider mb-1.5">Pilihan Program *</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                  <label class="p-3 sm:p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-purpleCustom-500 transition">
                     <input type="radio" name="program" value="Taj Al-Asasi (Surah Pilihan)" checked onchange="updatePaymentPlan()" class="mt-1 accent-purpleCustom-500">
                     <div>
                       <span class="block font-bold text-white text-xs sm:text-sm">Program Taj Al-Asasi</span>
-                      <span class="text-xs text-purpleCustom-300 font-medium block mt-1">📖 Surah Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30</span>
+                      <span class="text-[11px] sm:text-xs text-purpleCustom-300 font-medium block mt-0.5">📖 Surah Yasin, Al-Waqi'ah, Al-Mulk, dan Juz 30</span>
                     </div>
                   </label>
 
-                  <label class="p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-purpleCustom-500 transition">
+                  <label class="p-3 sm:p-4 bg-dark-900 border border-white/10 rounded-xl flex items-start space-x-3 cursor-pointer hover:border-purpleCustom-500 transition">
                     <input type="radio" name="program" value="TAJ AL-WAQAR" onchange="updatePaymentPlan()" class="mt-1 accent-purpleCustom-500">
                     <div>
                       <span class="block font-bold text-white text-xs sm:text-sm">Program TAJ AL-WAQAR</span>
-                      <span class="text-xs text-purpleCustom-300 font-medium block mt-1">📖 30 Juz Al-Qur'an (Khatam & Mutqin)</span>
+                      <span class="text-[11px] sm:text-xs text-purpleCustom-300 font-medium block mt-0.5">📖 30 Juz Al-Qur'an (Khatam & Mutqin)</span>
                     </div>
                   </label>
                 </div>
               </div>
 
               <div>
-                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Pilihan Sesi Sima'an *</label>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Pilihan Sesi Sima'an *</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
+                  <label class="p-2.5 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
                     <input type="checkbox" name="session" value="Shubuh (30m)" checked class="rounded accent-purpleCustom-500">
-                    <span>🌅 Shubuh (30m)</span>
+                    <span class="text-[11px] sm:text-xs">🌅 Shubuh (30m)</span>
                   </label>
-                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
+                  <label class="p-2.5 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
                     <input type="checkbox" name="session" value="Ashar (15m)" checked class="rounded accent-purpleCustom-500">
-                    <span>☀️ Ashar (15m)</span>
+                    <span class="text-[11px] sm:text-xs">☀️ Ashar (15m)</span>
                   </label>
-                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
+                  <label class="p-2.5 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
                     <input type="checkbox" name="session" value="Maghrib (30m)" checked class="rounded accent-purpleCustom-500">
-                    <span>🌆 Maghrib (30m)</span>
+                    <span class="text-[11px] sm:text-xs">🌆 Maghrib (30m)</span>
                   </label>
-                  <label class="p-3 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
+                  <label class="p-2.5 bg-dark-900 border border-white/10 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-purpleCustom-500/50">
                     <input type="checkbox" name="session" value="Isya (1 Jam)" checked class="rounded accent-purpleCustom-500">
-                    <span>🌙 Isya (1 Jam)</span>
+                    <span class="text-[11px] sm:text-xs">🌙 Isya (1 Jam)</span>
                   </label>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-white/10">
-                <label class="block text-xs font-semibold text-purpleCustom-300 uppercase tracking-wider mb-2">💳 Detail Biaya Program & Metode Pembayaran</label>
-                <div class="p-4 glass-card-purple rounded-xl mb-4 flex justify-between items-center">
+              <div class="pt-3 border-t border-white/10">
+                <label class="block text-xs font-semibold text-purpleCustom-300 uppercase tracking-wider mb-2">💳 Detail Biaya & Pembayaran</label>
+                <div class="p-3.5 glass-card-purple rounded-xl mb-3 flex justify-between items-center">
                   <div>
-                    <span class="text-xs text-gray-400 block">Biaya Investasi Pendidikan:</span>
+                    <span class="text-[10px] text-gray-400 block">Biaya Investasi:</span>
                     <span id="planTitle" class="font-bold text-white text-xs sm:text-sm">Program Taj Al-Asasi</span>
                   </div>
-                  <span id="planAmount" class="text-sm sm:text-base font-extrabold text-purpleCustom-300">Rp 500.000 / 2 Bulan</span>
+                  <span id="planAmount" class="text-xs sm:text-base font-extrabold text-purpleCustom-300">Rp 500.000 / 2 Bulan</span>
                 </div>
 
-                <div class="bg-dark-900 p-4 rounded-xl border border-white/10 space-y-3">
-                  <p class="text-xs text-gray-400 font-medium">Rekening Tujuan Pembayaran Taj Al-A’zham:</p>
+                <div class="bg-dark-900 p-3 sm:p-4 rounded-xl border border-white/10 space-y-2.5">
+                  <p class="text-[11px] text-gray-400 font-medium">Rekening Tujuan Pembayaran Taj Al-A’zham:</p>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-                    <div class="p-3 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
+                    <div class="p-2.5 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
                       <div>
-                        <p class="font-bold text-white">Bank BCA</p>
-                        <p class="text-gray-400">123-456-7890 (a.n. Taj Al-A’zham)</p>
+                        <p class="font-bold text-white text-xs">Bank BCA</p>
+                        <p class="text-[11px] text-gray-400">123-456-7890 (Taj Al-A’zham)</p>
                       </div>
                       <button type="button" onclick="navigator.clipboard.writeText('1234567890'); alert('Nomor Rekening BCA disalin!');" class="text-purpleCustom-300 hover:text-purpleCustom-400 font-semibold text-xs">Salin</button>
                     </div>
-                    <div class="p-3 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
+                    <div class="p-2.5 bg-dark-800 rounded-lg border border-white/10 flex justify-between items-center">
                       <div>
-                        <p class="font-bold text-white">Bank Mandiri / GoPay / OVO</p>
-                        <p class="text-gray-400">0812-3456-7890</p>
+                        <p class="font-bold text-white text-xs">Bank Mandiri / GoPay</p>
+                        <p class="text-[11px] text-gray-400">0812-3456-7890</p>
                       </div>
                       <button type="button" onclick="navigator.clipboard.writeText('0812-3456-7890'); alert('Nomor disalin!');" class="text-purpleCustom-300 hover:text-purpleCustom-400 font-semibold text-xs">Salin</button>
                     </div>
@@ -911,7 +913,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="w-full py-4 rounded-xl purple-button text-sm sm:text-base shadow-purple-glow">
+              <button type="submit" class="w-full py-3.5 rounded-xl purple-button text-xs sm:text-base shadow-purple-glow">
                 <span>Konfirmasi & Kirim Pendaftaran</span>
               </button>
 
@@ -919,37 +921,37 @@
           </div>
 
           <!-- Confirmation View -->
-          <div id="confirmationView" class="hidden glass-card-purple rounded-2xl border border-purpleCustom-500/30 p-8 shadow-purple-glow text-center animate-fade-in">
-            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div id="confirmationView" class="hidden glass-card-purple rounded-2xl border border-purpleCustom-500/30 p-6 sm:p-8 shadow-purple-glow text-center animate-fade-in">
+            <div class="w-14 h-14 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Pendaftaran Berhasil Terkirim</span>
+            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Pendaftaran Berhasil Terkirim</span>
             
-            <h2 class="text-2xl font-bold mt-3 text-white">Jazakallah Khair!</h2>
-            <p class="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2">
+            <h2 class="text-xl sm:text-2xl font-bold mt-2 text-white">Jazakallah Khair!</h2>
+            <p class="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-1">
               Data pendaftaran Anda telah tercatat dengan aman di sistem <strong class="text-purpleCustom-300">Taj Al-A’zham Tahfidz</strong>.
             </p>
 
-            <div class="my-6 bg-dark-900 border border-white/10 rounded-xl p-4 text-left max-w-md mx-auto space-y-2 text-xs">
-              <div class="flex justify-between border-b border-white/10 pb-2">
+            <div class="my-5 bg-dark-900 border border-white/10 rounded-xl p-3.5 text-left max-w-md mx-auto space-y-2 text-xs">
+              <div class="flex justify-between border-b border-white/10 pb-1.5">
                 <span class="text-gray-400">Kode Registrasi:</span>
                 <span id="confCode" class="font-bold text-purpleCustom-300">TAJ-2026-0001</span>
               </div>
-              <div class="flex justify-between border-b border-white/10 pb-2">
+              <div class="flex justify-between border-b border-white/10 pb-1.5">
                 <span class="text-gray-400">Nama Santri:</span>
                 <span id="confName" class="font-bold text-white">-</span>
               </div>
-              <div class="flex justify-between border-b border-white/10 pb-2">
+              <div class="flex justify-between border-b border-white/10 pb-1.5">
                 <span class="text-gray-400">Program Dipilih:</span>
                 <span id="confProgram" class="font-bold text-purpleCustom-300">-</span>
               </div>
-              <div class="flex justify-between border-b border-white/10 pb-2">
+              <div class="flex justify-between border-b border-white/10 pb-1.5">
                 <span class="text-gray-400">Alamat Sertifikat:</span>
-                <span id="confAddress" class="text-gray-300 font-medium truncate max-w-[200px]">-</span>
+                <span id="confAddress" class="text-gray-300 font-medium truncate max-w-[180px]">-</span>
               </div>
-              <div class="flex justify-between border-b border-white/10 pb-2">
+              <div class="flex justify-between border-b border-white/10 pb-1.5">
                 <span class="text-gray-400">Biaya Investasi:</span>
                 <span id="confAmount" class="font-bold text-white">-</span>
               </div>
@@ -960,24 +962,24 @@
             </div>
 
             <div class="space-y-3 max-w-md mx-auto mb-4">
-              <a id="btnSendWaRegistration" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-lg transition">
+              <a id="btnSendWaRegistration" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-lg transition">
                 <span>💬 Kirim Konfirmasi Pendaftaran via WhatsApp</span>
               </a>
             </div>
 
-            <button onclick="resetToForm()" class="px-6 py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-white text-xs font-semibold border border-white/10 transition">
+            <button onclick="resetToForm()" class="px-5 py-2 rounded-xl bg-dark-800 hover:bg-dark-700 text-white text-xs font-semibold border border-white/10 transition">
               ← Isi Formulir Baru
             </button>
           </div>
 
           <!-- Admin Panel View Pendaftaran -->
-          <div id="adminView" class="hidden glass-card rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl">
-            <div class="flex items-center justify-between mb-6">
+          <div id="adminView" class="hidden glass-card rounded-2xl border border-white/10 p-4 sm:p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
               <div>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Admin Management</span>
-                <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Daftar Pendaftar & Pembayaran</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Admin Management</span>
+                <h2 class="text-lg sm:text-2xl font-bold mt-1 text-white">Daftar Pendaftar & Pembayaran</h2>
               </div>
-              <button onclick="toggleAdminView()" class="px-3 py-1.5 rounded-lg bg-dark-800 text-xs font-semibold hover:bg-dark-700 transition">
+              <button onclick="toggleAdminView()" class="px-2.5 py-1.5 rounded-lg bg-dark-800 text-xs font-semibold hover:bg-dark-700 transition">
                 ✕ Tutup Admin
               </button>
             </div>
@@ -988,10 +990,10 @@
 
       <!-- PAGE 4: DATA SETORAN SANTRI -->
       <div id="page-tracker" class="page-slide">
-        <div class="space-y-6 max-w-5xl mx-auto">
-          <div class="glass-card p-3.5 sm:p-4 rounded-2xl border border-white/10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+        <div class="space-y-4 sm:space-y-6 max-w-5xl mx-auto">
+          <div class="glass-card p-3 sm:p-4 rounded-2xl border border-white/10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2.5">
             <div class="flex flex-wrap items-center gap-2">
-              <span id="loginStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap">
+              <span id="loginStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap">
                 👤 Portal Santri Mandiri
               </span>
               <span id="activeUserLabel" class="text-xs text-gray-400 font-medium">Silakan Masuk atau Buat Akun Baru</span>
@@ -1007,7 +1009,7 @@
             </div>
           </div>
 
-          <div id="santriAuthBox" class="glass-card rounded-2xl border border-white/10 p-6 md:p-8 max-w-md mx-auto shadow-2xl space-y-5">
+          <div id="santriAuthBox" class="glass-card rounded-2xl border border-white/10 p-5 sm:p-8 max-w-md mx-auto shadow-2xl space-y-4">
             <div class="flex bg-dark-900 p-1 rounded-xl border border-white/10 text-xs font-bold">
               <button id="tabBtnLogin" onclick="toggleAuthTab('LOGIN')" class="flex-1 py-2 rounded-lg bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30 transition">
                 🔑 Masuk (Login)
@@ -1020,11 +1022,11 @@
             <form id="formSantriLogin" onsubmit="handleSantriLogin(event)" class="space-y-3 text-left">
               <div>
                 <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Lengkap Santri *</label>
-                <input type="text" id="loginStudentName" required placeholder="Ketik nama Anda yang terdaftar..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                <input type="text" id="loginStudentName" required placeholder="Ketik nama Anda yang terdaftar..." class="w-full p-2.5 sm:p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-gray-300 mb-1">Kata Sandi *</label>
-                <input type="password" id="loginStudentPass" required placeholder="Masukkan kata sandi..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                <input type="password" id="loginStudentPass" required placeholder="Masukkan kata sandi..." class="w-full p-2.5 sm:p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
               </div>
               <button type="submit" class="w-full py-3 rounded-xl purple-button text-xs font-bold shadow-purple-glow">
                 Masuk Portal Saya →
@@ -1034,15 +1036,15 @@
             <form id="formSantriRegister" onsubmit="handleSantriRegister(event)" class="hidden space-y-3 text-left">
               <div>
                 <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Lengkap Santri *</label>
-                <input type="text" id="regStudentName" required placeholder="Contoh: Ahmad Zaky" class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                <input type="text" id="regStudentName" required placeholder="Contoh: Ahmad Zaky" class="w-full p-2.5 sm:p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-gray-300 mb-1">No. WhatsApp *</label>
-                <input type="tel" id="regStudentPhone" required placeholder="Contoh: 08123456789" class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                <input type="tel" id="regStudentPhone" required placeholder="Contoh: 08123456789" class="w-full p-2.5 sm:p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-gray-300 mb-1">Buat Kata Sandi *</label>
-                <input type="password" id="regStudentPass" required placeholder="Minimal 4 karakter..." class="w-full p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                <input type="password" id="regStudentPass" required placeholder="Minimal 4 karakter..." class="w-full p-2.5 sm:p-3 rounded-xl bg-dark-900 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
               </div>
               <p class="text-[11px] text-purple-300 italic bg-purple-500/10 p-2.5 rounded-lg border border-purple-500/20">
                 ⏳ Akun baru memerlukan **verifikasi/persetujuan Pengajar** setelah pembayaran SPP dikonfirmasi sebelum dapat digunakan.
@@ -1053,13 +1055,13 @@
             </form>
           </div>
 
-          <div id="teacherStatsBox" class="hidden space-y-6 glass-card-purple rounded-2xl p-4 sm:p-6 shadow-purple-glow">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+          <div id="teacherStatsBox" class="hidden space-y-4 sm:space-y-6 glass-card-purple rounded-2xl p-3.5 sm:p-6 shadow-purple-glow">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-3 sm:pb-4">
               <div>
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">
                   📊 Dashboard Laporan Pengajar Harian
                 </span>
-                <h3 class="text-lg sm:text-xl font-bold text-white mt-1">Statistik Perkembangan Per Hari</h3>
+                <h3 class="text-base sm:text-xl font-bold text-white mt-1">Statistik Perkembangan Per Hari</h3>
               </div>
 
               <div class="flex items-center gap-2 bg-dark-900 px-3 py-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-between sm:justify-start">
@@ -1069,54 +1071,54 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-6 gap-2.5 sm:gap-3">
-              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
-                <span class="text-[11px] text-gray-400 font-medium">Santri Aktif</span>
-                <h3 id="teacherStatTotalSantri" class="text-xl font-black text-white">0</h3>
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-2 sm:gap-3">
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-white/10 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-gray-400 font-medium">Santri Aktif</span>
+                <h3 id="teacherStatTotalSantri" class="text-lg sm:text-xl font-black text-white">0</h3>
               </div>
-              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
-                <span class="text-[11px] text-gray-400 font-medium">Total Setoran</span>
-                <h3 id="teacherStatTotalSetoran" class="text-xl font-black text-purpleCustom-300">0</h3>
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-white/10 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-gray-400 font-medium">Total Setoran</span>
+                <h3 id="teacherStatTotalSetoran" class="text-lg sm:text-xl font-black text-purpleCustom-300">0</h3>
               </div>
-              <div class="glass-card p-3 rounded-xl border border-purpleCustom-500/30 space-y-1">
-                <span class="text-[11px] text-purpleCustom-300 font-medium">🌟 Mutqin</span>
-                <h3 id="teacherStatMutqin" class="text-xl font-black text-purpleCustom-300">0</h3>
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-purpleCustom-500/30 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-purpleCustom-300 font-medium">🌟 Mutqin</span>
+                <h3 id="teacherStatMutqin" class="text-lg sm:text-xl font-black text-purpleCustom-300">0</h3>
               </div>
-              <div class="glass-card p-3 rounded-xl border border-blue-500/30 space-y-1">
-                <span class="text-[11px] text-blue-300 font-medium">👍 Lancar</span>
-                <h3 id="teacherStatLancar" class="text-xl font-black text-blue-400">0</h3>
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-blue-500/30 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-blue-300 font-medium">👍 Lancar</span>
+                <h3 id="teacherStatLancar" class="text-lg sm:text-xl font-black text-blue-400">0</h3>
               </div>
-              <div class="glass-card p-3 rounded-xl border border-red-500/30 space-y-1">
-                <span class="text-[11px] text-red-300 font-medium">🔄 Perlu Ulang</span>
-                <h3 id="teacherStatUlang" class="text-xl font-black text-red-400">0</h3>
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-red-500/30 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-red-300 font-medium">🔄 Perlu Ulang</span>
+                <h3 id="teacherStatUlang" class="text-lg sm:text-xl font-black text-red-400">0</h3>
               </div>
-              <div class="glass-card p-3 rounded-xl border border-white/10 space-y-1">
-                <span class="text-[11px] text-gray-400 font-medium">Pendaftar</span>
-                <h3 id="teacherStatTotalPendaftar" class="text-xl font-black text-blue-400">0</h3>
+              <div class="glass-card p-2.5 sm:p-3 rounded-xl border border-white/10 space-y-0.5">
+                <span class="text-[10px] sm:text-[11px] text-gray-400 font-medium">Pendaftar</span>
+                <h3 id="teacherStatTotalPendaftar" class="text-lg sm:text-xl font-black text-blue-400">0</h3>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div class="glass-card p-3.5 sm:p-5 rounded-2xl border border-white/10 space-y-3 sm:space-y-4">
                 <div>
-                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                    <span>📊</span> Persentase Performa Kelancaran Harian
+                  <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                    <span>📊</span> Persentase Performa Harian
                   </h4>
-                  <p class="text-[11px] text-gray-400">Perbandingan tingkat Mutqin, Lancar, & Perlu Ulang pada tanggal terpilih</p>
+                  <p class="text-[10px] sm:text-[11px] text-gray-400">Tingkat Mutqin, Lancar, & Perlu Ulang</p>
                 </div>
-                <div class="relative max-w-[240px] mx-auto py-2">
+                <div class="relative max-w-[220px] sm:max-w-[240px] mx-auto py-2">
                   <canvas id="teacherFluencyChart"></canvas>
                 </div>
               </div>
 
-              <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
+              <div class="glass-card p-3.5 sm:p-5 rounded-2xl border border-white/10 space-y-3 sm:space-y-4">
                 <div>
-                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                     <span>📈</span> Kehadiran Sesi Sima'an Harian
                   </h4>
-                  <p class="text-[11px] text-gray-400">Total akumulasi presensi di 4 Waktu Sima'an</p>
+                  <p class="text-[10px] sm:text-[11px] text-gray-400">Presensi di 4 Waktu Sima'an</p>
                 </div>
-                <div class="relative h-56">
+                <div class="relative h-48 sm:h-56">
                   <canvas id="teacherAttendanceChart"></canvas>
                 </div>
               </div>
@@ -1124,39 +1126,39 @@
           </div>
 
           <!-- KOTAK LEADERBOARD PAPAN PERINGKAT SANTRI -->
-          <div class="glass-card-purple rounded-2xl p-5 border border-purpleCustom-500/30 space-y-4 shadow-purple-glow">
-            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div class="glass-card-purple rounded-2xl p-3.5 sm:p-5 border border-purpleCustom-500/30 space-y-3 sm:space-y-4 shadow-purple-glow">
+            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
               <div>
-                <span class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40">
                   🏆 Papan Peringkat Santri
                 </span>
-                <h3 class="text-base sm:text-lg font-black text-white mt-1">Leaderboard Accumulation Points</h3>
+                <h3 class="text-sm sm:text-lg font-black text-white mt-1">Leaderboard Accumulation Points</h3>
               </div>
-              <span class="text-xs text-purpleCustom-300 font-semibold">⚡ Real-Time Update</span>
+              <span class="text-[11px] sm:text-xs text-purpleCustom-300 font-semibold">⚡ Real-Time Update</span>
             </div>
 
             <!-- FITUR APRESIASI PENGAJAR: INPUT BONUS POIN -->
-            <div id="bonusPointPanel" class="hidden bg-dark-900/90 p-3.5 rounded-xl border border-purpleCustom-500/30 mb-3 space-y-2">
+            <div id="bonusPointPanel" class="hidden bg-dark-900/90 p-3 rounded-xl border border-purpleCustom-500/30 mb-3 space-y-2">
               <span class="text-xs font-bold text-purpleCustom-300 flex items-center gap-1.5">
-                <span>🎁</span> Fitur Tambahan Poin Pengajar (Apresiasi / Side Quest)
+                <span>🎁</span> Tambahan Poin Pengajar (Apresiasi / Side Quest)
               </span>
               <div class="flex flex-col sm:flex-row gap-2">
                 <input type="number" id="inputBonusAmount" placeholder="Jumlah Poin (misal: 20 atau -10)" class="bg-dark-800 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purpleCustom-500 flex-1">
-                <input type="text" id="inputBonusReason" placeholder="Keterangan (misal: Imam Shalat / Rajin Tikrar)" class="bg-dark-800 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purpleCustom-500 flex-1">
+                <input type="text" id="inputBonusReason" placeholder="Keterangan (misal: Imam Shalat)" class="bg-dark-800 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purpleCustom-500 flex-1">
                 <button onclick="addTeacherBonusPoints()" class="px-4 py-1.5 bg-purpleCustom-500 text-white font-bold rounded-lg text-xs hover:bg-purpleCustom-400 transition shrink-0">
                   + Beri Poin
                 </button>
               </div>
             </div>
 
-            <div class="overflow-x-auto custom-scrollbar">
-              <table class="w-full text-left text-xs text-gray-300 min-w-[500px]">
-                <thead class="bg-dark-950 text-purpleCustom-300 font-bold uppercase text-[10px] border-b border-white/10">
+            <div class="overflow-x-auto custom-scrollbar -mx-2 sm:mx-0">
+              <table class="w-full text-left text-xs text-gray-300 min-w-[450px]">
+                <thead class="bg-dark-950 text-purpleCustom-300 font-bold uppercase text-[9px] sm:text-[10px] border-b border-white/10">
                   <tr>
-                    <th class="p-3 text-center">Peringkat</th>
-                    <th class="p-3">Nama Santri</th>
-                    <th class="p-3 text-center">Aktivitas Setoran</th>
-                    <th class="p-3 text-right">Total Poin</th>
+                    <th class="p-2.5 text-center">Peringkat</th>
+                    <th class="p-2.5">Nama Santri</th>
+                    <th class="p-2.5 text-center">Aktivitas Setoran</th>
+                    <th class="p-2.5 text-right">Total Poin</th>
                   </tr>
                 </thead>
                 <tbody id="leaderboardList" class="divide-y divide-white/10">
@@ -1167,7 +1169,7 @@
           </div>
 
           <div id="adminInputFormBox" class="hidden glass-card rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
-            <div class="bg-dark-900/80 text-white px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-purpleCustom-500/20">
+            <div class="bg-dark-900/80 text-white px-3.5 sm:px-6 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 border-b border-purpleCustom-500/20">
               <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-purpleCustom-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                 <h2 id="formTitle" class="text-sm sm:text-lg font-bold text-white">Form Input Setoran Hafalan Santri</h2>
@@ -1183,85 +1185,85 @@
               </div>
             </div>
 
-            <form id="setoranForm" onsubmit="handleFormSubmitSetoran(event)" class="p-4 sm:p-6 space-y-6">
-              <div class="form-field-group px-1 sm:px-2 my-2">
-                <label class="text-xs font-extrabold text-purpleCustom-300 uppercase tracking-wider block mb-2">
+            <form id="setoranForm" onsubmit="handleFormSubmitSetoran(event)" class="p-3.5 sm:p-6 space-y-4 sm:space-y-6">
+              <div class="form-field-group my-1">
+                <label class="text-xs font-extrabold text-purpleCustom-300 uppercase tracking-wider block mb-1.5">
                   1. Pilih Nama Santri Terdaftar & Disetujui *
                 </label>
-                <select id="inputStudentName" required onchange="onSelectStudentChange()" class="p-3.5 text-sm sm:text-base rounded-xl bg-dark-900 border border-purpleCustom-500/40 text-purpleCustom-300 font-bold focus:ring-2 focus:ring-purpleCustom-500 outline-none block"></select>
+                <select id="inputStudentName" required onchange="onSelectStudentChange()" class="p-3 text-xs sm:text-base rounded-xl bg-dark-900 border border-purpleCustom-500/40 text-purpleCustom-300 font-bold focus:ring-2 focus:ring-purpleCustom-500 outline-none block"></select>
               </div>
 
-              <hr class="border-white/10 my-4" />
+              <hr class="border-white/10 my-3" />
 
-              <div class="space-y-3 px-1 sm:px-2">
+              <div class="space-y-2.5">
                 <label class="text-xs font-extrabold text-purpleCustom-300 uppercase tracking-wider block">
                   2. Presensi Sesi Sima'an Hari Ini (4 Sesi Target)
                 </label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-                  <button type="button" onclick="toggleSession('subuh')" id="btnSession_subuh" class="p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
-                    <div class="flex justify-between items-center mb-1">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button type="button" onclick="toggleSession('subuh')" id="btnSession_subuh" class="p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-0.5">
                       <span class="font-bold text-xs text-white">SHUBUH</span>
                       <span id="badgeIcon_subuh" class="text-purpleCustom-300 font-bold">✓</span>
                     </div>
-                    <div class="text-[11px] text-gray-400">30 Mins</div>
-                    <span id="badgeLabel_subuh" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
+                    <div class="text-[10px] text-gray-400">30 Mins</div>
+                    <span id="badgeLabel_subuh" class="mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
                   </button>
 
-                  <button type="button" onclick="toggleSession('ashar')" id="btnSession_ashar" class="p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
-                    <div class="flex justify-between items-center mb-1">
+                  <button type="button" onclick="toggleSession('ashar')" id="btnSession_ashar" class="p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-0.5">
                       <span class="font-bold text-xs text-white">ASHAR</span>
                       <span id="badgeIcon_ashar" class="text-purpleCustom-300 font-bold">✓</span>
                     </div>
-                    <div class="text-[11px] text-gray-400">15 Mins</div>
-                    <span id="badgeLabel_ashar" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
+                    <div class="text-[10px] text-gray-400">15 Mins</div>
+                    <span id="badgeLabel_ashar" class="mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
                   </button>
 
-                  <button type="button" onclick="toggleSession('maghrib')" id="btnSession_maghrib" class="p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
-                    <div class="flex justify-between items-center mb-1">
+                  <button type="button" onclick="toggleSession('maghrib')" id="btnSession_maghrib" class="p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-0.5">
                       <span class="font-bold text-xs text-white">MAGHRIB</span>
                       <span id="badgeIcon_maghrib" class="text-purpleCustom-300 font-bold">✓</span>
                     </div>
-                    <div class="text-[11px] text-gray-400">30 Mins</div>
-                    <span id="badgeLabel_maghrib" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
+                    <div class="text-[10px] text-gray-400">30 Mins</div>
+                    <span id="badgeLabel_maghrib" class="mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
                   </button>
 
-                  <button type="button" onclick="toggleSession('isya')" id="btnSession_isya" class="p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
-                    <div class="flex justify-between items-center mb-1">
+                  <button type="button" onclick="toggleSession('isya')" id="btnSession_isya" class="p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm">
+                    <div class="flex justify-between items-center mb-0.5">
                       <span class="font-bold text-xs text-white">ISYA</span>
                       <span id="badgeIcon_isya" class="text-purpleCustom-300 font-bold">✓</span>
                     </div>
-                    <div class="text-[11px] text-gray-400">1 Jam</div>
-                    <span id="badgeLabel_isya" class="mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
+                    <div class="text-[10px] text-gray-400">1 Jam</div>
+                    <span id="badgeLabel_isya" class="mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">Hadir</span>
                   </button>
                 </div>
               </div>
 
-              <hr class="border-white/10 my-4" />
+              <hr class="border-white/10 my-3" />
 
-              <div class="space-y-4 px-1 sm:px-2">
+              <div class="space-y-3">
                 <label class="text-xs font-extrabold text-purpleCustom-300 uppercase tracking-wider block">
                   3. Target & Kelancaran Setoran
                 </label>
 
-                <div class="space-y-4">
+                <div class="space-y-3">
                   <div class="form-field-group">
-                    <label class="text-xs font-bold text-gray-300 mb-1.5">Tanggal Masehi *</label>
-                    <input type="date" id="inputDate" onchange="convertGregorianToHijri(this.value)" required class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none" />
+                    <label class="text-xs font-bold text-gray-300 mb-1">Tanggal Masehi *</label>
+                    <input type="date" id="inputDate" onchange="convertGregorianToHijri(this.value)" required class="p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none" />
                   </div>
 
                   <div class="form-field-group">
-                    <label class="text-xs font-bold text-gray-300 mb-1.5">Tanggal Hijriah</label>
-                    <input type="text" id="inputHijriDate" placeholder="e.g. 26 Rabi'ul Awwal 1448 H" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-purpleCustom-300 font-semibold focus:ring-2 focus:ring-purpleCustom-500 outline-none" />
+                    <label class="text-xs font-bold text-gray-300 mb-1">Tanggal Hijriah</label>
+                    <input type="text" id="inputHijriDate" placeholder="e.g. 26 Rabi'ul Awwal 1448 H" class="p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-purpleCustom-300 font-semibold focus:ring-2 focus:ring-purpleCustom-500 outline-none" />
                   </div>
 
                   <div class="form-field-group">
-                    <label class="text-xs font-bold text-gray-300 mb-1.5">Surah Target *</label>
-                    <select id="selectSurah" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none"></select>
+                    <label class="text-xs font-bold text-gray-300 mb-1">Surah Target *</label>
+                    <select id="selectSurah" class="p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none"></select>
                   </div>
 
                   <div class="form-field-group">
-                    <label class="text-xs font-bold text-gray-300 mb-1.5">Posisi Blok & Halaman Setoran *</label>
-                    <select id="inputPage" required onchange="onSelectStudentChange()" class="p-3 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-purpleCustom-300 font-bold focus:ring-2 focus:ring-purpleCustom-500 outline-none">
+                    <label class="text-xs font-bold text-gray-300 mb-1">Posisi Blok & Halaman Setoran *</label>
+                    <select id="inputPage" required onchange="onSelectStudentChange()" class="p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-white/10 text-purpleCustom-300 font-bold focus:ring-2 focus:ring-purpleCustom-500 outline-none">
                       <optgroup label="📌 BLOK A">
                         <option value="Blok A1">Blok A1</option>
                         <option value="Blok A2">Blok A2</option>
@@ -1294,71 +1296,71 @@
                   </div>
                 </div>
 
-                <div class="pt-2 flex flex-col space-y-2">
-                  <label class="text-xs font-bold text-gray-300">Tingkat Kelancaran (Mutqin: 100 | Lancar: 80 | Perlu Ulang: 50)</label>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <button type="button" onclick="setFluency('Mutqin')" id="btnFluency_Mutqin" class="p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm ring-1 ring-purpleCustom-500">
-                      <div class="font-bold text-xs sm:text-sm text-purpleCustom-300 whitespace-nowrap">🌟 Mutqin (100)</div>
-                      <div class="text-[11px] text-gray-400 mt-0.5">Sangat Baik, tanpa salah</div>
+                <div class="pt-1 flex flex-col space-y-1.5">
+                  <label class="text-xs font-bold text-gray-300">Tingkat Kelancaran</label>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <button type="button" onclick="setFluency('Mutqin')" id="btnFluency_Mutqin" class="p-2.5 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm ring-1 ring-purpleCustom-500">
+                      <div class="font-bold text-xs text-purpleCustom-300">🌟 Mutqin (100)</div>
+                      <div class="text-[10px] text-gray-400 mt-0.5">Sangat Baik, tanpa salah</div>
                     </button>
-                    <button type="button" onclick="setFluency('Lancar')" id="btnFluency_Lancar" class="p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
-                      <div class="font-bold text-xs sm:text-sm text-white whitespace-nowrap">👍 Lancar (80)</div>
-                      <div class="text-[11px] text-gray-400 mt-0.5">Baik, minor catatan tajwid</div>
+                    <button type="button" onclick="setFluency('Lancar')" id="btnFluency_Lancar" class="p-2.5 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
+                      <div class="font-bold text-xs text-white">👍 Lancar (80)</div>
+                      <div class="text-[10px] text-gray-400 mt-0.5">Baik, minor catatan tajwid</div>
                     </button>
-                    <button type="button" onclick="setFluency('Perlu Ulang')" id="btnFluency_PerluUlang" class="p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
-                      <div class="font-bold text-xs sm:text-sm text-white whitespace-nowrap">🔄 Perlu Ulang (50)</div>
-                      <div class="text-[11px] text-gray-400 mt-0.5">Banyak terhenti, review</div>
+                    <button type="button" onclick="setFluency('Perlu Ulang')" id="btnFluency_PerluUlang" class="p-2.5 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300">
+                      <div class="font-bold text-xs text-white">🔄 Perlu Ulang (50)</div>
+                      <div class="text-[10px] text-gray-400 mt-0.5">Banyak terhenti, review</div>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <hr class="border-white/10 my-4" />
+              <hr class="border-white/10 my-3" />
 
-              <div class="space-y-3 px-1 sm:px-2">
+              <div class="space-y-2.5">
                 <label class="text-xs font-extrabold text-purpleCustom-300 uppercase tracking-wider block">
                   4. Catatan Evaluasi Tajwid & Makhraj
                 </label>
 
                 <div class="flex flex-wrap items-center gap-1.5 pb-1">
-                  <span class="text-xs text-gray-400 font-bold mr-1">Quick Tags:</span>
-                  <div id="quickTagsContainer" class="flex flex-wrap gap-1.5"></div>
+                  <span class="text-[11px] text-gray-400 font-bold mr-1">Tags:</span>
+                  <div id="quickTagsContainer" class="flex flex-wrap gap-1"></div>
                 </div>
 
-                <textarea id="inputNotes" rows="3" placeholder="Tuliskan catatan spesifik tajwid/makhraj..." class="w-full p-3 text-sm rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none transition-all"></textarea>
+                <textarea id="inputNotes" rows="2" placeholder="Tuliskan catatan spesifik tajwid/makhraj..." class="w-full p-2.5 text-xs rounded-xl bg-dark-900 border border-white/10 text-white focus:ring-2 focus:ring-purpleCustom-500 outline-none transition-all"></textarea>
               </div>
 
               <!-- KALKULASI TES BLOK -->
-              <div class="glass-card-purple p-4 sm:p-5 rounded-2xl border border-purpleCustom-500/30 space-y-3">
+              <div class="glass-card-purple p-3.5 sm:p-5 rounded-2xl border border-purpleCustom-500/30 space-y-2.5">
                 <h4 class="text-xs font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
-                  <span>🧮</span> Kalkulasi Ujian Blok Hafalan (5 Halaman)
+                  <span>🧮</span> Kalkulasi Ujian Blok (5 Halaman)
                 </h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">
-                  Perhitungan otomatis Nilai Tes Blok (TB = 100 - [PanjangPendek × 2] - [Macet × 5]) & Nilai Akhir (NA = 20% NH + 80% TB). Syarat Lulus: NA ≥ 85 & Tidak Ada Hutang (< 80).
+                <p class="text-[10px] sm:text-[11px] text-gray-400 leading-relaxed">
+                  Rumus Nilai Blok (TB = 100 - [PanjangPendek × 2] - [Macet × 5]) & Nilai Akhir (NA = 20% NH + 80% TB). Syarat Lulus: NA ≥ 85 & Tidak Ada Hutang.
                 </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                   <div>
-                    <label class="block text-[11px] font-bold text-gray-300 mb-1">Salah Panjang/Pendek (Pengurangan -2/salah)</label>
-                    <input type="number" id="inputSalahPanjangPendek" min="0" value="0" placeholder="Jumlah kesalahan..." class="w-full p-2.5 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                    <label class="block text-[10px] sm:text-[11px] font-bold text-gray-300 mb-1">Panjang/Pendek (-2/salah)</label>
+                    <input type="number" id="inputSalahPanjangPendek" min="0" value="0" placeholder="Jumlah kesalahan..." class="w-full p-2 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
                   </div>
                   <div>
-                    <label class="block text-[11px] font-bold text-gray-300 mb-1">Macet / Lupa Ayat (Pengurangan -5/macet)</label>
-                    <input type="number" id="inputMacetAyat" min="0" value="0" placeholder="Jumlah dipancing..." class="w-full p-2.5 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
+                    <label class="block text-[10px] sm:text-[11px] font-bold text-gray-300 mb-1">Macet / Lupa Ayat (-5/macet)</label>
+                    <input type="number" id="inputMacetAyat" min="0" value="0" placeholder="Jumlah dipancing..." class="w-full p-2 rounded-xl bg-dark-800 border border-white/10 text-white text-xs outline-none focus:border-purpleCustom-500">
                   </div>
                 </div>
 
-                <div class="pt-2">
+                <div class="pt-1">
                   <button type="button" id="btnHitungBlok" onclick="prosesKalkulasiBlok()" class="w-full py-2.5 rounded-xl purple-button text-xs font-bold shadow-purple-glow">
-                    Hitung & Simpan Nilai Ujian Blok
+                    Hitung & Simpan Ujian Blok
                   </button>
                 </div>
 
-                <div id="outputKalkulasiBox" class="hidden p-3.5 rounded-xl text-xs font-bold border animate-fade-in"></div>
+                <div id="outputKalkulasiBox" class="hidden p-3 rounded-xl text-xs font-bold border animate-fade-in"></div>
               </div>
 
-              <div class="pt-2 flex justify-end px-1 sm:px-2">
-                <button type="submit" id="btnSubmitSetoran" class="w-full sm:w-auto px-8 py-3 rounded-xl purple-button text-xs font-bold shadow-purple-glow">
+              <div class="pt-1 flex justify-end">
+                <button type="submit" id="btnSubmitSetoran" class="w-full sm:w-auto px-6 py-3 rounded-xl purple-button text-xs font-bold shadow-purple-glow">
                   Simpan Setoran Ke Sistem
                 </button>
               </div>
@@ -1366,111 +1368,111 @@
           </div>
 
           <section id="tableSection" class="hidden glass-card rounded-2xl border border-white/10 shadow-xl overflow-hidden">
-            <div class="p-4 sm:p-5 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-dark-900/50">
+            <div class="p-3.5 sm:p-5 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-dark-900/50">
               <div>
-                <h3 id="tableTitle" class="text-base font-bold text-white">Daftar Rekap Setoran Santri</h3>
-                <p id="tableSubtitle" class="text-xs text-gray-400 mt-0.5">Pemantauan visual per blok kontainer dan tingkat kelancaran</p>
+                <h3 id="tableTitle" class="text-sm sm:text-base font-bold text-white">Daftar Rekap Setoran Santri</h3>
+                <p id="tableSubtitle" class="text-[11px] sm:text-xs text-gray-400 mt-0.5">Pemantauan visual per blok kontainer dan kelancaran</p>
               </div>
 
               <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                <div class="flex items-center gap-2 bg-dark-900 px-3 py-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center gap-2 bg-dark-900 px-2.5 py-1 rounded-xl border border-white/10 w-full sm:w-auto justify-between sm:justify-start">
                   <span class="text-xs text-gray-400 font-bold shrink-0">📅 Tanggal:</span>
                   <input type="date" id="filterStudentDate" onchange="renderTable()" class="bg-dark-800 text-purpleCustom-300 font-semibold text-xs px-2 py-1 rounded-lg border border-white/10 outline-none w-full sm:w-auto">
-                  <button type="button" onclick="resetStudentDateFilter()" class="text-[11px] bg-dark-700 hover:bg-dark-600 text-gray-300 px-2 py-1 rounded-lg font-semibold transition shrink-0">Semua</button>
+                  <button type="button" onclick="resetStudentDateFilter()" class="text-[10px] bg-dark-700 hover:bg-dark-600 text-gray-300 px-2 py-1 rounded-lg font-semibold transition shrink-0">Semua</button>
                 </div>
 
-                <button id="btnChangePasswordSelf" onclick="changeMyPassword()" class="hidden px-3 py-1.5 rounded-lg border border-purpleCustom-500/30 text-purpleCustom-300 text-xs font-semibold hover:bg-purpleCustom-500/10 whitespace-nowrap">
+                <button id="btnChangePasswordSelf" onclick="changeMyPassword()" class="hidden px-2.5 py-1.5 rounded-lg border border-purpleCustom-500/30 text-purpleCustom-300 text-xs font-semibold hover:bg-purpleCustom-500/10 whitespace-nowrap">
                   🔒 Ubah Sandi Saya
                 </button>
               </div>
             </div>
 
-            <div id="rekapContainer" class="p-4 sm:p-6"></div>
+            <div id="rekapContainer" class="p-3 sm:p-6"></div>
           </section>
         </div>
       </div>
 
       <!-- PAGE 5: PORTAL OWNER -->
       <div id="page-owner" class="page-slide">
-        <div class="space-y-6 max-w-6xl mx-auto glass-card-purple rounded-3xl p-6 sm:p-8 shadow-purple-glow">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-white/10">
+        <div class="space-y-4 sm:space-y-6 max-w-6xl mx-auto glass-card-purple rounded-3xl p-4 sm:p-8 shadow-purple-glow">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-white/10">
             <div>
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30">
                 👑 Executive Owner Dashboard
               </span>
-              <h2 class="text-2xl font-extrabold text-white mt-1">Laporan & Statistik Perkembangan Lembaga</h2>
-              <p class="text-xs text-gray-400">Pemantauan otomatis data santri, grafik performa hafalan, dan pendaftaran berhasil.</p>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Laporan & Statistik Perkembangan</h2>
+              <p class="text-[11px] sm:text-xs text-gray-400">Pemantauan data santri, grafik performa hafalan, dan pendaftaran.</p>
             </div>
-            <button onclick="switchPage('home')" class="px-4 py-2 rounded-xl bg-dark-800 hover:bg-dark-700 text-gray-300 text-xs font-bold transition">
-              🚪 Keluar Mode Owner
+            <button onclick="switchPage('home')" class="px-3 py-1.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-gray-300 text-xs font-bold transition">
+              🚪 Keluar Owner
             </button>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
-            <div class="glass-card p-4 rounded-2xl space-y-1">
-              <span class="text-xs text-gray-400 font-medium">Santri Aktif</span>
-              <h3 id="ownerStatTotalSantri" class="text-xl font-black text-white">0</h3>
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-2 sm:gap-3">
+            <div class="glass-card p-3 rounded-2xl space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-gray-400 font-medium">Santri Aktif</span>
+              <h3 id="ownerStatTotalSantri" class="text-lg sm:text-xl font-black text-white">0</h3>
             </div>
-            <div class="glass-card p-4 rounded-2xl space-y-1">
-              <span class="text-xs text-gray-400 font-medium">Total Setoran</span>
-              <h3 id="ownerStatTotalSetoran" class="text-xl font-black text-purpleCustom-300">0</h3>
+            <div class="glass-card p-3 rounded-2xl space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-gray-400 font-medium">Total Setoran</span>
+              <h3 id="ownerStatTotalSetoran" class="text-lg sm:text-xl font-black text-purpleCustom-300">0</h3>
             </div>
-            <div class="glass-card p-4 rounded-2xl border border-purpleCustom-500/30 space-y-1">
-              <span class="text-xs text-purpleCustom-300 font-medium">🌟 Mutqin</span>
-              <h3 id="ownerStatMutqin" class="text-xl font-black text-purpleCustom-300">0</h3>
+            <div class="glass-card p-3 rounded-2xl border border-purpleCustom-500/30 space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-purpleCustom-300 font-medium">🌟 Mutqin</span>
+              <h3 id="ownerStatMutqin" class="text-lg sm:text-xl font-black text-purpleCustom-300">0</h3>
             </div>
-            <div class="glass-card p-4 rounded-2xl border border-blue-500/30 space-y-1">
-              <span class="text-xs text-blue-300 font-medium">👍 Lancar</span>
-              <h3 id="ownerStatLancar" class="text-xl font-black text-blue-400">0</h3>
+            <div class="glass-card p-3 rounded-2xl border border-blue-500/30 space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-blue-300 font-medium">👍 Lancar</span>
+              <h3 id="ownerStatLancar" class="text-lg sm:text-xl font-black text-blue-400">0</h3>
             </div>
-            <div class="glass-card p-4 rounded-2xl border border-red-500/30 space-y-1">
-              <span class="text-xs text-red-300 font-medium">🔄 Perlu Ulang</span>
-              <h3 id="ownerStatUlang" class="text-xl font-black text-red-400">0</h3>
+            <div class="glass-card p-3 rounded-2xl border border-red-500/30 space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-red-300 font-medium">🔄 Perlu Ulang</span>
+              <h3 id="ownerStatUlang" class="text-lg sm:text-xl font-black text-red-400">0</h3>
             </div>
-            <div class="glass-card p-4 rounded-2xl space-y-1">
-              <span class="text-xs text-gray-400 font-medium">Omset SPP</span>
-              <h3 id="ownerStatOmsetSPP" class="text-sm font-extrabold text-emerald-400 pt-1">Rp 0</h3>
+            <div class="glass-card p-3 rounded-2xl space-y-0.5">
+              <span class="text-[10px] sm:text-xs text-gray-400 font-medium">Omset SPP</span>
+              <h3 id="ownerStatOmsetSPP" class="text-xs sm:text-sm font-extrabold text-emerald-400 pt-1">Rp 0</h3>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-3 sm:space-y-4">
               <div>
-                <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                  <span>📊</span> Persentase Performa Kelancaran Santri
+                <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                  <span>📊</span> Persentase Performa Kelancaran
                 </h4>
-                <p class="text-[11px] text-gray-400">Perbandingan tingkat hafalan Mutqin, Lancar, & Perlu Ulang</p>
+                <p class="text-[10px] sm:text-[11px] text-gray-400">Tingkat Mutqin, Lancar, & Perlu Ulang</p>
               </div>
-              <div class="relative max-w-[260px] mx-auto py-2">
+              <div class="relative max-w-[220px] sm:max-w-[260px] mx-auto py-2">
                 <canvas id="fluencyChart"></canvas>
               </div>
             </div>
 
-            <div class="glass-card p-5 rounded-2xl border border-white/10 space-y-4">
+            <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-3 sm:space-y-4">
               <div>
-                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                   <span>📈</span> Kehadiran Sesi Sima'an Harian
                 </h4>
-                <p class="text-[11px] text-gray-400">Total akumulasi presensi santri di 4 Waktu Sima'an</p>
+                <p class="text-[10px] sm:text-[11px] text-gray-400">Akumulasi presensi di 4 Waktu Sima'an</p>
               </div>
-              <div class="relative h-60">
+              <div class="relative h-48 sm:h-60">
                 <canvas id="attendanceChart"></canvas>
               </div>
             </div>
           </div>
 
-          <div class="glass-card rounded-2xl border border-white/10 p-5 space-y-3">
-            <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">📝 Rekapitulasi Pendaftaran Santri</h4>
-            <div class="overflow-x-auto custom-scrollbar">
-              <table class="w-full text-left text-xs text-gray-300 min-w-[500px]">
-                <thead class="bg-dark-900 text-gray-400 uppercase font-bold text-[10px] border-b border-white/10">
+          <div class="glass-card rounded-2xl border border-white/10 p-3.5 sm:p-5 space-y-3">
+            <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider">📝 Rekapitulasi Pendaftaran Santri</h4>
+            <div class="overflow-x-auto custom-scrollbar -mx-2 sm:mx-0">
+              <table class="w-full text-left text-xs text-gray-300 min-w-[450px]">
+                <thead class="bg-dark-900 text-gray-400 uppercase font-bold text-[9px] sm:text-[10px] border-b border-white/10">
                   <tr>
-                    <th class="px-3 py-2">Kode</th>
-                    <th class="px-3 py-2">Santri</th>
-                    <th class="px-3 py-2">Kategori</th>
-                    <th class="px-3 py-2">Program</th>
-                    <th class="px-3 py-2">Biaya SPP</th>
-                    <th class="px-3 py-2">No. WA</th>
+                    <th class="px-2.5 py-2">Kode</th>
+                    <th class="px-2.5 py-2">Santri</th>
+                    <th class="px-2.5 py-2">Kategori</th>
+                    <th class="px-2.5 py-2">Program</th>
+                    <th class="px-2.5 py-2">Biaya SPP</th>
+                    <th class="px-2.5 py-2">No. WA</th>
                   </tr>
                 </thead>
                 <tbody id="ownerPendaftaranTableBody" class="divide-y divide-white/10"></tbody>
@@ -1478,17 +1480,17 @@
             </div>
           </div>
 
-          <div class="glass-card rounded-2xl border border-purpleCustom-500/30 p-5 space-y-4">
+          <div class="glass-card rounded-2xl border border-purpleCustom-500/30 p-3.5 sm:p-5 space-y-3 sm:space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div>
-                <h4 class="text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
+                <h4 class="text-xs sm:text-sm font-bold text-purpleCustom-300 uppercase tracking-wider flex items-center gap-2">
                   <span>👑</span> Master Data Setoran Per Santri
                 </h4>
-                <p class="text-xs text-gray-400 mt-0.5">Pilih nama santri di bawah untuk memantau perkembangan hafalan & kartu blok individual</p>
+                <p class="text-[10px] sm:text-xs text-gray-400 mt-0.5">Pilih nama santri untuk memantau kartu blok</p>
               </div>
               
               <div class="w-full sm:w-auto">
-                <select id="ownerStudentSelect" onchange="renderOwnerBlockCards()" class="w-full sm:w-64 p-2.5 text-xs sm:text-sm rounded-xl bg-dark-900 border border-purpleCustom-500/40 text-purpleCustom-300 font-bold outline-none focus:ring-2 focus:ring-purpleCustom-500"></select>
+                <select id="ownerStudentSelect" onchange="renderOwnerBlockCards()" class="w-full sm:w-64 p-2 text-xs sm:text-sm rounded-xl bg-dark-900 border border-purpleCustom-500/40 text-purpleCustom-300 font-bold outline-none focus:ring-2 focus:ring-purpleCustom-500"></select>
               </div>
             </div>
             
@@ -1501,42 +1503,42 @@
   </div>
 
   <!-- MODAL: KELOLA AKUN SANTRI -->
-  <div id="modalStudentManager" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
-    <div class="glass-card-purple rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-purpleCustom-500/35">
-      <div class="flex justify-between items-center border-b border-white/10 pb-3">
-        <h3 class="font-bold text-white text-base">👥 Verifikasi & Kelola Akun Santri</h3>
+  <div id="modalStudentManager" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-3 sm:p-4">
+    <div class="glass-card-purple rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-2xl space-y-3 sm:space-y-4 border border-purpleCustom-500/35">
+      <div class="flex justify-between items-center border-b border-white/10 pb-2.5">
+        <h3 class="font-bold text-white text-sm sm:text-base">👥 Verifikasi & Kelola Akun Santri</h3>
         <button onclick="closeStudentManagerModal()" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
       </div>
-      <p class="text-xs text-gray-400">Disetujui: Santri bisa login & nama masuk opsi setoran.<br>Menunggu: Akun baru yang perlu dikonfirmasi pembayaran SPP-nya.</p>
+      <p class="text-[11px] sm:text-xs text-gray-400">Disetujui: Santri bisa login & masuk opsi setoran.<br>Menunggu: Akun baru yang belum dikonfirmasi.</p>
       <div id="studentAccountsList" class="space-y-2 max-h-72 overflow-y-auto custom-scrollbar pr-1"></div>
     </div>
   </div>
 
   <!-- MODAL SHARE WHATSAPP -->
-  <div id="modalWhatsapp" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-4">
-    <div class="glass-card rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-purpleCustom-500/35">
-      <div class="flex justify-between items-center border-b border-white/10 pb-3">
+  <div id="modalWhatsapp" class="fixed inset-0 modal-backdrop-blur z-50 hidden items-center justify-center p-3 sm:p-4">
+    <div class="glass-card rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-2xl space-y-3 sm:space-y-4 border border-purpleCustom-500/35">
+      <div class="flex justify-between items-center border-b border-white/10 pb-2.5">
         <div>
-          <h3 class="font-bold text-white text-base">Laporan Setoran WhatsApp</h3>
-          <p id="waModalSubtitle" class="text-xs text-gray-400"></p>
+          <h3 class="font-bold text-white text-sm sm:text-base">Laporan Setoran WhatsApp</h3>
+          <p id="waModalSubtitle" class="text-[11px] sm:text-xs text-gray-400"></p>
         </div>
         <button onclick="closeWhatsappModal()" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
       </div>
 
-      <div id="waPreviewBox" class="bg-dark-900 text-purpleCustom-300 p-4 rounded-xl border border-white/10 text-xs font-mono whitespace-pre-wrap max-h-72 overflow-y-auto leading-relaxed"></div>
+      <div id="waPreviewBox" class="bg-dark-900 text-purpleCustom-300 p-3 sm:p-4 rounded-xl border border-white/10 text-[11px] sm:text-xs font-mono whitespace-pre-wrap max-h-72 overflow-y-auto leading-relaxed"></div>
 
-      <div class="flex gap-2.5 pt-2">
-        <button onclick="copyWaText()" class="flex-1 py-2.5 bg-dark-800 hover:bg-dark-700 text-white rounded-xl text-xs font-bold transition">
+      <div class="flex gap-2 pt-1">
+        <button onclick="copyWaText()" class="flex-1 py-2 sm:py-2.5 bg-dark-800 hover:bg-dark-700 text-white rounded-xl text-xs font-bold transition">
           📋 Salin Teks
         </button>
-        <a id="waDirectBtn" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center shadow-md">
+        <a id="waDirectBtn" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 sm:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center shadow-md">
           💬 Buka WhatsApp
         </a>
       </div>
     </div>
   </div>
 
-  <footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-500 pt-6 border-t border-white/5 mt-8 pb-6">
+  <footer class="max-w-7xl mx-auto w-full text-center text-[11px] sm:text-xs text-gray-500 pt-4 sm:pt-6 border-t border-white/5 mt-6 sm:mt-8 pb-4 sm:pb-6">
     &copy; 2026 Taj Al-A’zham Tahfidz System. All rights reserved.
   </footer>
 
@@ -1722,13 +1724,13 @@
       const contentOn = document.getElementById('homeContentOnline');
 
       if (mode === 'OFFLINE') {
-        btnOff.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all";
-        btnOn.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+        btnOff.className = "flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all";
+        btnOn.className = "flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
         contentOff.classList.remove('hidden');
         contentOn.classList.add('hidden');
       } else {
-        btnOn.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all";
-        btnOff.className = "px-5 py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+        btnOn.className = "flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-purpleCustom-500 text-white shadow-purple-glow transition-all";
+        btnOff.className = "flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
         contentOn.classList.remove('hidden');
         contentOff.classList.add('hidden');
       }
@@ -1746,11 +1748,11 @@
 
       pagesOrder.forEach(p => {
         const nav = document.getElementById(`nav-${p}`);
-        if (nav) nav.className = "px-3.5 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap";
+        if (nav) nav.className = "px-3 py-2 rounded-lg text-gray-300 hover:text-white transition whitespace-nowrap text-xs";
       });
 
       const activeNav = document.getElementById(`nav-${pageId}`);
-      if (activeNav) activeNav.className = "px-3.5 py-2 rounded-lg bg-purpleCustom-500/10 text-purpleCustom-300 border border-purpleCustom-500/30 transition whitespace-nowrap shadow-sm";
+      if (activeNav) activeNav.className = "px-3 py-2 rounded-lg bg-purpleCustom-500/10 text-purpleCustom-300 border border-purpleCustom-500/30 transition whitespace-nowrap shadow-sm text-xs";
       
       window.scrollTo(0, 0);
 
@@ -1814,7 +1816,7 @@
     function initQuickTags() {
       const container = document.getElementById('quickTagsContainer');
       container.innerHTML = QUICK_TAGS.map(tag => `
-        <button type="button" onclick="appendTag('${tag}')" class="text-xs bg-dark-900 hover:bg-purpleCustom-500/20 text-purpleCustom-300 px-2.5 py-1 rounded-lg border border-white/10 transition">
+        <button type="button" onclick="appendTag('${tag}')" class="text-[11px] bg-dark-900 hover:bg-purpleCustom-500/20 text-purpleCustom-300 px-2 py-0.5 rounded-lg border border-white/10 transition">
           + ${tag}
         </button>
       `).join('');
@@ -1860,13 +1862,13 @@
       const label = document.getElementById(`badgeLabel_${s}`);
 
       if (attendanceState[s]) {
-        btn.className = "p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm";
+        btn.className = "p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm";
         icon.innerText = "✓"; icon.className = "text-purpleCustom-300 font-bold";
-        label.innerText = "Hadir"; label.className = "mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30";
+        label.innerText = "Hadir"; label.className = "mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/30";
       } else {
-        btn.className = "p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-500";
+        btn.className = "p-2.5 sm:p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-500";
         icon.innerText = "✕"; icon.className = "text-gray-600";
-        label.innerText = "Absen"; label.className = "mt-2 inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-dark-800 text-gray-500";
+        label.innerText = "Absen"; label.className = "mt-1.5 inline-block px-2 py-0.5 rounded text-[9px] font-bold bg-dark-800 text-gray-500";
       }
     }
 
@@ -1876,9 +1878,9 @@
         const key = item === 'PerluUlang' ? 'Perlu Ulang' : item;
         const btn = document.getElementById(`btnFluency_${item}`);
         if (key === rating) {
-          btn.className = "p-3 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm ring-1 ring-purpleCustom-500";
+          btn.className = "p-2.5 rounded-xl border text-left transition-all bg-purpleCustom-500/20 border-purpleCustom-500 text-purpleCustom-300 shadow-sm ring-1 ring-purpleCustom-500";
         } else {
-          btn.className = "p-3 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300";
+          btn.className = "p-2.5 rounded-xl border text-left transition-all bg-dark-900 border-white/10 text-gray-300";
         }
       });
     }
@@ -1935,7 +1937,6 @@
       }
     }
 
-    /* LOGIKA KALKULASI UJIAN BLOK & NILAI AKHIR (KKM = 85) */
     function prosesKalkulasiBlok() {
       const studentName = document.getElementById('inputStudentName').value;
       const outputBox = document.getElementById('outputKalkulasiBox');
@@ -1946,11 +1947,9 @@
         return;
       }
 
-      // 1. Ambil Poin Setoran Harian (hal1 - hal5)
       const studentLogs = logs.filter(l => l.studentName === studentName && (l.pageNumber || '').toUpperCase().includes(blockKey));
       const harianScores = studentLogs.map(l => getFluencyScore(l.fluency));
 
-      // 2. Pemfilteran & Validasi Hutang
       const adaHutang = harianScores.some(score => score < 80);
       if (harianScores.length < 5 || adaHutang) {
         outputBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
@@ -1963,22 +1962,17 @@
         return;
       }
 
-      // 3. Ambil kesalahan
       const salahPanjangPendek = parseInt(document.getElementById('inputSalahPanjangPendek').value) || 0;
       const macetAyat = parseInt(document.getElementById('inputMacetAyat').value) || 0;
 
-      // 4. Rumus Nilai Tes Blok (TB)
       const rawTB = 100 - (salahPanjangPendek * 2) - (macetAyat * 5);
       const tesBlok = Math.max(0, rawTB);
 
-      // 5. Rumus Nilai Akhir (NA)
       const nh = harianScores.reduce((a, b) => a + b, 0) / 5;
       const na = (nh * 0.2) + (tesBlok * 0.8);
 
-      // 6. Penentuan Status Kelulusan (KKM = 85)
       const isLulus = na >= 85;
 
-      // 7. Simpan data evaluasi blok
       const userKey = `${studentName}_${blockKey}`;
       const evalPayload = {
         studentName,
@@ -1995,7 +1989,6 @@
       if (window.fbSaveEvaluation) window.fbSaveEvaluation(userKey, evalPayload);
       localStorage.setItem('taj_blok_evaluations', JSON.stringify(blokEvaluations));
 
-      // 8. Output Visual Hasil Perhitungan
       outputBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400', 'bg-red-500/10', 'border-red-500/30', 'text-red-400');
 
       if (isLulus) {
@@ -2003,14 +1996,12 @@
         outputBox.innerHTML = `
           <p class="text-xs font-extrabold">🎉 STATUS: LULUS (NA: ${na.toFixed(1)})</p>
           <p class="text-[11px] font-normal mt-1">Nilai Tes Blok (TB): ${tesBlok} | Rata-Rata Harian (NH): ${nh.toFixed(1)}</p>
-          <p class="text-[10px] opacity-80 mt-0.5">Rincian Kesalahan: ${salahPanjangPendek}x Panjang/Pendek (-${salahPanjangPendek*2}), ${macetAyat}x Macet Ayat (-${macetAyat*5})</p>
         `;
       } else {
         outputBox.classList.add('bg-red-500/10', 'border-red-500/30', 'text-red-400');
         outputBox.innerHTML = `
           <p class="text-xs font-extrabold">🔄 STATUS: BELUM LULUS / REMEDI (NA: ${na.toFixed(1)})</p>
-          <p class="text-[11px] font-normal mt-1">Nilai Tes Blok (TB): ${tesBlok} | Rata-Rata Harian (NH): ${nh.toFixed(1)} (Batas Minimal KKM = 85)</p>
-          <p class="text-[10px] opacity-80 mt-0.5">Rincian Kesalahan: ${salahPanjangPendek}x Panjang/Pendek (-${salahPanjangPendek*2}), ${macetAyat}x Macet Ayat (-${macetAyat*5})</p>
+          <p class="text-[11px] font-normal mt-1">Nilai Tes Blok (TB): ${tesBlok} | Rata-Rata Harian (NH): ${nh.toFixed(1)}</p>
         `;
       }
 
@@ -2019,7 +2010,6 @@
       alert(`Hasil Ujian Blok ${blockKey} untuk ${studentName}:\nNilai TB: ${tesBlok}\nNilai Akhir (NA): ${na.toFixed(1)}\nStatus: ${isLulus ? 'LULUS' : 'BELUM LULUS / REMEDI'}`);
     }
 
-    /* FITUR PENGAJAR: MEMBERIKAN BONUS POIN MANUAL */
     function addTeacherBonusPoints() {
       if (currentRole !== 'ADMIN') {
         alert('Hanya Pengajar yang berhak menambahkan bonus poin!');
@@ -2052,7 +2042,6 @@
       alert(`Berhasil menambahkan ${amount >= 0 ? '+' + amount : amount} Poin untuk ${studentName}! (${reasonInput || 'Bonus Pengajar'})`);
     }
 
-    /* SYSTEM LEADERBOARD */
     function renderLeaderboard() {
       const studentScores = {};
 
@@ -2097,7 +2086,7 @@
       if (!leaderboardContainer) return;
 
       if (sortedLeaderboard.length === 0) {
-        leaderboardContainer.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">Belum ada data nilai poin santri.</td></tr>`;
+        leaderboardContainer.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-gray-500 text-xs">Belum ada data nilai poin santri.</td></tr>`;
         return;
       }
 
@@ -2124,18 +2113,18 @@
 
         return `
           <tr class="${rowStyle} transition-all">
-            <td class="p-3 text-center font-extrabold text-xs sm:text-sm">${rankBadge}</td>
-            <td class="p-3 font-bold text-xs sm:text-sm text-white flex items-center">
+            <td class="p-2.5 text-center font-extrabold text-xs">${rankBadge}</td>
+            <td class="p-2.5 font-bold text-xs text-white flex items-center">
               <span>${item.name}</span>
               ${bonusTagHtml}
             </td>
-            <td class="p-3 text-center text-xs text-gray-400 leading-tight">
-              <span class="${item.totalBlokLulus > 0 ? 'text-emerald-400' : 'text-gray-500'} font-bold text-sm block mb-0.5">
+            <td class="p-2.5 text-center text-[11px] text-gray-400 leading-tight">
+              <span class="${item.totalBlokLulus > 0 ? 'text-emerald-400' : 'text-gray-500'} font-bold block mb-0.5">
                 ${item.totalBlokLulus > 0 ? '✅ ' + item.totalBlokLulus + ' Blok Lulus' : '⏳ Belum Ujian Blok'}
               </span>
-              <span class="text-[10px] opacity-80">${item.totalSetoran} Setoran (${item.totalMutqin} 🌟)</span>
+              <span class="text-[9px] opacity-80">${item.totalSetoran} Setoran (${item.totalMutqin} 🌟)</span>
             </td>
-            <td class="p-3 text-right font-black text-xs sm:text-sm text-purpleCustom-300">${item.totalPoin.toLocaleString('id-ID')} Pts</td>
+            <td class="p-2.5 text-right font-black text-xs text-purpleCustom-300">${item.totalPoin.toLocaleString('id-ID')} Pts</td>
           </tr>
         `;
       }).join('');
@@ -2158,12 +2147,12 @@
       const btnDewasa = document.getElementById('btnCatDewasa');
       const parentGroup = document.getElementById('parentFieldGroup');
       if (cat === 'Anak') {
-        btnAnak.className = 'py-3 px-4 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
-        btnDewasa.className = 'py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        btnAnak.className = 'py-2.5 px-3 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs flex items-center justify-center space-x-1.5 transition';
+        btnDewasa.className = 'py-2.5 px-3 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs flex items-center justify-center space-x-1.5 transition';
         parentGroup.classList.remove('hidden');
       } else {
-        btnDewasa.className = 'py-3 px-4 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
-        btnAnak.className = 'py-3 px-4 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 transition';
+        btnDewasa.className = 'py-2.5 px-3 rounded-xl border border-purpleCustom-500 bg-purpleCustom-500/20 text-purpleCustom-300 font-semibold text-xs flex items-center justify-center space-x-1.5 transition';
+        btnAnak.className = 'py-2.5 px-3 rounded-xl border border-white/10 bg-dark-900 text-gray-400 font-semibold text-xs flex items-center justify-center space-x-1.5 transition';
         parentGroup.classList.add('hidden');
       }
     }
@@ -2250,7 +2239,7 @@
     function renderApplicants() {
       const container = document.getElementById('applicantList');
       if (applicants.length === 0) {
-        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada pendaftar baru.</p>`;
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs">Belum ada pendaftar baru.</p>`;
         return;
       }
 
@@ -2261,23 +2250,23 @@
         const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMsg)}`;
 
         return `
-          <div class="bg-dark-900 border border-white/10 rounded-xl p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs">
+          <div class="bg-dark-900 border border-white/10 rounded-xl p-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2.5 text-xs">
             <div>
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded bg-purpleCustom-500/20 text-purpleCustom-300 font-bold">${app.regCode}</span>
-                <span class="px-2 py-0.5 rounded ${app.category === 'Anak' ? 'bg-blue-500/10 text-blue-400' : 'bg-purple-500/10 text-purple-400'} font-semibold">${app.category}</span>
-                <h3 class="font-bold text-white text-sm">${app.name}</h3>
+                <span class="px-2 py-0.5 rounded bg-purpleCustom-500/20 text-purpleCustom-300 font-bold text-[10px]">${app.regCode}</span>
+                <span class="px-2 py-0.5 rounded ${app.category === 'Anak' ? 'bg-blue-500/10 text-blue-400' : 'bg-purple-500/10 text-purple-400'} font-semibold text-[10px]">${app.category}</span>
+                <h3 class="font-bold text-white text-xs sm:text-sm">${app.name}</h3>
               </div>
-              <p class="text-gray-400 mt-1">WA: ${app.phone} | Program: <strong class="text-purpleCustom-300">${app.program}</strong> | Biaya: <span class="text-emerald-400 font-semibold">${app.plan}</span></p>
-              <p class="text-gray-400 mt-0.5">📦 Alamat: ${app.address}</p>
-              <p class="text-gray-500">Sesi: ${app.sessions}</p>
+              <p class="text-gray-400 mt-1 text-[11px]">WA: ${app.phone} | Program: <strong class="text-purpleCustom-300">${app.program}</strong> | Biaya: <span class="text-emerald-400 font-semibold">${app.plan}</span></p>
+              <p class="text-gray-400 mt-0.5 text-[11px]">📦 Alamat: ${app.address}</p>
+              <p class="text-gray-500 text-[10px]">Sesi: ${app.sessions}</p>
             </div>
             
-            <div class="flex items-center space-x-2">
-              <a href="${waLink}" target="_blank" class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg font-semibold">
+            <div class="flex items-center space-x-2 w-full md:w-auto justify-end">
+              <a href="${waLink}" target="_blank" class="px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg font-semibold text-xs">
                 💬 Chat WA
               </a>
-              <button onclick="deleteApplicant(${app.id})" class="text-red-400 hover:text-red-300 font-semibold px-2.5 py-1.5 bg-red-500/10 rounded-lg">
+              <button onclick="deleteApplicant(${app.id})" class="text-red-400 hover:text-red-300 font-semibold px-2.5 py-1 bg-red-500/10 rounded-lg text-xs">
                 Hapus
               </button>
             </div>
@@ -2412,7 +2401,7 @@
         tableSec.classList.remove('hidden');
         if (bonusPanel) bonusPanel.classList.remove('hidden');
         btnLogout.classList.remove('hidden'); btnAdmin.classList.add('hidden'); btnPass.classList.add('hidden');
-        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 whitespace-nowrap";
+        badge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500/40 whitespace-nowrap";
         badge.innerText = "👑 Mode Pengajar";
         label.innerText = "Akses Penuh: Input, Edit & Verifikasi Santri";
         
@@ -2430,7 +2419,7 @@
         tableSec.classList.remove('hidden');
         if (bonusPanel) bonusPanel.classList.add('hidden');
         btnLogout.classList.remove('hidden'); btnAdmin.classList.remove('hidden'); btnPass.classList.remove('hidden');
-        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 whitespace-nowrap";
+        badge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 whitespace-nowrap";
         badge.innerText = `👤 Santri: ${currentSantriName}`;
         label.innerText = "Portal Data Setoran Pribadi";
         document.getElementById('tableTitle').innerText = `Setoran Saya (${currentSantriName})`;
@@ -2443,7 +2432,7 @@
         tableSec.classList.add('hidden');
         if (bonusPanel) bonusPanel.classList.add('hidden');
         btnLogout.classList.add('hidden'); btnAdmin.classList.remove('hidden'); btnPass.classList.add('hidden');
-        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap";
+        badge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 whitespace-nowrap";
         badge.innerText = "👤 Portal Santri Mandiri";
         label.innerText = "Silakan Masuk atau Buat Akun Baru";
       }
@@ -2568,7 +2557,7 @@
       }
 
       if (filtered.length === 0) {
-        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada riwayat setoran untuk ${activeTargetStudent || 'santri ini'}.</p>`;
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs">Belum ada riwayat setoran untuk ${activeTargetStudent || 'santri ini'}.</p>`;
         return;
       }
 
@@ -2583,7 +2572,7 @@
         else blockGroups['LAINNYA'].push(log);
       });
 
-      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
+      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">`;
 
       Object.keys(blockGroups).forEach(blockKey => {
         const items = blockGroups[blockKey];
@@ -2624,12 +2613,12 @@
         if (currentBlokEval) {
           const evalBg = currentBlokEval.isLulus ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400';
           evalSummaryHtml = `
-            <div class="mb-3 p-2.5 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
+            <div class="mb-2.5 p-2 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
               <div>
                 <span class="font-extrabold text-white block">Nilai Akhir (NA): ${currentBlokEval.na.toFixed(1)}</span>
-                <span class="text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
+                <span class="text-[9px] sm:text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
               </div>
-              <span class="font-bold text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+              <span class="font-bold text-[10px] sm:text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
                 ${currentBlokEval.isLulus ? '🎉 LULUS' : '🔄 REMEDI'}
               </span>
             </div>
@@ -2637,37 +2626,37 @@
         }
 
         htmlContent += `
-          <div class="rounded-2xl p-5 transition-all ${containerBorderClass}">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-3">
+          <div class="rounded-2xl p-3.5 sm:p-5 transition-all ${containerBorderClass}">
+            <div class="flex justify-between items-center border-b border-white/10 pb-2.5 mb-2.5">
               <div>
-                <h4 class="font-black text-white text-lg tracking-wide">${blockKey}</h4>
-                <p class="text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
+                <h4 class="font-black text-white text-base sm:text-lg tracking-wide">${blockKey}</h4>
+                <p class="text-[10px] sm:text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
               </div>
-              <span class="px-3 py-1 rounded-full text-xs font-extrabold ${headerBadgeClass}">${statusText}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${headerBadgeClass}">${statusText}</span>
             </div>
 
             ${evalSummaryHtml}
 
-            <div class="space-y-2.5">
+            <div class="space-y-2">
               ${items.map(item => {
                 let itemBadge = item.fluency === 'Mutqin' ? 'text-purpleCustom-300 bg-purpleCustom-500/10 border-purpleCustom-500/30' : item.fluency === 'Lancar' ? 'text-blue-400 bg-blue-500/10 border-blue-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30';
                 let cleanPageDisplay = formatDisplayPageName(item.pageNumber);
 
                 return `
-                  <div class="p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
                     <div>
-                      <div class="flex items-center space-x-2">
-                        <span class="font-extrabold text-white text-sm">${cleanPageDisplay}</span>
+                      <div class="flex items-center space-x-1.5">
+                        <span class="font-extrabold text-white text-xs sm:text-sm">${cleanPageDisplay}</span>
                         <span class="text-purpleCustom-300 font-semibold">• ${item.surah}</span>
                       </div>
-                      <p class="text-[10px] text-gray-400 mt-0.5">Tanggal: ${item.date} | ${item.notes || 'Tidak ada catatan'}</p>
+                      <p class="text-[9px] sm:text-[10px] text-gray-400 mt-0.5">Tgl: ${item.date} | ${item.notes || 'Tanpa catatan'}</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                      <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
                       ${currentRole === 'ADMIN' ? `
-                        <button onclick="openWhatsappModal('${item.id}')" class="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-lg transition" title="Share WA">💬</button>
-                        <button onclick="editLog('${item.id}')" class="p-1.5 bg-dark-800 text-gray-200 hover:bg-dark-700 border border-white/10 rounded-lg transition" title="Edit Data">✏️</button>
-                        <button onclick="deleteLog('${item.id}')" class="p-1.5 bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 rounded-lg transition" title="Hapus Data">🗑️</button>
+                        <button onclick="openWhatsappModal('${item.id}')" class="p-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-lg transition" title="Share WA">💬</button>
+                        <button onclick="editLog('${item.id}')" class="p-1 bg-dark-800 text-gray-200 hover:bg-dark-700 border border-white/10 rounded-lg transition" title="Edit Data">✏️</button>
+                        <button onclick="deleteLog('${item.id}')" class="p-1 bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 rounded-lg transition" title="Hapus Data">🗑️</button>
                       ` : ''}
                     </div>
                   </div>
@@ -2704,24 +2693,24 @@
       container.innerHTML = students.map(st => {
         const isApproved = st.status === 'APPROVED';
         return `
-          <div class="p-3 bg-dark-900 border border-white/10 rounded-xl text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div class="p-2.5 bg-dark-900 border border-white/10 rounded-xl text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1.5">
             <div>
               <div class="flex items-center space-x-2">
-                <p class="font-bold text-white text-sm">${st.name}</p>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isApproved ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-purple-500/10 text-purple-300 border border-purple-500/30'}">
+                <p class="font-bold text-white text-xs sm:text-sm">${st.name}</p>
+                <span class="px-2 py-0.5 rounded text-[9px] font-bold ${isApproved ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-purple-500/10 text-purple-300 border border-purple-500/30'}">
                   ${isApproved ? '✅ Disetujui' : '⏳ Menunggu'}
                 </span>
               </div>
-              <p class="text-gray-400 mt-0.5">WA: ${st.phone || '-'} | Sandi: <span class="text-purpleCustom-300 font-mono">${st.pass}</span></p>
+              <p class="text-gray-400 mt-0.5 text-[11px]">WA: ${st.phone || '-'} | Sandi: <span class="text-purpleCustom-300 font-mono">${st.pass}</span></p>
             </div>
 
             <div class="flex items-center gap-1.5 self-end sm:self-auto">
               ${!isApproved ? `
-                <button onclick="approveStudentAccount('${st.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow transition">
+                <button onclick="approveStudentAccount('${st.id}')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-[11px] shadow transition">
                   ✅ Setujui
                 </button>
               ` : ''}
-              <button onclick="deleteStudentAccount('${st.id}', '${st.name}')" class="px-2.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-bold transition">
+              <button onclick="deleteStudentAccount('${st.id}', '${st.name}')" class="px-2 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-bold text-[11px] transition">
                 🗑️ Hapus
               </button>
             </div>
@@ -2812,7 +2801,7 @@
             borderWidth: 0
           }]
         },
-        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 11 } } } } }
+        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 10 } } } } }
       });
 
       const ctxAttendance = document.getElementById('teacherAttendanceChart').getContext('2d');
@@ -2834,8 +2823,8 @@
         },
         options: {
           scales: {
-            x: { ticks: { color: '#9CA3AF' } },
-            y: { ticks: { color: '#9CA3AF' } }
+            x: { ticks: { color: '#9CA3AF', font: { size: 10 } } },
+            y: { ticks: { color: '#9CA3AF', font: { size: 10 } } }
           },
           plugins: { legend: { display: false } }
         }
@@ -2871,7 +2860,7 @@
             borderWidth: 0
           }]
         },
-        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 11 } } } } }
+        options: { plugins: { legend: { labels: { color: '#F8FAFC', font: { size: 10 } } } } }
       });
 
       const ctxAttendance = document.getElementById('attendanceChart').getContext('2d');
@@ -2888,8 +2877,8 @@
         },
         options: {
           scales: {
-            x: { ticks: { color: '#9CA3AF' } },
-            y: { ticks: { color: '#9CA3AF' } }
+            x: { ticks: { color: '#9CA3AF', font: { size: 10 } } },
+            y: { ticks: { color: '#9CA3AF', font: { size: 10 } } }
           },
           plugins: { legend: { display: false } }
         }
@@ -2897,15 +2886,15 @@
 
       const pendaftaranTbody = document.getElementById('ownerPendaftaranTableBody');
       pendaftaranTbody.innerHTML = applicants.length === 0 ? 
-        `<tr><td colspan="6" class="p-4 text-center text-gray-500">Belum ada pendaftaran.</td></tr>` :
+        `<tr><td colspan="6" class="p-3 text-center text-gray-500 text-xs">Belum ada pendaftaran.</td></tr>` :
         applicants.map(a => `
           <tr>
-            <td class="px-3 py-2 text-purpleCustom-300 font-bold">${a.regCode}</td>
-            <td class="px-3 py-2 font-bold text-white">${a.name}</td>
-            <td class="px-3 py-2 text-gray-400">${a.category}</td>
-            <td class="px-3 py-2 text-purpleCustom-300">${a.program}</td>
-            <td class="px-3 py-2 text-emerald-400 font-bold">${a.plan}</td>
-            <td class="px-3 py-2 text-gray-400">${a.phone}</td>
+            <td class="px-2.5 py-2 text-purpleCustom-300 font-bold">${a.regCode}</td>
+            <td class="px-2.5 py-2 font-bold text-white">${a.name}</td>
+            <td class="px-2.5 py-2 text-gray-400">${a.category}</td>
+            <td class="px-2.5 py-2 text-purpleCustom-300">${a.program}</td>
+            <td class="px-2.5 py-2 text-emerald-400 font-bold">${a.plan}</td>
+            <td class="px-2.5 py-2 text-gray-400">${a.phone}</td>
           </tr>
         `).join('');
 
@@ -2919,14 +2908,14 @@
       if (!container) return;
 
       if (!selectedStudent) {
-        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada santri terdaftar yang dipilih.</p>`;
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs">Belum ada santri terdaftar yang dipilih.</p>`;
         return;
       }
 
       const studentLogs = logs.filter(l => l.studentName.toLowerCase() === selectedStudent.toLowerCase());
 
       if (studentLogs.length === 0) {
-        container.innerHTML = `<p class="text-center text-gray-500 py-8 text-sm">Belum ada riwayat setoran untuk santri: <strong class="text-purpleCustom-300">${selectedStudent}</strong>.</p>`;
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs">Belum ada riwayat setoran untuk santri: <strong class="text-purpleCustom-300">${selectedStudent}</strong>.</p>`;
         return;
       }
 
@@ -2941,7 +2930,7 @@
         else blockGroups['LAINNYA'].push(log);
       });
 
-      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">`;
+      let htmlContent = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">`;
 
       Object.keys(blockGroups).forEach(blockKey => {
         const items = blockGroups[blockKey];
@@ -2982,12 +2971,12 @@
         if (currentBlokEval) {
           const evalBg = currentBlokEval.isLulus ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400';
           evalSummaryHtml = `
-            <div class="mb-3 p-2.5 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
+            <div class="mb-2.5 p-2 rounded-xl border text-xs flex justify-between items-center ${evalBg}">
               <div>
                 <span class="font-extrabold text-white block">Nilai Akhir (NA): ${currentBlokEval.na.toFixed(1)}</span>
-                <span class="text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
+                <span class="text-[9px] sm:text-[10px] opacity-80">NH (20%): ${currentBlokEval.nh.toFixed(1)} | TB (80%): ${currentBlokEval.tesBlok}</span>
               </div>
-              <span class="font-bold text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+              <span class="font-bold text-[10px] sm:text-[11px] px-2 py-0.5 rounded ${currentBlokEval.isLulus ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
                 ${currentBlokEval.isLulus ? '🎉 LULUS' : '🔄 REMEDI'}
               </span>
             </div>
@@ -2995,32 +2984,32 @@
         }
 
         htmlContent += `
-          <div class="rounded-2xl p-5 transition-all ${containerBorderClass}">
-            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-3">
+          <div class="rounded-2xl p-3.5 sm:p-5 transition-all ${containerBorderClass}">
+            <div class="flex justify-between items-center border-b border-white/10 pb-2.5 mb-2.5">
               <div>
-                <h4 class="font-black text-white text-lg tracking-wide">${blockKey}</h4>
-                <p class="text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
+                <h4 class="font-black text-white text-base sm:text-lg tracking-wide">${blockKey}</h4>
+                <p class="text-[10px] sm:text-[11px] text-gray-400">${items.length} Halaman Terdata</p>
               </div>
-              <span class="px-3 py-1 rounded-full text-xs font-extrabold ${headerBadgeClass}">${statusText}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${headerBadgeClass}">${statusText}</span>
             </div>
 
             ${evalSummaryHtml}
 
-            <div class="space-y-2.5">
+            <div class="space-y-2">
               ${items.map(item => {
                 let itemBadge = item.fluency === 'Mutqin' ? 'text-purpleCustom-300 bg-purpleCustom-500/10 border-purpleCustom-500/30' : item.fluency === 'Lancar' ? 'text-blue-400 bg-blue-500/10 border-blue-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30';
                 let cleanPageDisplay = formatDisplayPageName(item.pageNumber);
 
                 return `
-                  <div class="p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+                  <div class="p-2.5 sm:p-3 bg-dark-900/90 rounded-xl border border-white/10 flex justify-between items-center text-xs">
                     <div>
-                      <div class="flex items-center space-x-2">
-                        <span class="font-extrabold text-white text-sm">${cleanPageDisplay}</span>
+                      <div class="flex items-center space-x-1.5">
+                        <span class="font-extrabold text-white text-xs sm:text-sm">${cleanPageDisplay}</span>
                         <span class="text-purpleCustom-300 font-semibold">• ${item.surah}</span>
                       </div>
-                      <p class="text-[10px] text-gray-400 mt-0.5">Tanggal: ${item.date} | ${item.notes || 'Tidak ada catatan'}</p>
+                      <p class="text-[9px] sm:text-[10px] text-gray-400 mt-0.5">Tgl: ${item.date} | ${item.notes || 'Tanpa catatan'}</p>
                     </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
+                    <span class="px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold border ${itemBadge}">${item.fluency}</span>
                   </div>
                 `;
               }).join('')}
@@ -3175,7 +3164,7 @@
       const startJuzPage = juzRange[0];
 
       document.querySelectorAll('.main-block-btn').forEach(btn => {
-        btn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-dark-900 text-gray-300 hover:bg-purpleCustom-500/20 border border-white/10 text-center truncate";
+        btn.className = "main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-dark-900 text-gray-300 hover:bg-purpleCustom-500/20 border border-white/10 text-center truncate";
       });
 
       const activeBtn = document.getElementById(`mainBtn_${blockLetter}`);
@@ -3183,10 +3172,10 @@
       if (blockLetter === 'ALL') {
         activeSubBlock = 'ALL';
         subContainer.classList.add('hidden');
-        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-purpleCustom-500 text-white shadow-purple-glow text-center truncate";
+        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-purpleCustom-500 text-white shadow-purple-glow text-center truncate";
         fetchVersesByPageRange(juzRange[0], juzRange[1]);
       } else {
-        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500 text-center shadow-sm truncate";
+        if (activeBtn) activeBtn.className = "main-block-btn w-full py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-purpleCustom-500/20 text-purpleCustom-300 border border-purpleCustom-500 text-center shadow-sm truncate";
         
         subTitle.textContent = `Pilih Sub-Blok ${blockLetter}:`;
         subContainer.classList.remove('hidden');
@@ -3203,8 +3192,8 @@
           const isSubActive = activeSubBlock === subCode;
 
           htmlList += `
-            <button onclick="filterSubBlock('${subCode}', ${actualPage})" class="py-2 px-1 rounded-xl text-xs border transition text-center font-bold ${isSubActive ? 'bg-purpleCustom-500 text-white font-bold shadow-purple-glow' : 'bg-dark-900 text-gray-300 border-white/10 hover:bg-purpleCustom-500/20'}">
-              Blok ${subCode}
+            <button onclick="filterSubBlock('${subCode}', ${actualPage})" class="py-1.5 px-1 rounded-xl text-[10px] sm:text-xs border transition text-center font-bold ${isSubActive ? 'bg-purpleCustom-500 text-white font-bold shadow-purple-glow' : 'bg-dark-900 text-gray-300 border-white/10 hover:bg-purpleCustom-500/20'}">
+              ${subCode}
             </button>
           `;
         }
@@ -3249,10 +3238,10 @@
         const groupIdx = Math.floor(i / groupSize) % 4;
 
         const groupDiv = document.createElement('div');
-        groupDiv.className = `row-group-${groupIdx} p-4 rounded-xl transition-all space-y-4 ${isHafalanMode ? 'hafalan-mode' : ''}`;
+        groupDiv.className = `row-group-${groupIdx} p-3 sm:p-4 rounded-xl transition-all space-y-3 sm:space-y-4 ${isHafalanMode ? 'hafalan-mode' : ''}`;
         groupDiv.dir = 'rtl';
 
-        let htmlContent = `<div class="font-quran text-3xl md:text-4xl leading-[3.5rem] text-right text-purple-100">`;
+        let htmlContent = `<div class="font-quran text-2xl sm:text-3xl md:text-4xl leading-[2.8rem] sm:leading-[3.5rem] text-right text-purple-100">`;
         
         group.forEach(v => {
           htmlContent += `
@@ -3261,14 +3250,14 @@
                   ontouchstart="startVerseHold(this)" ontouchend="cancelVerseHold(this)">
               <span class="keyword-text text-purple-100">${v.firstWords} </span>
               <span class="blur-text text-gray-200">${v.remainingWords}</span>
-              <span class="text-purpleCustom-300 text-xl mx-2 font-sans">۝${v.numberInSurah}</span>
+              <span class="text-purpleCustom-300 text-lg sm:text-xl mx-1.5 font-sans">۝${v.numberInSurah}</span>
             </span>
           `;
         });
         
         htmlContent += `</div>`;
 
-        htmlContent += `<div dir="ltr" class="text-xs md:text-sm text-gray-300 mt-2 border-t border-white/10 pt-2 space-y-1">`;
+        htmlContent += `<div dir="ltr" class="text-[11px] sm:text-xs md:text-sm text-gray-300 mt-2 border-t border-white/10 pt-2 space-y-1">`;
         group.forEach(v => {
           htmlContent += `<p><b class="text-purpleCustom-300">${v.surahName}: ${v.numberInSurah}.</b> ${v.translation}</p>`;
         });
@@ -3282,8 +3271,8 @@
     function toggleHafalanMode() {
       isHafalanMode = !isHafalanMode;
       const btn = document.getElementById('hafalanBtn');
-      btn.textContent = isHafalanMode ? "👁️ Mode Hafalan: ON (Hold Cepat)" : "🙈 Mode Hafalan: OFF";
-      btn.className = isHafalanMode ? "bg-purpleCustom-600 text-white text-xs px-3.5 py-2 rounded-xl border font-bold shadow-purple-glow" : "bg-dark-800 text-xs px-3.5 py-2 rounded-xl border border-white/10 font-bold";
+      btn.textContent = isHafalanMode ? "👁️ Mode Hafalan: ON (Hold)" : "🙈 Mode Hafalan: OFF";
+      btn.className = isHafalanMode ? "bg-purpleCustom-600 text-white text-[11px] sm:text-xs px-3 py-2 rounded-xl border font-bold shadow-purple-glow w-full sm:w-auto" : "bg-dark-800 text-[11px] sm:text-xs px-3 py-2 rounded-xl border border-white/10 font-bold w-full sm:w-auto";
       renderQuran();
     }
   </script>
