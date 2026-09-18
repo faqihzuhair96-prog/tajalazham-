@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelacak Kebiasaan & Sistem Poin Diri</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbars and Micro-interactions */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-checkbox:checked + div {
+      background-color: #22c55e;
+      border-color: #22c55e;
+    }
+  </style>
+</head>
+<body class="h-full font-sans antialiased bg-slate-950 text-slate-100 flex flex-col selection:bg-brand-500 selection:text-white">
+
+  <header class="sticky top-0 z-30 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i class="fa-solid fa-trophy text-white text-lg"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight tracking-tight text-white">HabitPoints <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 font-medium">Pro</span></h1>
+          <p class="text-xs text-slate-400">Pelacak Kebiasaan & Produktivitas Kerja</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats Header Bar -->
+      <div class="flex items-center gap-3 sm:gap-6 bg-slate-800/80 px-4 py-2 rounded-2xl border border-slate-700/50 text-xs sm:text-sm">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-coins text-amber-400"></i>
+          <div>
+            <span class="text-slate-400 block text-[10px] leading-none">TOTAL POIN</span>
+            <span id="userPoints" class="font-bold text-amber-400 text-sm sm:text-base">0</span>
+          </div>
+        </div>
+        <div class="h-6 w-px bg-slate-700"></div>
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-fire text-orange-500"></i>
+          <div>
+            <span class="text-slate-400 block text-[10px] leading-none">STREAK</span>
+            <span id="userStreak" class="font-bold text-orange-400 text-sm sm:text-base">0 Hari</span>
+          </div>
+        </div>
+        <div class="h-6 w-px bg-slate-700"></div>
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+          <div>
+            <span class="text-slate-400 block text-[10px] leading-none">LEVEL</span>
+            <span id="userLevel" class="font-bold text-emerald-400 text-sm sm:text-base">Level 1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    
+    <!-- Tab Controls -->
+    <nav class="flex items-center p-1.5 gap-1.5 bg-slate-900 border border-slate-800 rounded-2xl overflow-x-auto">
+      <button onclick="switchTab('dashboard')" id="tabBtn-dashboard" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all bg-brand-600 text-white shadow-md">
+        <i class="fa-solid fa-chart-pie"></i> Kebiasaan & Ringkasan
+      </button>
+      <button onclick="switchTab('productivity')" id="tabBtn-productivity" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-calendar-week"></i> Jadwal Kerja (Selasa - Minggu)
+      </button>
+      <button onclick="switchTab('rewards')" id="tabBtn-rewards" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-gift"></i> Toko Hadiah Diri
+      </button>
+      <button onclick="switchTab('history')" id="tabBtn-history" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-clock-rotate-left"></i> Riwayat Poin
+      </button>
+    </nav>
+
+    <!-- TAB 1: DASHBOARD & HABITS -->
+    <section id="section-dashboard" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold text-brand-400 tracking-wider uppercase">Progres Level</span>
+            <h3 class="text-xl font-bold mt-1 text-slate-100" id="levelName">Pemula Disiplin</h3>
+            <p class="text-xs text-slate-400 mt-1">Selesaikan kebiasaan & jadwal harian untuk naik level!</p>
+          </div>
+          <div class="mt-4">
+            <div class="flex justify-between text-xs font-medium text-slate-300 mb-1.5">
+              <span>XP Ke Level Berikutnya</span>
+              <span id="xpProgressText">0 / 100 Poin</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-700/50">
+              <div id="xpBar" class="bg-gradient-to-r from-brand-500 to-emerald-400 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-semibold text-blue-400 tracking-wider uppercase">Target Kebiasaan Hari Ini</span>
+              <h3 class="text-2xl font-extrabold mt-1 text-slate-100" id="todayHabitCount">0 / 0</h3>
+            </div>
+            <div class="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+              <i class="fa-solid fa-circle-check text-xl"></i>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-3">Konsistensi harian kunci membuka reward impianmu.</p>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-semibold text-amber-400 tracking-wider uppercase">Tukar Poin</span>
+              <h3 class="text-2xl font-extrabold mt-1 text-amber-400" id="dashTotalPoints">0 Poin</h3>
+            </div>
+            <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl">
+              <i class="fa-solid fa-coins text-xl"></i>
+            </div>
+          </div>
+          <button onclick="switchTab('rewards')" class="mt-3 w-full py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+            <i class="fa-solid fa-store"></i> Buka Toko Hadiah
+          </button>
+        </div>
+      </div>
+
+      <!-- Habits Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-brand-400"></i> Daftar Kebiasaan Harian
+          </h2>
+          <p class="text-xs text-slate-400">Tandai kebiasaan positif untuk klaim poin atau atasi rutinitas buruk.</p>
+        </div>
+        <button onclick="openHabitModal()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-brand-600/20 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-plus"></i> Tambah Kebiasaan
+        </button>
+      </div>
+
+      <!-- Habits List Grid -->
+      <div id="habitsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JS Dynamic Content -->
+      </div>
+    </section>
+
+    <!-- TAB 2: PRODUCTIVITY & WORK SCHEDULE -->
+    <section id="section-productivity" class="space-y-6 hidden">
+      <!-- Section Intro Banner -->
+      <div class="glass-card p-6 rounded-3xl border border-slate-800 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">Jadwal Kerja Produktif</span>
+              <span class="text-xs text-slate-400">• Selasa - Minggu</span>
+            </div>
+            <h2 class="text-2xl font-extrabold text-white">Kelola Waktu & Agenda Kerja Harian</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+              Atur slot waktu kerja dari hari Selasa hingga Minggu. Selesaikan agenda produktif untuk mendapatkan bonus poin performa harian!
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openScheduleManageModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-brand-400"></i> Kelola & Edit Jadwal
+            </button>
+            <button onclick="openAddScheduleItemModal()" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-brand-600/20 flex items-center gap-2">
+              <i class="fa-solid fa-plus"></i> Tambah Tugas Harian
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day Selector Bar (Selasa s/d Minggu) -->
+      <div class="flex items-center gap-2 p-2 bg-slate-900 border border-slate-800 rounded-2xl overflow-x-auto scrollbar-none">
+        <button onclick="selectDay('Selasa')" id="dayTab-Selasa" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-brand-600 text-white shadow-md">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 1</span>
+          Selasa
+        </button>
+        <button onclick="selectDay('Rabu')" id="dayTab-Rabu" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 2</span>
+          Rabu
+        </button>
+        <button onclick="selectDay('Kamis')" id="dayTab-Kamis" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 3</span>
+          Kamis
+        </button>
+        <button onclick="selectDay('Jumat')" id="dayTab-Jumat" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 4</span>
+          Jumat
+        </button>
+        <button onclick="selectDay('Sabtu')" id="dayTab-Sabtu" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 5</span>
+          Sabtu
+        </button>
+        <button onclick="selectDay('Minggu')" id="dayTab-Minggu" class="day-tab flex-1 min-w-[100px] py-3 px-4 rounded-xl text-center text-xs font-bold transition-all bg-slate-800 text-slate-400 hover:text-slate-200">
+          <span class="block text-[10px] uppercase opacity-75 font-normal">HARI 6</span>
+          Minggu
+        </button>
+      </div>
+
+      <!-- Schedule Progress & Control Header -->
+      <div class="glass-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-brand-400 font-bold">
+            <i class="fa-solid fa-calendar-day"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              Jadwal Kerja: <span id="currentDayTitle" class="text-brand-400">Selasa</span>
+            </h3>
+            <p class="text-xs text-slate-400" id="scheduleCompletionSubtitle">0 dari 0 tugas selesai</p>
+          </div>
+        </div>
+
+        <div class="w-full sm:w-64 space-y-1">
+          <div class="flex justify-between text-xs text-slate-400">
+            <span>Penyelesaian Hari Ini</span>
+            <span id="dayProgressPercent" class="font-bold text-white">0%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700/50">
+            <div id="dayProgressBar" class="bg-brand-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Timeline Tasks List -->
+      <div id="scheduleTimeline" class="space-y-3">
+        <!-- Dynamic Schedule items inserted via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 3: SELF-REWARDS SHOP -->
+    <section id="section-rewards" class="space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-gift text-amber-400"></i> Toko Self-Reward (Apresiasi Diri)
+          </h2>
+          <p class="text-xs text-slate-400">Tukarkan poin kerja kerasmu dengan hadiah hiburan yang menyenangkan!</p>
+        </div>
+        <button onclick="openRewardModal()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-plus"></i> Tambah Hadiah Baru
+        </button>
+      </div>
+
+      <!-- Rewards Grid -->
+      <div id="rewardsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dynamic Rewards inserted via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 4: HISTORY -->
+    <section id="section-history" class="space-y-6 hidden">
+      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-receipt text-blue-400"></i> Log Riwayat Poin
+          </h2>
+          <p class="text-xs text-slate-400">Catatan masuk & keluar poin dari kebiasaan, jadwal kerja, dan klaim reward.</p>
+        </div>
+        <button onclick="clearHistoryLog()" class="px-3 py-1.5 bg-slate-800 hover:bg-rose-900/40 text-slate-400 hover:text-rose-300 border border-slate-700 rounded-xl text-xs font-medium transition-all">
+          <i class="fa-solid fa-trash"></i> Bersihkan Log
+        </button>
+      </div>
+
+      <div class="glass-card rounded-2xl overflow-hidden border border-slate-800">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-900/90 text-slate-400 uppercase font-semibold border-b border-slate-800">
+              <tr>
+                <th class="px-4 py-3">Waktu</th>
+                <th class="px-4 py-3">Aktivitas / Agenda</th>
+                <th class="px-4 py-3">Kategori</th>
+                <th class="px-4 py-3 text-right">Poin</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody" class="divide-y divide-slate-800/60">
+              <!-- Dynamic Rows inserted via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL 1: ADD/EDIT HABIT -->
+  <div id="modalHabit" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-slate-700 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+      <button onclick="closeHabitModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-plus-circle text-brand-400"></i> Tambah Kebiasaan Baru
+      </h3>
+      <form id="formHabit" onsubmit="saveHabit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Kebiasaan</label>
+          <input type="text" id="habitTitle" required placeholder="Contoh: Minum 2L Air / Olahraga 20m" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Poin Dihasilkan</label>
+            <input type="number" id="habitPoints" min="1" max="100" value="15" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Kategori</label>
+            <select id="habitCategory" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+              <option value="Kesehatan">Kesehatan</option>
+              <option value="Fokus">Fokus & Belajar</option>
+              <option value="Mindset">Mindset & Jiwa</option>
+              <option value="Rutinitas">Rutinitas Harian</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeHabitModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-brand-600/20">Simpan Kebiasaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ADD SINGLE SCHEDULE ITEM -->
+  <div id="modalScheduleItem" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-slate-700 shadow-2xl relative">
+      <button onclick="closeScheduleItemModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-clock text-brand-400"></i> <span id="modalScheduleTitle">Tambah Tugas Harian</span>
+      </h3>
+      <form id="formScheduleItem" onsubmit="saveScheduleItem(event)" class="space-y-4">
+        <input type="hidden" id="schedItemId" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Pilih Hari</label>
+          <select id="schedDay" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+            <option value="Sabtu">Sabtu</option>
+            <option value="Minggu">Minggu</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Jam Mulai</label>
+            <input type="time" id="schedStartTime" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Jam Selesai</label>
+            <input type="time" id="schedEndTime" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Agenda / Kerjaan</label>
+          <input type="text" id="schedTitle" required placeholder="Contoh: Focus Work / Meeting Client / Coding" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Bonus Poin Selesai</label>
+            <input type="number" id="schedPoints" min="1" max="100" value="10" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Kategori Agenda</label>
+            <select id="schedCategory" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+              <option value="Kerja Utuh">Kerja Utuh (Deep Work)</option>
+              <option value="Meeting">Meeting & Komunikasi</option>
+              <option value="Review">Review & Perencanaan</option>
+
+              <option value="Istirahat">Istirahat & Recharge</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeScheduleItemModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-brand-600/20">Simpan Agenda</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: SCHEDULE MANAGEMENT & COPY TOOL (FITUR KELOLA JADWAL) -->
+  <div id="modalScheduleManage" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-2xl w-full rounded-3xl p-6 border border-slate-700 shadow-2xl relative max-h-[90vh] flex flex-col">
+      <button onclick="closeScheduleManageModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="mb-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-brand-400"></i> Pengelola Jadwal Kerja Harian
+        </h3>
+        <p class="text-xs text-slate-400">Kelola daftar tugas per hari, salin ke hari lain, atau reset ke template standar.</p>
+      </div>
+
+      <!-- Quick Action Tools -->
+      <div class="p-3 bg-slate-900 border border-slate-800 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400 font-medium">Salin Jadwal Hari Ini (<span id="copySourceDay" class="text-brand-400 font-bold">Selasa</span>) Ke:</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="copyTargetDay" class="bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none">
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+            <option value="Sabtu">Sabtu</option>
+            <option value="Minggu">Minggu</option>
+            <option value="Semua Hari Kerja">Semua Hari (Rabu - Minggu)</option>
+          </select>
+          <button onclick="copyScheduleToTarget()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-bold transition-all flex items-center gap-1.5">
+            <i class="fa-solid fa-copy"></i> Salin Jadwal
+          </button>
+        </div>
+      </div>
+
+      <!-- Schedule List in Modal -->
+      <div class="flex-1 overflow-y-auto space-y-2 pr-1 my-2" id="manageScheduleList">
+        <!-- JS Dynamic list -->
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-slate-800 gap-2">
+        <button onclick="resetScheduleToDefault()" class="px-3.5 py-2 bg-rose-900/30 hover:bg-rose-900/50 text-rose-300 border border-rose-800/40 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate-left"></i> Reset Template Bawaan
+        </button>
+        <button onclick="closeScheduleManageModal()" class="px-5 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-all">
+          Selesai & Terapkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: ADD REWARD -->
+  <div id="modalReward" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-slate-700 shadow-2xl relative">
+      <button onclick="closeRewardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-gift text-amber-400"></i> Tambah Hadiah Baru
+      </h3>
+      <form id="formReward" onsubmit="saveReward(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Hadiah / Self-Reward</label>
+          <input type="text" id="rewardTitle" required placeholder="Contoh: Nonton Film 1 Jam / Beli Boba" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Harga Poin</label>
+          <input type="number" id="rewardCost" min="10" max="5000" value="50" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Pilih Ikon</label>
+          <select id="rewardIcon" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500">
+            <option value="fa-film">🎬 Hiburan / Film</option>
+            <option value="fa-gamepad">🎮 Game / Main Game</option>
+            <option value="fa-mug-hot">☕ Kopi / Makanan / Minuman</option>
+            <option value="fa-cart-shopping">🛒 Belanja / Self-Pamper</option>
+
+            <option value="fa-bed">🛌 Istirahat Ekstra</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeRewardModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-amber-600/20">Simpan Hadiah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    /* Application Core Data State */
+    const DEFAULT_HABITS = [
+      { id: 'h1', title: 'Minum 2L Air Putih', points: 10, category: 'Kesehatan', completedToday: false },
+      { id: 'h2', title: 'Membaca Buku / Jurnal 15 Menit', points: 15, category: 'Fokus', completedToday: false },
+      { id: 'h3', title: 'Bereskan Meja Kerja', points: 10, category: 'Rutinitas', completedToday: false },
+      { id: 'h4', title: 'Olahraga Ringan / Stretching', points: 20, category: 'Kesehatan', completedToday: false }
+    ];
+
+    /* Default Schedule Template for Selasa - Minggu */
+    const DEFAULT_SCHEDULE = {
+      'Selasa': [
+        { id: 's_sel_1', timeStart: '08:00', timeEnd: '08:30', title: 'Perencanaan Hari & Cek Email Utama', category: 'Review', points: 10, completed: false },
+        { id: 's_sel_2', timeStart: '08:30', timeEnd: '11:30', title: 'Deep Work: Eksekusi Task Prioritas Tinggi', category: 'Kerja Utuh', points: 30, completed: false },
+        { id: 's_sel_3', timeStart: '11:30', timeEnd: '12:30', title: 'Istirahat Siang & Makan', category: 'Istirahat', points: 5, completed: false },
+        { id: 's_sel_4', timeStart: '12:30', timeEnd: '15:30', title: 'Sesi Kerja II & Follow-up Project', category: 'Kerja Utuh', points: 25, completed: false },
+        { id: 's_sel_5', timeStart: '15:30', timeEnd: '17:00', title: 'Evaluasi Hasil Kerja & Rapikan Dokumen', category: 'Review', points: 15, completed: false }
+      ],
+      'Rabu': [
+        { id: 's_rab_1', timeStart: '08:00', timeEnd: '08:30', title: 'Morning Briefing & Prioritas Hari Rabu', category: 'Review', points: 10, completed: false },
+        { id: 's_rab_2', timeStart: '08:30', timeEnd: '11:30', title: 'Pengembangan Fitur & Project Utama', category: 'Kerja Utuh', points: 30, completed: false },
+        { id: 's_rab_3', timeStart: '11:30', timeEnd: '12:30', title: 'Istirahat & Isoma', category: 'Istirahat', points: 5, completed: false },
+        { id: 's_rab_4', timeStart: '12:30', timeEnd: '15:00', title: 'Sesi Diskusi & Task Eksekusi', category: 'Meeting', points: 20, completed: false },
+        { id: 's_rab_5', timeStart: '15:00', timeEnd: '17:00', title: 'Review Progress & Penutupan Kerja', category: 'Review', points: 15, completed: false }
+      ],
+      'Kamis': [
+        { id: 's_kam_1', timeStart: '08:00', timeEnd: '09:00', title: 'Review Dokumen & Agenda Kamis', category: 'Review', points: 10, completed: false },
+        { id: 's_kam_2', timeStart: '09:00', timeEnd: '12:00', title: 'Focus Sprint Kerja Tanpa Distraksi', category: 'Kerja Utuh', points: 30, completed: false },
+        { id: 's_kam_3', timeStart: '12:00', timeEnd: '13:00', title: 'Makan Siang & Istirahat', category: 'Istirahat', points: 5, completed: false },
+        { id: 's_kam_4', timeStart: '13:00', timeEnd: '16:00', title: 'Penyelesaian Tugas Tambahan & Ops', category: 'Kerja Utuh', points: 25, completed: false },
+        { id: 's_kam_5', timeStart: '16:00', timeEnd: '17:00', title: 'Refleksi Hasil Kerja', category: 'Review', points: 10, completed: false }
+      ],
+      'Jumat': [
+        { id: 's_jum_1', timeStart: '08:00', timeEnd: '09:00', title: 'Pemeriksaan Hasil Kerja Mingguan awal', category: 'Review', points: 10, completed: false },
+        { id: 's_jum_2', timeStart: '09:00', timeEnd: '11:30', title: 'Deep Work: Finalisasi Deliverables', category: 'Kerja Utuh', points: 30, completed: false },
+        { id: 's_jum_3', timeStart: '11:30', timeEnd: '13:30', title: 'Istirahat Jumat & Ibadah/Makan', category: 'Istirahat', points: 10, completed: false },
+        { id: 's_jum_4', timeStart: '13:30', timeEnd: '16:30', title: 'Wrap up Tugas Jumat & Quality Check', category: 'Kerja Utuh', points: 20, completed: false }
+      ],
+      'Sabtu': [
+        { id: 's_sab_1', timeStart: '09:00', timeEnd: '11:00', title: 'Sesi Kerja Ringan / Riset Mandiri', category: 'Kerja Utuh', points: 20, completed: false },
+        { id: 's_sab_2', timeStart: '11:00', timeEnd: '12:00', title: 'Evaluasi Capaian Pekan Ini', category: 'Review', points: 15, completed: false },
+        { id: 's_sab_3', timeStart: '13:00', timeEnd: '15:00', title: 'Belajar Skill Baru / Membaca', category: 'Kerja Utuh', points: 20, completed: false }
+      ],
+      'Minggu': [
+        { id: 's_mig_1', timeStart: '09:00', timeEnd: '10:30', title: 'Perencanaan & Goal Setting Pekan Depan', category: 'Review', points: 25, completed: false },
+        { id: 's_mig_2', timeStart: '10:30', timeEnd: '12:00', title: 'Merapikan File & Catatan Kerja', category: 'Review', points: 15, completed: false }
+      ]
+    };
+
+    const DEFAULT_REWARDS = [
+      { id: 'r1', title: 'Nonton Film / Youtube 1 Jam', cost: 50, icon: 'fa-film' },
+      { id: 'r2', title: 'Beli Kopi Favorit / Boba', cost: 75, icon: 'fa-mug-hot' },
+      { id: 'r3', title: 'Main Game Bebas 45 Menit', cost: 100, icon: 'fa-gamepad' },
+      { id: 'r4', title: 'Self-Reward Istirahat Bebas', cost: 150, icon: 'fa-bed' }
+    ];
+
+    let state = {
+      points: 0,
+      streak: 1,
+      habits: [],
+      schedule: {},
+      selectedDay: 'Selasa',
+      rewards: [],
+      history: []
+    };
+
+    function loadState() {
+      const saved = localStorage.getItem('habit_points_app_state_v2');
+      if (saved) {
+        try {
+          state = JSON.parse(saved);
+          if (!state.schedule || Object.keys(state.schedule).length === 0) {
+            state.schedule = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE));
+          }
+        } catch(e) {
+          initDefaultState();
+        }
+      } else {
+        initDefaultState();
+      }
+      renderAll();
+    }
+
+    function initDefaultState() {
+      state = {
+        points: 50,
+        streak: 3,
+        habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+        schedule: JSON.parse(JSON.stringify(DEFAULT_SCHEDULE)),
+        selectedDay: 'Selasa',
+        rewards: JSON.parse(JSON.stringify(DEFAULT_REWARDS)),
+        history: [
+          { time: formatTime(new Date()), title: 'Bonus Selamat Datang', category: 'Sistem', points: '+50' }
+        ]
+      };
+      saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem('habit_points_app_state_v2', JSON.stringify(state));
+    }
+
+    function calculateLevel(points) {
+      if (points < 100) return { level: 1, name: 'Pemula Disiplin', min: 0, max: 100 };
+      if (points < 300) return { level: 2, name: 'Pejuang Konsistensi', min: 100, max: 300 };
+      if (points < 600) return { level: 3, name: 'Master Produktif', min: 300, max: 600 };
+      if (points < 1000) return { level: 4, name: 'Eksekutif Waktu', min: 600, max: 1000 };
+      return { level: 5, name: 'Legenda Disiplin', min: 1000, max: 2500 };
+    }
+
+    /* Navigation Controller */
+    function switchTab(tabId) {
+      document.querySelectorAll('section[id^="section-"]').forEach(sec => sec.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400', 'hover:text-slate-200');
+      });
+
+      const activeSection = document.getElementById(`section-${tabId}`);
+      if (activeSection) activeSection.classList.remove('hidden');
+
+      const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
+      }
+    }
+
+    function renderAll() {
+      // Header Stats
+      document.getElementById('userPoints').innerText = state.points;
+      document.getElementById('userStreak').innerText = `${state.streak} Hari`;
+      
+      const lvl = calculateLevel(state.points);
+      document.getElementById('userLevel').innerText = `Level ${lvl.level}`;
+      document.getElementById('levelName').innerText = lvl.name;
+      document.getElementById('dashTotalPoints').innerText = `${state.points} Poin`;
+
+      const currentLvlXP = state.points - lvl.min;
+      const targetLvlXP = lvl.max - lvl.min;
+      const pct = Math.min(100, Math.max(0, Math.round((currentLvlXP / targetLvlXP) * 100)));
+      document.getElementById('xpProgressText').innerText = `${state.points} / ${lvl.max} Poin`;
+      document.getElementById('xpBar').style.width = `${pct}%`;
+
+      renderHabits();
+      renderSchedule();
+      renderRewards();
+      renderHistory();
+    }
+
+    function renderHabits() {
+      const container = document.getElementById('habitsList');
+      container.innerHTML = '';
+
+      let completedCount = 0;
+
+      state.habits.forEach(h => {
+        if (h.completedToday) completedCount++;
+
+        const card = document.createElement('div');
+        card.className = `glass-card p-4 rounded-2xl flex items-center justify-between transition-all border ${
+          h.completedToday ? 'border-brand-500/40 bg-brand-500/5' : 'border-slate-800 hover:border-slate-700'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <button onclick="toggleHabit('${h.id}')" class="w-7 h-7 rounded-lg border ${
+              h.completedToday ? 'bg-brand-500 border-brand-500 text-white' : 'border-slate-600 hover:border-slate-400 text-transparent'
+            } flex items-center justify-center transition-all">
+              <i class="fa-solid fa-check text-xs"></i>
+            </button>
+            <div>
+              <h4 class="text-xs font-bold ${h.completedToday ? 'line-through text-slate-400' : 'text-white'}">${escapeHtml(h.title)}</h4>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">${escapeHtml(h.category)}</span>
+                <span class="text-[10px] font-bold text-amber-400">+${h.points} Poin</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="deleteHabit('${h.id}')" class="text-slate-500 hover:text-rose-400 text-xs px-2 py-1">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('todayHabitCount').innerText = `${completedCount} / ${state.habits.length}`;
+    }
+
+    function toggleHabit(id) {
+      const habit = state.habits.find(h => h.id === id);
+      if (!habit) return;
+
+      habit.completedToday = !habit.completedToday;
+      if (habit.completedToday) {
+        state.points += habit.points;
+        addHistory(habit.title, habit.category, `+${habit.points}`);
+        showToast(`Hebat! Kebiasaan selesai (+${habit.points} Poin)`, 'success');
+      } else {
+        state.points = Math.max(0, state.points - habit.points);
+        addHistory(`Batal: ${habit.title}`, habit.category, `-${habit.points}`);
+        showToast(`Status kebiasaan dibatalkan (-${habit.points} Poin)`, 'info');
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function selectDay(dayName) {
+      state.selectedDay = dayName;
+      document.querySelectorAll('.day-tab').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+        btn.classList.add('bg-slate-800', 'text-slate-400');
+      });
+
+      const activeBtn = document.getElementById(`dayTab-${dayName}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-400');
+      }
+
+      renderSchedule();
+    }
+
+    function renderSchedule() {
+      const currentDay = state.selectedDay || 'Selasa';
+      document.getElementById('currentDayTitle').innerText = currentDay;
+      document.getElementById('copySourceDay').innerText = currentDay;
+
+      const dayTasks = state.schedule[currentDay] || [];
+      const container = document.getElementById('scheduleTimeline');
+      container.innerHTML = '';
+
+      if (dayTasks.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card p-8 rounded-2xl text-center">
+            <i class="fa-solid fa-calendar-xmark text-3xl text-slate-600 mb-2"></i>
+            <p class="text-sm font-semibold text-slate-300">Belum ada agenda untuk hari ${currentDay}</p>
+            <p class="text-xs text-slate-500 mt-1">Gunakan tombol "Tambah Tugas" atau "Kelola & Edit Jadwal" untuk mengisi waktu kerja hari ini.</p>
+            <button onclick="openAddScheduleItemModal()" class="mt-4 px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-all">
+              + Tambah Agenda Pertama
+            </button>
+          </div>
+        `;
+        document.getElementById('scheduleCompletionSubtitle').innerText = '0 dari 0 tugas selesai';
+        document.getElementById('dayProgressPercent').innerText = '0%';
+        document.getElementById('dayProgressBar').style.width = '0%';
+        return;
+      }
+
+      // Sort by start time
+      dayTasks.sort((a, b) => a.timeStart.localeCompare(b.timeStart));
+
+      let completedCount = 0;
+
+      dayTasks.forEach(item => {
+        if (item.completed) completedCount++;
+
+        const card = document.createElement('div');
+        card.className = `glass-card p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all border ${
+          item.completed ? 'border-brand-500/40 bg-brand-500/5' : 'border-slate-800 hover:border-slate-700'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-start sm:items-center gap-3">
+            <button onclick="toggleScheduleItem('${currentDay}', '${item.id}')" class="mt-0.5 sm:mt-0 w-7 h-7 rounded-lg border ${
+              item.completed ? 'bg-brand-500 border-brand-500 text-white' : 'border-slate-600 hover:border-slate-400 text-transparent'
+            } flex items-center justify-center transition-all flex-shrink-0">
+              <i class="fa-solid fa-check text-xs"></i>
+            </button>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-extrabold text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-lg border border-brand-500/20">
+                  <i class="fa-regular fa-clock mr-1"></i>${item.timeStart} - ${item.timeEnd}
+                </span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">${escapeHtml(item.category)}</span>
+              </div>
+              <h4 class="text-sm font-bold mt-1 ${item.completed ? 'line-through text-slate-400' : 'text-white'}">${escapeHtml(item.title)}</h4>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-xl border border-amber-500/20">
+              +${item.points} Poin Kerjaan
+            </span>
+            <div class="flex items-center gap-1">
+              <button onclick="editScheduleItem('${currentDay}', '${item.id}')" class="p-1.5 text-slate-400 hover:text-white text-xs">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button onclick="deleteScheduleItem('${currentDay}', '${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 text-xs">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      const pct = Math.round((completedCount / dayTasks.length) * 100);
+      document.getElementById('scheduleCompletionSubtitle').innerText = `${completedCount} dari ${dayTasks.length} agenda selesai`;
+      document.getElementById('dayProgressPercent').innerText = `${pct}%`;
+      document.getElementById('dayProgressBar').style.width = `${pct}%`;
+    }
+
+    function toggleScheduleItem(day, id) {
+      const dayTasks = state.schedule[day];
+      if (!dayTasks) return;
+      const item = dayTasks.find(t => t.id === id);
+      if (!item) return;
+
+      item.completed = !item.completed;
+      if (item.completed) {
+        state.points += item.points;
+        addHistory(`Kerjaan Selesai (${day}): ${item.title}`, item.category, `+${item.points}`);
+        showToast(`Agenda "${item.title}" selesai! (+${item.points} Poin)`, 'success');
+      } else {
+        state.points = Math.max(0, state.points - item.points);
+        addHistory(`Batal Kerja (${day}): ${item.title}`, item.category, `-${item.points}`);
+        showToast(`Status kerjaan dibatalkan (-${item.points} Poin)`, 'info');
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function openScheduleManageModal() {
+      const currentDay = state.selectedDay || 'Selasa';
+      document.getElementById('copySourceDay').innerText = currentDay;
+      renderManageScheduleList();
+      document.getElementById('modalScheduleManage').classList.remove('hidden');
+    }
+
+    function closeScheduleManageModal() {
+      document.getElementById('modalScheduleManage').classList.add('hidden');
+      renderAll();
+    }
+
+    function renderManageScheduleList() {
+      const currentDay = state.selectedDay || 'Selasa';
+      const dayTasks = state.schedule[currentDay] || [];
+      const container = document.getElementById('manageScheduleList');
+      container.innerHTML = '';
+
+      if (dayTasks.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-6 text-slate-500 text-xs">
+            Belum ada jadwal untuk hari ${currentDay}. Silakan tambah tugas baru.
+          </div>
+        `;
+        return;
+      }
+
+      dayTasks.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between gap-3';
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono font-bold text-brand-400 bg-brand-500/10 px-2 py-1 rounded">
+              ${item.timeStart} - ${item.timeEnd}
+            </span>
+            <div>
+              <p class="text-xs font-bold text-white">${escapeHtml(item.title)}</p>
+              <p class="text-[10px] text-slate-400">${escapeHtml(item.category)} • +${item.points} Poin</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="editScheduleItem('${currentDay}', '${item.id}')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs">
+              Edit
+            </button>
+            <button onclick="deleteScheduleItem('${currentDay}', '${item.id}')" class="px-2 py-1 bg-rose-900/30 hover:bg-rose-900/50 text-rose-300 rounded text-xs">
+              Hapus
+            </button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function copyScheduleToTarget() {
+      const sourceDay = state.selectedDay || 'Selasa';
+      const targetDay = document.getElementById('copyTargetDay').value;
+      const sourceTasks = state.schedule[sourceDay] || [];
+
+      if (sourceTasks.length === 0) {
+        showToast(`Tidak ada jadwal di hari ${sourceDay} untuk disalin!`, 'error');
+        return;
+      }
+
+      if (targetDay === 'Semua Hari Kerja') {
+        const days = ['Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        days.forEach(d => {
+          if (d !== sourceDay) {
+            state.schedule[d] = sourceTasks.map(t => ({
+              ...t,
+              id: 's_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+              completed: false
+            }));
+          }
+        });
+        showToast(`Jadwal ${sourceDay} berhasil disalin ke SEMUA HARI!`, 'success');
+      } else {
+        if (targetDay === sourceDay) {
+          showToast(`Hari tujuan sama dengan hari asal!`, 'info');
+          return;
+        }
+        state.schedule[targetDay] = sourceTasks.map(t => ({
+          ...t,
+          id: 's_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          completed: false
+        }));
+        showToast(`Jadwal ${sourceDay} berhasil disalin ke hari ${targetDay}!`, 'success');
+      }
+
+      saveState();
+      renderManageScheduleList();
+    }
+
+    function resetScheduleToDefault() {
+      state.schedule = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE));
+      saveState();
+      renderManageScheduleList();
+      renderSchedule();
+      showToast('Jadwal dikembalikan ke template standar bawaan!', 'info');
+    }
+
+    function openAddScheduleItemModal() {
+      document.getElementById('schedItemId').value = '';
+      document.getElementById('schedDay').value = state.selectedDay || 'Selasa';
+      document.getElementById('schedStartTime').value = '09:00';
+      document.getElementById('schedEndTime').value = '10:00';
+      document.getElementById('schedTitle').value = '';
+      document.getElementById('schedPoints').value = 15;
+      document.getElementById('modalScheduleTitle').innerText = 'Tambah Tugas Harian';
+      document.getElementById('modalScheduleItem').classList.remove('hidden');
+    }
+
+    function editScheduleItem(day, id) {
+      const item = (state.schedule[day] || []).find(t => t.id === id);
+      if (!item) return;
+
+      document.getElementById('schedItemId').value = item.id;
+      document.getElementById('schedDay').value = day;
+      document.getElementById('schedStartTime').value = item.timeStart;
+      document.getElementById('schedEndTime').value = item.timeEnd;
+      document.getElementById('schedTitle').value = item.title;
+      document.getElementById('schedPoints').value = item.points;
+      document.getElementById('schedCategory').value = item.category;
+      document.getElementById('modalScheduleTitle').innerText = 'Edit Tugas Harian';
+      
+      closeScheduleManageModal();
+      document.getElementById('modalScheduleItem').classList.remove('hidden');
+    }
+
+    function closeScheduleItemModal() {
+      document.getElementById('modalScheduleItem').classList.add('hidden');
+    }
+
+    function saveScheduleItem(e) {
+      e.preventDefault();
+      const id = document.getElementById('schedItemId').value;
+      const day = document.getElementById('schedDay').value;
+      const timeStart = document.getElementById('schedStartTime').value;
+      const timeEnd = document.getElementById('schedEndTime').value;
+      const title = document.getElementById('schedTitle').value.trim();
+      const points = parseInt(document.getElementById('schedPoints').value) || 10;
+      const category = document.getElementById('schedCategory').value;
+
+      if (!state.schedule[day]) state.schedule[day] = [];
+
+      if (id) {
+        // Edit existing
+        const item = state.schedule[day].find(t => t.id === id);
+        if (item) {
+          item.timeStart = timeStart;
+          item.timeEnd = timeEnd;
+          item.title = title;
+          item.points = points;
+          item.category = category;
+        }
+        showToast('Tugas harian berhasil diperbarui!', 'success');
+      } else {
+        // Add new
+        const newItem = {
+          id: 's_' + Date.now(),
+          timeStart,
+          timeEnd,
+          title,
+          points,
+          category,
+          completed: false
+        };
+        state.schedule[day].push(newItem);
+        showToast(`Tugas baru ditambahkan ke hari ${day}!`, 'success');
+      }
+
+      saveState();
+      closeScheduleItemModal();
+      selectDay(day);
+    }
+
+    function deleteScheduleItem(day, id) {
+      if (!state.schedule[day]) return;
+      state.schedule[day] = state.schedule[day].filter(t => t.id !== id);
+      saveState();
+      renderSchedule();
+      if (!document.getElementById('modalScheduleManage').classList.contains('hidden')) {
+        renderManageScheduleList();
+      }
+      showToast('Agenda dihapus dari jadwal.', 'info');
+    }
+
+    function openHabitModal() {
+      document.getElementById('habitTitle').value = '';
+      document.getElementById('modalHabit').classList.remove('hidden');
+    }
+
+    function closeHabitModal() {
+      document.getElementById('modalHabit').classList.add('hidden');
+    }
+
+    function saveHabit(e) {
+      e.preventDefault();
+      const title = document.getElementById('habitTitle').value.trim();
+      const points = parseInt(document.getElementById('habitPoints').value) || 10;
+      const category = document.getElementById('habitCategory').value;
+
+      const newHabit = {
+        id: 'h_' + Date.now(),
+        title,
+        points,
+        category,
+        completedToday: false
+      };
+
+      state.habits.push(newHabit);
+      saveState();
+      closeHabitModal();
+      renderAll();
+      showToast('Kebiasaan baru ditambahkan!', 'success');
+    }
+
+    function deleteHabit(id) {
+      state.habits = state.habits.filter(h => h.id !== id);
+      saveState();
+      renderAll();
+      showToast('Kebiasaan dihapus.', 'info');
+    }
+
+    /* Rewards Logic */
+    function renderRewards() {
+      const container = document.getElementById('rewardsList');
+      container.innerHTML = '';
+
+      state.rewards.forEach(r => {
+        const canAfford = state.points >= r.cost;
+        const card = document.createElement('div');
+        card.className = 'glass-card p-5 rounded-2xl flex flex-col justify-between border border-slate-800 hover:border-slate-700 transition-all';
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                <i class="fa-solid ${r.icon}"></i>
+              </div>
+              <span class="text-xs font-extrabold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">
+                <i class="fa-solid fa-coins mr-1"></i>${r.cost} Poin
+              </span>
+            </div>
+            <h4 class="text-sm font-bold text-white">${escapeHtml(r.title)}</h4>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+            <button onclick="claimReward('${r.id}')" ${!canAfford ? 'disabled' : ''} class="w-full py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              canAfford ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20' : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+            }">
+              <i class="fa-solid fa-bag-shopping"></i> Tukarkan Poin
+            </button>
+            <button onclick="deleteReward('${r.id}')" class="text-slate-500 hover:text-rose-400 text-xs px-2 py-2">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function claimReward(id) {
+      const reward = state.rewards.find(r => r.id === id);
+      if (!reward) return;
+
+      if (state.points < reward.cost) {
+        showToast('Poin kamu tidak cukup untuk hadiah ini!', 'error');
+        return;
+      }
+
+      state.points -= reward.cost;
+      addHistory(`Tukar Hadiah: ${reward.title}`, 'Self Reward', `-${reward.cost}`);
+      saveState();
+      renderAll();
+      showToast(`Selamat! Kamu menukarkan "${reward.title}" 🎉`, 'success');
+    }
+
+    function openRewardModal() {
+      document.getElementById('modalReward').classList.remove('hidden');
+    }
+
+    function closeRewardModal() {
+      document.getElementById('modalReward').classList.add('hidden');
+    }
+
+    function saveReward(e) {
+      e.preventDefault();
+      const title = document.getElementById('rewardTitle').value.trim();
+      const cost = parseInt(document.getElementById('rewardCost').value) || 50;
+      const icon = document.getElementById('rewardIcon').value;
+
+      state.rewards.push({
+        id: 'r_' + Date.now(),
+        title,
+        cost,
+        icon
+      });
+
+      saveState();
+      closeRewardModal();
+      renderAll();
+      showToast('Hadiah baru ditambahkan ke toko!', 'success');
+    }
+
+    function deleteReward(id) {
+      state.rewards = state.rewards.filter(r => r.id !== id);
+      saveState();
+      renderAll();
+      showToast('Hadiah dihapus dari toko.', 'info');
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historyTableBody');
+      container.innerHTML = '';
+
+      if (!state.history || state.history.length === 0) {
+        container.innerHTML = `
+          <tr>
+            <td colspan="4" class="text-center py-6 text-slate-500">Belum ada catatan riwayat poin.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      state.history.slice().reverse().forEach(item => {
+        const isPlus = item.points.startsWith('+');
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/30 transition-all';
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-slate-400 text-[11px]">${item.time}</td>
+          <td class="px-4 py-3 font-medium text-slate-200">${escapeHtml(item.title)}</td>
+          <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-slate-300 text-[10px]">${escapeHtml(item.category)}</span></td>
+          <td class="px-4 py-3 text-right font-bold ${isPlus ? 'text-brand-400' : 'text-rose-400'}">${item.points}</td>
+        `;
+        container.appendChild(tr);
+      });
+    }
+
+    function addHistory(title, category, pointsStr) {
+      if (!state.history) state.history = [];
+      state.history.push({
+        time: formatTime(new Date()),
+        title,
+        category,
+        points: pointsStr
+      });
+      if (state.history.length > 50) state.history.shift(); // keep last 50
+    }
+
+    function clearHistoryLog() {
+      state.history = [];
+      saveState();
+      renderHistory();
+      showToast('Log riwayat poin dibersihkan.', 'info');
+    }
+
+    /* Helper Utilities */
+    function formatTime(date) {
+      return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' ' + 
+             date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+    }
+
+    function showToast(message, type = 'info') {
+      const toastContainer = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+
+      let bgColor = 'bg-slate-800 border-slate-700 text-white';
+      let icon = 'fa-info-circle text-blue-400';
+
+      if (type === 'success') {
+        bgColor = 'bg-emerald-950/90 border-emerald-700 text-emerald-100';
+        icon = 'fa-circle-check text-emerald-400';
+      } else if (type === 'error') {
+        bgColor = 'bg-rose-950/90 border-rose-700 text-rose-100';
+        icon = 'fa-circle-exclamation text-rose-400';
+      }
+
+      toast.className = `px-4 py-3 rounded-2xl border ${bgColor} backdrop-blur-md shadow-2xl flex items-center gap-3 text-xs font-semibold pointer-events-auto transition-all transform translate-y-2 opacity-0 duration-300`;
+      toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${escapeHtml(message)}</span>`;
+
+      toastContainer.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    /* Initialization Event Listener */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+    });
+  </script>
+</body>
+</html>
